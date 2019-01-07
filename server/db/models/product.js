@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize')
-const db = require('../db')
+const Sequelize = require('sequelize');
+const db = require('../db');
 
 const Product = db.define('product', {
   title: {
@@ -31,6 +31,6 @@ const Product = db.define('product', {
       min: 0
     }
   }
-})
+});
 
-module.exports = Product
+module.exports = Product;
