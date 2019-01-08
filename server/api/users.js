@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db')
+const {User} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 // get user by userId
 router.get('/:userId', async (req, res, next) => {
   try {
-    const singleUser = await User.findById(req.params.id)
+    const singleUser = await User.findById(req.params.userId)
     res.json(singleUser)
   } catch (err) {
     next(err)
