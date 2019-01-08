@@ -1,13 +1,13 @@
-const db = require('../db')
-const Sequelize = require('sequelize')
+const db = require('../db');
+const Sequelize = require('sequelize');
 
-const {TEXT} = Sequelize
+const {TEXT} = Sequelize;
 
-const Review = db.define(review, {
+const Review = db.define('review', {
   text: {
     type: TEXT,
     allowNull: false
   }
-})
+});
 
-module.exports = Review
+module.exports = Review;
