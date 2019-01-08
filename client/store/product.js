@@ -10,7 +10,7 @@ const getProduct = product => ({type: GET_PRODUCT, product})
 
 export const fetchProducts = () => async dispatch => {
   try {
-    const res = await axios.get('/products')
+    const res = await axios.get('/api/products')
     dispatch(getProducts(res.data))
   } catch (err) {
     console.error(err)
@@ -19,7 +19,7 @@ export const fetchProducts = () => async dispatch => {
 
 export const fetchProduct = productId => async dispatch => {
   try {
-    const res = await axios.get(`/products/${productId}`)
+    const res = await axios.get(`/api/products/${productId}`)
     dispatch(getProduct(res.data))
   } catch (err) {
     console.error(err)

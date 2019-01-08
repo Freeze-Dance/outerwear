@@ -34,9 +34,11 @@ async function seed() {
     )
 
     // Create many-many
-    await createdProducts[0].addCategory(createdCategories[0])
-    await createdProducts[1].addCategory(createdCategories[1])
-    await createdProducts[2].addCategories(createdCategories)
+    for (let i = 0; i < createdProducts.length; i++) {
+      await createdProducts[i].addCategory(
+        createdCategories[Math.round(Math.random() * 4)]
+      )
+    }
 
     console.log('db synced!')
     console.log(`seeded successfully`)
