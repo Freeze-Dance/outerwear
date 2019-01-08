@@ -6,7 +6,8 @@ const userData = [
     googleId: 1,
     address: '45246 Leroy Plaza',
     admin: false,
-    guest: false
+    guest: false,
+    cart: [6, 7, 8]
   },
   {
     email: 'djohns1@geocities.com',
@@ -15,7 +16,8 @@ const userData = [
     googleId: 2,
     address: '669 Bellgrove Park',
     admin: false,
-    guest: false
+    guest: false,
+    cart: [6, 7, 8]
   },
   {
     email: 'jgeffen2@rediff.com',
@@ -24,7 +26,8 @@ const userData = [
     googleId: 3,
     address: '4 Maple Wood Parkway',
     admin: true,
-    guest: false
+    guest: false,
+    cart: [6, 7, 8]
   },
   {
     email: 'kbignold3@xrea.com',
@@ -33,7 +36,8 @@ const userData = [
     googleId: 4,
     address: '78755 Sunnyside Place',
     admin: false,
-    guest: false
+    guest: false,
+    cart: [6, 7, 8]
   },
   {
     email: 'omitcheson4@naver.com',
@@ -42,7 +46,8 @@ const userData = [
     googleId: 5,
     address: '8 Moulton Circle',
     admin: false,
-    guest: false
+    guest: false,
+    cart: [6, 7, 8]
   },
   {
     email: 'kfildes5@4shared.com',
@@ -51,7 +56,8 @@ const userData = [
     googleId: 6,
     address: '26 Fallview Way',
     admin: false,
-    guest: true
+    guest: true,
+    cart: [6, 7, 8]
   },
   {
     email: 'tpreshaw6@hugedomains.com',
@@ -60,7 +66,8 @@ const userData = [
     googleId: 7,
     address: '2578 Warbler Court',
     admin: true,
-    guest: true
+    guest: true,
+    cart: [6, 7, 8]
   },
   {
     email: 'apleasants7@guardian.co.uk',
@@ -69,7 +76,8 @@ const userData = [
     googleId: 8,
     address: '3235 Sugar Park',
     admin: true,
-    guest: true
+    guest: true,
+    cart: [6, 7, 8]
   },
   {
     email: 'kmunt8@quantcast.com',
@@ -78,7 +86,8 @@ const userData = [
     googleId: 9,
     address: '620 Quincy Alley',
     admin: true,
-    guest: false
+    guest: false,
+    cart: [6, 7, 8]
   },
   {
     email: 'vmessingham9@ask.com',
@@ -87,21 +96,61 @@ const userData = [
     googleId: 10,
     address: '5 Di Loreto Plaza',
     admin: true,
-    guest: false
+    guest: false,
+    cart: [6, 7, 8]
   }
 ]
-
 const ordersData = [
-  {userId: 1, items: 6403, time: '2017-03-16', cart: [1, 2, 3]},
-  {userId: 2, items: 6287, time: '2018-06-17', cart: [1, 2, 3]},
-  {userId: 3, items: 6513, time: '2017-06-14', cart: [1, 2, 3]},
-  {userId: 4, items: 6220, time: '2017-07-22', cart: [1, 2, 3]},
-  {userId: 5, items: 3694, time: '2017-01-24', cart: [4, 5]},
-  {userId: 6, items: 3629, time: '2018-01-16', cart: [4, 5]},
-  {userId: 7, items: 4446, time: '2017-08-16', cart: [4, 5]},
-  {userId: 8, items: 1678, time: '2018-06-02', cart: [4, 5]},
-  {userId: 9, items: 6904, time: '2017-09-08', cart: [4, 5]},
-  {userId: 10, items: 6893, time: '2018-03-06', cart: [4, 5]}
+  {
+    userId: 1,
+    time: '2017-03-16',
+    cart: [1, 2, 3]
+  },
+  {
+    userId: 2,
+    time: '2018-06-17',
+    cart: [1, 2, 3]
+  },
+  {
+    userId: 3,
+    time: '2017-06-14',
+    cart: [1, 2, 3]
+  },
+  {
+    userId: 4,
+    time: '2017-07-22',
+    cart: [1, 2, 3]
+  },
+  {
+    userId: 5,
+    time: '2017-01-24',
+    cart: [1, 2, 3]
+  },
+  {
+    userId: 6,
+    time: '2018-01-16',
+    cart: [1, 2, 3]
+  },
+  {
+    userId: 7,
+    time: '2017-08-16',
+    cart: [1, 2, 3]
+  },
+  {
+    userId: 8,
+    time: '2018-06-02',
+    cart: [1, 2, 3]
+  },
+  {
+    userId: 9,
+    time: '2017-09-08',
+    cart: [1, 2, 3]
+  },
+  {
+    userId: 10,
+    time: '2018-03-06',
+    cart: [1, 2, 3]
+  }
 ]
 
 const productData = [

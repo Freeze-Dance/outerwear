@@ -38,10 +38,10 @@ const User = db.define('user', {
   },
   guest: {
     type: Sequelize.BOOLEAN
+  },
+  cart: {
+    type: Sequelize.ARRAY(Sequelize.INTEGER)
   }
-  // cart: {
-  //   type: Sequelize.ARRAY(Sequelize.INTEGER)
-  // }
 })
 
 module.exports = User

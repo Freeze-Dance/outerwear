@@ -18,17 +18,17 @@ async function seed() {
     const createdUsers = await Promise.all(
       userData.map(obj => User.create(obj))
     )
+    console.log('before')
     const createdOrders = await Promise.all(
       ordersData.map(obj => Orders.create(obj))
     )
+    console.log('get here?')
     const createdProducts = await Promise.all(
       productData.map(obj => Product.create(obj))
     )
     const createdReviews = await Promise.all(
       reviewData.map(obj => Review.create(obj))
     )
-    console.log('product >>>>>>', Product)
-    console.log('category >>>>>>>', Category)
     const createdCategories = await Promise.all(
       categoryData.map(obj => Category.create(obj))
     )
