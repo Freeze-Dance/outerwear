@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import store from '../store'
+// import AllProducts from './AllProducts'
 
 /**
  * COMPONENT
