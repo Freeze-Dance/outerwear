@@ -1,14 +1,19 @@
 'use strict';
 
 const db = require('../server/db');
-const {User, Review, Order, Product} = require('../server/db/models');
+const {User, Review, Orders, Product} = require('../server/db/models');
 const {userData, ordersData, productData, reviewData} = require('../seedData');
 async function seed() {
   await db.sync({force: true});
-  // await Promise.all(userData.map(obj => User.create(obj)));
-  // await Promise.all(ordersData.map(obj => Orders.create(obj)));
-  // await Promise.all(productData.map(obj => Product.create(obj)));
-  // await Promise.all(reviewData.map(obj => Review.create(obj)));
+
+  // Create data rows
+
+  await Promise.all(userData.map(obj => User.create(obj)));
+  await Promise.all(ordersData.map(obj => Orders.create(obj)));
+  await Promise.all(productData.map(obj => Product.create(obj)));
+  await Promise.all(reviewData.map(obj => Review.create(obj)));
+
+  // Create relations
 
   console.log('db synced!');
   console.log(`seeded successfully`);
