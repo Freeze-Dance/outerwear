@@ -33,9 +33,6 @@ const User = db.define('user', {
   admin: {
     type: Sequelize.BOOLEAN
   },
-  payment: {
-    type: Sequelize.INTEGER
-  },
   guest: {
     type: Sequelize.BOOLEAN
   }
