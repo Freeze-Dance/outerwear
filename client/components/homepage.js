@@ -1,7 +1,35 @@
 import React from 'react'
+import PropTypes from 'prop-types'
+import {connect} from 'react-redux'
+import store from '../store'
 
-const HomePage = () => {
-  return <h3>Get your hats and mittens here!</h3>
+/**
+ * COMPONENT
+ */
+export const HomePage = props => {
+  const {email} = props
+
+  return (
+    <div>
+      <h3>Welcome, {email}</h3>
+    </div>
+  )
 }
 
-export default HomePage
+/**
+ * CONTAINER
+ */
+const mapState = state => {
+  return {
+    email: state.user.email
+  }
+}
+
+export default connect(mapState)(HomePage)
+
+/**
+ * PROP TYPES
+ */
+HomePage.propTypes = {
+  email: PropTypes.string
+}
