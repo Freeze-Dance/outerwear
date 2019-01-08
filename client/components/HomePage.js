@@ -10,29 +10,48 @@ import store, {fetchProducts} from '../store'
 class HomePage extends React.Component {
   constructor() {
     super()
+    this.state = {
+      color: ''
+    }
+    this.handleChange = this.handleChange.bind(this)
   }
+
   async componentDidMount() {
-    this.props.fetchProducts()
+    await this.props.fetchProducts()
   }
+
+  handleChange(event) {
+    this.setState({
+      color: event.target.value
+    })
+  }
+
   render() {
-    console.log(this.props)
     return (
       <React.Fragment>
         <h1>All Products</h1>
-
+        <h2>{this.state.color.toUpperCase}</h2>
+        <select onChange={this.handleChange}>
+          <option value="">...</option>
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+          <option value="black">Black</option>
+          <option value="yellow">Yellow</option>
+        </select>
         <ul>
           {this.props.products.map(product => {
-            return (
+            return !this.state.color ? (
               <li key={product.id}>
                 {product.title} {product.price}
-                {product.categories.length > 0 ? (
-                  product.categories[0].color
-                ) : (
-                  <div />
-                )}
                 <img src={product.photoURL} />
               </li>
-            )
+            ) : product.categories[0].color === this.state.color ? (
+              <li key={product.id}>
+                {product.title} {product.price}
+                <img src={product.photoURL} />
+              </li>
+            ) : null
           })}
         </ul>
       </React.Fragment>
