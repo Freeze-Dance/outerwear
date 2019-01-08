@@ -6,7 +6,6 @@ const userData = [
     googleId: 1,
     address: '45246 Leroy Plaza',
     admin: false,
-    payment: '$6.87',
     guest: false
   },
   {
@@ -16,7 +15,6 @@ const userData = [
     googleId: 2,
     address: '669 Bellgrove Park',
     admin: false,
-    payment: '$9.69',
     guest: false
   },
   {
@@ -26,7 +24,6 @@ const userData = [
     googleId: 3,
     address: '4 Maple Wood Parkway',
     admin: true,
-    payment: '$4.22',
     guest: false
   },
   {
@@ -36,7 +33,6 @@ const userData = [
     googleId: 4,
     address: '78755 Sunnyside Place',
     admin: false,
-    payment: '$1.88',
     guest: false
   },
   {
@@ -46,7 +42,6 @@ const userData = [
     googleId: 5,
     address: '8 Moulton Circle',
     admin: false,
-    payment: '$2.11',
     guest: false
   },
   {
@@ -56,7 +51,6 @@ const userData = [
     googleId: 6,
     address: '26 Fallview Way',
     admin: false,
-    payment: '$2.59',
     guest: true
   },
   {
@@ -66,7 +60,6 @@ const userData = [
     googleId: 7,
     address: '2578 Warbler Court',
     admin: true,
-    payment: '$4.25',
     guest: true
   },
   {
@@ -76,7 +69,6 @@ const userData = [
     googleId: 8,
     address: '3235 Sugar Park',
     admin: true,
-    payment: '$1.78',
     guest: true
   },
   {
@@ -86,7 +78,6 @@ const userData = [
     googleId: 9,
     address: '620 Quincy Alley',
     admin: true,
-    payment: '$8.07',
     guest: false
   },
   {
@@ -96,7 +87,6 @@ const userData = [
     googleId: 10,
     address: '5 Di Loreto Plaza',
     admin: true,
-    payment: '$8.28',
     guest: false
   }
 ]
@@ -118,80 +108,70 @@ const productData = [
   {
     title: 'Wine - Piper Heidsieck Brut',
     description: 'pulvinar lobortis est phasellus sit',
-    price: '$7.19',
-    category: 'Wine - Sicilia Igt Nero Avola',
+    price: '719',
     photoURL: 'http://dummyimage.com/111x231.png/5fa2dd/ffffff',
     inventoryQuantity: 39
   },
   {
     title: 'Tequila Rose Cream Liquor',
     description: 'ut at dolor quis',
-    price: '$7.41',
-    category: 'Wine - Savigny - Les - Beaune',
+    price: '741',
     photoURL: 'http://dummyimage.com/182x244.jpg/cc0000/ffffff',
     inventoryQuantity: 29
   },
   {
     title: 'Liqueur - Melon',
     description: 'lectus aliquam sit amet diam',
-    price: '$9.12',
-    category: 'Pears - Anjou',
+    price: '912',
     photoURL: 'http://dummyimage.com/221x123.bmp/5fa2dd/ffffff',
     inventoryQuantity: 96
   },
   {
     title: 'Halibut - Whole, Fresh',
     description: 'consequat metus sapien ut nunc',
-    price: '$3.22',
-    category: 'Chinese Foods - Cantonese',
+    price: '322',
     photoURL: 'http://dummyimage.com/243x238.jpg/cc0000/ffffff',
     inventoryQuantity: 62
   },
   {
     title: 'Sauce - Sesame Thai Dressing',
     description: 'curabitur at ipsum',
-    price: '$2.89',
-    category: 'Wine - Pinot Noir Latour',
+    price: '289',
     photoURL: 'http://dummyimage.com/192x217.bmp/cc0000/ffffff',
     inventoryQuantity: 21
   },
   {
     title: 'Shrimp - Black Tiger 13/15',
     description: 'erat eros viverra',
-    price: '$7.03',
-    category: 'Sauce - Thousand Island',
+    price: '703',
     photoURL: 'http://dummyimage.com/121x136.jpg/cc0000/ffffff',
     inventoryQuantity: 16
   },
   {
     title: 'Cheese - Camembert',
     description: 'nisi at nibh in',
-    price: '$7.55',
-    category: 'Lamb Rack Frenched Australian',
+    price: '755',
     photoURL: 'http://dummyimage.com/108x211.jpg/ff4444/ffffff',
     inventoryQuantity: 22
   },
   {
     title: 'Chocolate - Dark Callets',
     description: 'ac diam cras pellentesque',
-    price: '$7.36',
-    category: 'Island Oasis - Mango Daiquiri',
+    price: '736',
     photoURL: 'http://dummyimage.com/104x112.jpg/5fa2dd/ffffff',
     inventoryQuantity: 98
   },
   {
     title: 'Greens Mustard',
     description: 'sagittis sapien cum',
-    price: '$1.22',
-    category: 'Sweet Pea Sprouts',
+    price: '122',
     photoURL: 'http://dummyimage.com/117x137.png/dddddd/000000',
     inventoryQuantity: 57
   },
   {
     title: 'V8 - Berry Blend',
     description: 'blandit nam nulla integer',
-    price: '$7.35',
-    category: 'Mousse - Banana Chocolate',
+    price: '735',
     photoURL: 'http://dummyimage.com/179x130.bmp/5fa2dd/ffffff',
     inventoryQuantity: 38
   }
