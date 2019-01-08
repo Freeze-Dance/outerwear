@@ -1,5 +1,5 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
+const Sequelize = require('sequelize')
+const db = require('../db')
 
 const Product = db.define('product', {
   title: {
@@ -16,10 +16,7 @@ const Product = db.define('product', {
     type: Sequelize.INTEGER
   },
   category: {
-    type: Sequelize.STRING,
-    validate: {
-      isIn: [['gloves', 'scarves']]
-    }
+    type: Sequelize.STRING
   },
   photoURL: {
     type: Sequelize.STRING,
@@ -31,6 +28,6 @@ const Product = db.define('product', {
       min: 0
     }
   }
-});
+})
 
-module.exports = Product;
+module.exports = Product

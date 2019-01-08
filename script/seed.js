@@ -1,22 +1,48 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Review, Orders, Product} = require('../server/db/models')
-const {userData, ordersData, productData, reviewData} = require('../seedData')
+const {User, Review, Orders, Product, Category} = require('../server/db/models')
+const {
+  userData,
+  ordersData,
+  productData,
+  reviewData,
+  categoryData
+} = require('../seedData')
 async function seed() {
-  await db.sync({force: true})
+  try {
+    await db.sync({force: true})
 
-  // Create data rows
+    // Create data rows
 
-  await Promise.all(userData.map(obj => User.create(obj)))
-  await Promise.all(ordersData.map(obj => Orders.create(obj)))
-  await Promise.all(productData.map(obj => Product.create(obj)))
-  await Promise.all(reviewData.map(obj => Review.create(obj)))
+    const createdUsers = await Promise.all(
+      userData.map(obj => User.create(obj))
+    )
+    console.log('before')
+    const createdOrders = await Promise.all(
+      ordersData.map(obj => Orders.create(obj))
+    )
+    console.log('get here?')
+    const createdProducts = await Promise.all(
+      productData.map(obj => Product.create(obj))
+    )
+    const createdReviews = await Promise.all(
+      reviewData.map(obj => Review.create(obj))
+    )
+    const createdCategories = await Promise.all(
+      categoryData.map(obj => Category.create(obj))
+    )
 
-  // Create relations
+    // Create many-many
+    await createdProducts[0].addCategory(createdCategories[0])
+    await createdProducts[1].addCategory(createdCategories[1])
+    await createdProducts[2].addCategories(createdCategories)
 
-  console.log('db synced!')
-  console.log(`seeded successfully`)
+    console.log('db synced!')
+    console.log(`seeded successfully`)
+  } catch (e) {
+    console.log(e)
+  }
 }
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.
