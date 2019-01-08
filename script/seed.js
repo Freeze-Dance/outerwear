@@ -10,23 +10,27 @@ const {
   categoryData
 } = require('../seedData')
 async function seed() {
-  await db.sync({force: true})
+  try {
+    await db.sync({force: true})
 
-  // Create data rows
+    // Create data rows
 
-  await Promise.all(userData.map(obj => User.create(obj)))
-  await Promise.all(ordersData.map(obj => Orders.create(obj)))
-  await Promise.all(productData.map(obj => Product.create(obj)))
-  await Promise.all(reviewData.map(obj => Review.create(obj)))
+    await Promise.all(userData.map(obj => User.create(obj)))
+    await Promise.all(ordersData.map(obj => Orders.create(obj)))
+    await Promise.all(productData.map(obj => Product.create(obj)))
+    await Promise.all(reviewData.map(obj => Review.create(obj)))
 
-  // Create many-many
+    // Create many-many
 
-  productData[0].addCategory(categoryData[0])
-  productData[1].addCategory(categoryData[1])
-  productData[2].addCategories(categoryData)
+    productData[0].addCategory(categoryData[0])
+    productData[1].addCategory(categoryData[1])
+    productData[2].addCategories(categoryData)
 
-  console.log('db synced!')
-  console.log(`seeded successfully`)
+    console.log('db synced!')
+    console.log(`seeded successfully`)
+  } catch (e) {
+    console.log(e)
+  }
 }
 // We've separated the `seed` function from the `runSeed` function.
 // This way we can isolate the error handling and exit trapping.

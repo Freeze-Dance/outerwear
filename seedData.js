@@ -102,16 +102,16 @@ const userData = [
 ]
 
 const ordersData = [
-  {userId: 1, items: 6403, time: '2017-03-16'},
-  {userId: 2, items: 6287, time: '2018-06-17'},
-  {userId: 3, items: 6513, time: '2017-06-14'},
-  {userId: 4, items: 6220, time: '2017-07-22'},
-  {userId: 5, items: 3694, time: '2017-01-24'},
-  {userId: 6, items: 3629, time: '2018-01-16'},
-  {userId: 7, items: 4446, time: '2017-08-16'},
-  {userId: 8, items: 1678, time: '2018-06-02'},
-  {userId: 9, items: 6904, time: '2017-09-08'},
-  {userId: 10, items: 6893, time: '2018-03-06'}
+  {userId: 1, items: 6403, time: '2017-03-16', cart: [1, 2, 3]},
+  {userId: 2, items: 6287, time: '2018-06-17', cart: [1, 2, 3]},
+  {userId: 3, items: 6513, time: '2017-06-14', cart: [1, 2, 3]},
+  {userId: 4, items: 6220, time: '2017-07-22', cart: [1, 2, 3]},
+  {userId: 5, items: 3694, time: '2017-01-24', cart: [4, 5]},
+  {userId: 6, items: 3629, time: '2018-01-16', cart: [4, 5]},
+  {userId: 7, items: 4446, time: '2017-08-16', cart: [4, 5]},
+  {userId: 8, items: 1678, time: '2018-06-02', cart: [4, 5]},
+  {userId: 9, items: 6904, time: '2017-09-08', cart: [4, 5]},
+  {userId: 10, items: 6893, time: '2018-03-06', cart: [4, 5]}
 ]
 
 const productData = [
@@ -153,7 +153,7 @@ const productData = [
     price: '$2.89',
     category: 'Wine - Pinot Noir Latour',
     photoURL: 'http://dummyimage.com/192x217.bmp/cc0000/ffffff',
-    inventoryQuantity: 2
+    inventoryQuantity: 21
   },
   {
     title: 'Shrimp - Black Tiger 13/15',
