@@ -1,42 +1,43 @@
-const router = require('express').Router();
-const {User} = require('../db/models');
+const router = require('express').Router()
+const {db} = require('../db')
+const User = db.model('user')
 
 router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll()
-      res.json(users)
+    res.json(users)
   } catch (err) {
-    next(err);
+    next(err)
   }
-});
+})
 
 // get user by userId
-router.get('/:userId', async(req, res, next) => {
-  try{
+router.get('/:userId', async (req, res, next) => {
+  try {
     const singleUser = await User.findById(req.params.id)
     res.json(singleUser)
-  }catch(err){
+  } catch (err) {
     next(err)
   }
 })
 
 // create new user
-router.post('/createUser', async(req, res, next) => {
-  try{
-    if(!req.params.admin){
+router.post('/createUser', async (req, res, next) => {
+  try {
+    if (!req.params.admin) {
       res.sendStatus(403)
     }
     const user = await User.create(req.body)
     res.send(user)
-  }catch(err){
+  } catch (err) {
     next(err)
   }
 })
 
 // update user
-router.put('/:userId', async(req, res, next) => {
-  try{
-    if(!req.user.admin){
+router.put('/:userId', async (req, res, next) => {
+  try {
+    if (!req.user.admin) {
       res.sendStatus(403)
     }
     const user = await User.update(req.body, {
@@ -45,11 +46,11 @@ router.put('/:userId', async(req, res, next) => {
         id: req.params.userId
       }
     })
-    if(!user) return res.sendStatus(404)
-    res.send(user);
-  }catch(err){
+    if (!user) return res.sendStatus(404)
+    res.send(user)
+  } catch (err) {
     next(err)
   }
 })
 
-module.exports = router;
+module.exports = router
