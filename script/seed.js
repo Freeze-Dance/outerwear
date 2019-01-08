@@ -2,7 +2,13 @@
 
 const db = require('../server/db')
 const {User, Review, Orders, Product} = require('../server/db/models')
-const {userData, ordersData, productData, reviewData} = require('../seedData')
+const {
+  userData,
+  ordersData,
+  productData,
+  reviewData,
+  categoryData
+} = require('../seedData')
 async function seed() {
   await db.sync({force: true})
 
@@ -13,7 +19,11 @@ async function seed() {
   await Promise.all(productData.map(obj => Product.create(obj)))
   await Promise.all(reviewData.map(obj => Review.create(obj)))
 
-  // Create relations
+  // Create many-many
+
+  productData[0].addCategory(categoryData[0])
+  productData[1].addCategory(categoryData[1])
+  productData[2].addCategories(categoryData)
 
   console.log('db synced!')
   console.log(`seeded successfully`)
