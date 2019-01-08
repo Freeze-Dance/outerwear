@@ -13,7 +13,7 @@ router.get('/', async (req, res, next) => {
 // get user by userId
 router.get('/:userId', async(req, res, next) => {
   try{
-    const singleUser = await User.findById(req.params.userId)
+    const singleUser = await User.findById(req.params.id)
     res.json(singleUser)
   }catch(err){
     next(err)
@@ -39,7 +39,6 @@ router.put('/:userId', async(req, res, next) => {
     if(!req.user.admin){
       res.sendStatus(403)
     }
-
     const user = await User.update(req.body, {
       returning: true,
       where: {
