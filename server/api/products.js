@@ -14,7 +14,8 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll()
+    const products = await Product.findAll({include: {all: true}})
+    console.log(products)
     res.json(products)
   } catch (err) {
     next(err)
