@@ -36,6 +36,7 @@ const User = db.define('user', {
   guest: {
     type: Sequelize.BOOLEAN
   },
+  // I would put this somwwhere else. What's the best way to
   cart: {
     type: Sequelize.ARRAY(Sequelize.INTEGER)
   }

@@ -15,6 +15,7 @@ const Product = db.define('product', {
   price: {
     type: Sequelize.INTEGER
   },
+  // Why is this field here?
   category: {
     type: Sequelize.STRING
   },
@@ -22,6 +23,7 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     defaultValue: 'someURL'
   },
+  // Why is this field here? Shouldn't it be associated with an order/cart?
   inventoryQuantity: {
     type: Sequelize.INTEGER,
     validate: {

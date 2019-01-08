@@ -20,6 +20,7 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+// How is this different than the POST /signup route in ../auth ?
 // create new user
 router.post('/createUser', async (req, res, next) => {
   try {
@@ -32,6 +33,9 @@ router.post('/createUser', async (req, res, next) => {
     next(err)
   }
 })
+
+// Remind me to talk about a cool way to add gatekeepers to Express
+// API routes in our code review.
 
 // update user
 router.put('/:userId', async (req, res, next) => {
