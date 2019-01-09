@@ -5,13 +5,12 @@ import {Link} from 'react-router-dom'
 
 class SingleProduct extends Component {
   componentDidMount() {
-    console.log('alk;fdsj')
     const {productId} = this.props.match.params
     this.props.fetchProduct(productId)
   }
 
   render() {
-    console.log('halsdfhds;hfd')
+    console.log('prop', this.props)
     const {
       title,
       description,
@@ -37,7 +36,7 @@ class SingleProduct extends Component {
 }
 
 const mapStateToProps = state => ({
-  product: state.currentProduct
+  product: state.product.currentProduct
 })
 
 const mapDispatchToProps = dispatch => ({
