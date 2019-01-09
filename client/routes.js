@@ -7,6 +7,7 @@ import {me} from './store'
 import dashboard from './components/dashboard'
 import NewProduct from './components/NewProduct'
 import editproduct from './components/editproduct'
+import OrderHistory from './components/OrderHistory'
 
 /**
  * COMPONENT
@@ -33,6 +34,7 @@ class Routes extends Component {
         <Route exact path="/dashboard" component={dashboard} />
         <Route exact path="/newproduct" component={NewProduct} />
         <Route exact path="/editproduct/:id" component={editproduct} />
+        <Route exact path="/orderhistory/:userId" component={OrderHistory} />
 
         {isLoggedIn && (
           <Switch>

@@ -25,6 +25,9 @@ class Navbar extends React.Component {
                 Logout
               </a>
               <Link to="/cart">Cart</Link>
+              <Link to={`/orderhistory/${this.props.user.id}`}>
+                Previous Orders
+              </Link>
               {this.props.user.admin ? (
                 <Link to="/dashboard">Dashboard</Link>
               ) : (
