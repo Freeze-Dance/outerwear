@@ -7,19 +7,19 @@ class dashboard extends React.Component {
   constructor() {
     super()
     this.state = {
-      color: ''
+      category: '',
+      search: ''
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
-  async componentDidMount() {
-    console.log('????????')
-    await this.props.fetchProducts()
+  componentDidMount() {
+    this.props.fetchProducts()
   }
 
   handleChange(event) {
     this.setState({
-      color: event.target.value
+      category: event.target.value
     })
   }
 
@@ -29,33 +29,55 @@ class dashboard extends React.Component {
         <h1>All Products</h1>
         <select onChange={this.handleChange}>
           <option value="">...</option>
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-          <option value="black">Black</option>
-          <option value="yellow">Yellow</option>
+          <option value="hats">Hats</option>
+          <option value="gloves">Gloves</option>
+          <option value="scarves">Scarves</option>
+          <option value="coats">Coats</option>
+          <option value="pants">Pants</option>
         </select>{' '}
+        Search:{' '}
+        <input
+          type="text"
+          value={this.state.search}
+          onChange={e => this.setState({search: e.target.value})}
+        />
         <Link to="/newproduct">
           <button>New Product</button>
         </Link>
         <ul>
           {this.props.products.map(product => {
-            return !this.state.color ? (
-              <li key={product.id}>
-                {product.title} {product.price}
-                <img src={product.photoURL} />{' '}
+            return !this.state.category &&
+              product.title
+                .toUpperCase()
+                .includes(this.state.search.toUpperCase()) ? (
+              <React.Fragment>
+                <Link to={`/products/${product.id}`}>
+                  <li key={product.id}>
+                    {product.title} : {`$${product.price / 100}`} <br />
+                    <img src={product.photoURL} />{' '}
+                  </li>
+                </Link>
                 <Link to={`/editproduct/${product.id}`}>
                   <button>edit</button>
                 </Link>
-              </li>
-            ) : product.categories[0].color === this.state.color ? (
-              <li key={product.id}>
-                {product.title} {product.price}
-                <img src={product.photoURL} />{' '}
-                <Link to={`/editproduct/${product.id}`}>
-                  <button>edit</button>
-                </Link>
-              </li>
+              </React.Fragment>
+            ) : product.categories.length ? (
+              product.categories[0].name === this.state.category &&
+              product.title
+                .toUpperCase()
+                .includes(this.state.search.toUpperCase()) ? (
+                <React.Fragment>
+                  <Link to={`/products/${product.id}`}>
+                    <li key={product.id}>
+                      {product.title} : {`$${product.price / 100}`} <br />
+                      <img src={product.photoURL} />{' '}
+                    </li>
+                  </Link>
+                  <Link to={`/editproduct/${product.id}`}>
+                    <button>edit</button>
+                  </Link>
+                </React.Fragment>
+              ) : null
             ) : null
           })}
         </ul>
@@ -65,8 +87,7 @@ class dashboard extends React.Component {
 }
 const mapState = state => {
   return {
-    products: state.product.products,
-    test: 'string'
+    products: state.product.products
   }
 }
 

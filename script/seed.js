@@ -8,7 +8,9 @@ const {
   Product,
   Category,
   Cart,
-  ProductCategory
+  CartProduct,
+  ProductCategory,
+  OrderProduct
 } = require('../server/db/models')
 const {
   userData,
@@ -17,7 +19,9 @@ const {
   reviewData,
   categoryData,
   cartData,
-  productCategoryData
+  cartProductData,
+  productCategoryData,
+  orderProductData
 } = require('../seedData')
 async function seed() {
   try {
@@ -43,16 +47,15 @@ async function seed() {
     const createdCarts = await Promise.all(
       cartData.map(obj => Cart.create(obj))
     )
+    const createdCartProduct = await Promise.all(
+      cartProductData.map(obj => CartProduct.create(obj))
+    )
     const createdProductCategory = await Promise.all(
       productCategoryData.map(obj => ProductCategory.create(obj))
     )
-
-    // Create many-many
-    for (let i = 0; i < createdProducts.length; i++) {
-      await createdProducts[i].addCategory(
-        createdCategories[Math.round(Math.random() * 4)]
-      )
-    }
+    const createdOrderProduct = await Promise.all(
+      orderProductData.map(obj => OrderProduct.create(obj))
+    )
 
     console.log('db synced!')
     console.log(`seeded successfully`)
