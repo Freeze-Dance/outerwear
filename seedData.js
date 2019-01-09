@@ -6,8 +6,7 @@ const userData = [
     googleId: 1,
     address: '45246 Leroy Plaza',
     admin: false,
-    guest: false,
-    cart: [6, 7, 8]
+    guest: false
   },
   {
     email: 'djohns1@geocities.com',
@@ -16,8 +15,7 @@ const userData = [
     googleId: 2,
     address: '669 Bellgrove Park',
     admin: false,
-    guest: false,
-    cart: [6, 7, 8]
+    guest: false
   },
   {
     email: 'admin@admin.com',
@@ -26,8 +24,7 @@ const userData = [
     googleId: 3,
     address: '4 Maple Wood Parkway',
     admin: true,
-    guest: false,
-    cart: [6, 7, 8]
+    guest: false
   },
   {
     email: 'user@user.com',
@@ -36,8 +33,7 @@ const userData = [
     googleId: 4,
     address: '78755 Sunnyside Place',
     admin: false,
-    guest: false,
-    cart: [6, 7, 8]
+    guest: false
   },
   {
     email: 'omitcheson4@naver.com',
@@ -46,8 +42,7 @@ const userData = [
     googleId: 5,
     address: '8 Moulton Circle',
     admin: false,
-    guest: false,
-    cart: [6, 7, 8]
+    guest: false
   },
   {
     email: 'kfildes5@4shared.com',
@@ -56,8 +51,7 @@ const userData = [
     googleId: 6,
     address: '26 Fallview Way',
     admin: false,
-    guest: true,
-    cart: [6, 7, 8]
+    guest: true
   },
   {
     email: 'tpreshaw6@hugedomains.com',
@@ -66,8 +60,7 @@ const userData = [
     googleId: 7,
     address: '2578 Warbler Court',
     admin: true,
-    guest: true,
-    cart: [6, 7, 8]
+    guest: true
   },
   {
     email: 'apleasants7@guardian.co.uk',
@@ -76,8 +69,7 @@ const userData = [
     googleId: 8,
     address: '3235 Sugar Park',
     admin: true,
-    guest: true,
-    cart: [6, 7, 8]
+    guest: true
   },
   {
     email: 'kmunt8@quantcast.com',
@@ -86,8 +78,7 @@ const userData = [
     googleId: 9,
     address: '620 Quincy Alley',
     admin: true,
-    guest: false,
-    cart: [6, 7, 8]
+    guest: false
   },
   {
     email: 'vmessingham9@ask.com',
@@ -96,161 +87,189 @@ const userData = [
     googleId: 10,
     address: '5 Di Loreto Plaza',
     admin: true,
-    guest: false,
-    cart: [6, 7, 8]
+    guest: false
   }
 ]
-const ordersData = [
+const orderData = [
   {
-    userId: 1,
     time: '2017-03-16',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 1
   },
   {
-    userId: 2,
     time: '2018-06-17',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 2
   },
   {
-    userId: 3,
     time: '2017-06-14',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 3
   },
   {
-    userId: 4,
     time: '2017-07-22',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 4
   },
   {
-    userId: 5,
     time: '2017-01-24',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 5
   },
   {
-    userId: 6,
     time: '2018-01-16',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 6
   },
   {
-    userId: 7,
     time: '2017-08-16',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 7
   },
   {
-    userId: 8,
     time: '2018-06-02',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 8
   },
   {
-    userId: 9,
     time: '2017-09-08',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 9
   },
   {
-    userId: 10,
     time: '2018-03-06',
-    cart: [1, 2, 3]
+    quantity: [1, 2, 3],
+    userId: 10
   }
 ]
 
+// cannot insert cartId...
 const productData = [
   {
     title: 'Wine - Piper Heidsieck Brut',
     description: 'pulvinar lobortis est phasellus sit',
     price: '719',
     photoURL: 'http://dummyimage.com/111x231.png/5fa2dd/ffffff',
-    inventoryQuantity: 39
+    inventoryQuantity: 39,
+    orderId: 1
   },
   {
     title: 'Tequila Rose Cream Liquor',
     description: 'ut at dolor quis',
     price: '741',
     photoURL: 'http://dummyimage.com/182x244.jpg/cc0000/ffffff',
-    inventoryQuantity: 29
+    inventoryQuantity: 29,
+    orderId: 2
   },
   {
     title: 'Liqueur - Melon',
     description: 'lectus aliquam sit amet diam',
     price: '912',
     photoURL: 'http://dummyimage.com/221x123.bmp/5fa2dd/ffffff',
-    inventoryQuantity: 96
+    inventoryQuantity: 96,
+    orderId: 3
   },
   {
     title: 'Halibut - Whole, Fresh',
     description: 'consequat metus sapien ut nunc',
     price: '322',
     photoURL: 'http://dummyimage.com/243x238.jpg/cc0000/ffffff',
-    inventoryQuantity: 62
+    inventoryQuantity: 62,
+    orderId: 4
   },
   {
     title: 'Sauce - Sesame Thai Dressing',
     description: 'curabitur at ipsum',
     price: '289',
     photoURL: 'http://dummyimage.com/192x217.bmp/cc0000/ffffff',
-    inventoryQuantity: 21
+    inventoryQuantity: 21,
+    orderId: 5
   },
   {
     title: 'Shrimp - Black Tiger 13/15',
     description: 'erat eros viverra',
     price: '703',
     photoURL: 'http://dummyimage.com/121x136.jpg/cc0000/ffffff',
-    inventoryQuantity: 16
+    inventoryQuantity: 16,
+    orderId: 6
   },
   {
     title: 'Cheese - Camembert',
     description: 'nisi at nibh in',
     price: '755',
     photoURL: 'http://dummyimage.com/108x211.jpg/ff4444/ffffff',
-    inventoryQuantity: 22
+    inventoryQuantity: 22,
+    orderId: 7
   },
   {
     title: 'Chocolate - Dark Callets',
     description: 'ac diam cras pellentesque',
     price: '736',
     photoURL: 'http://dummyimage.com/104x112.jpg/5fa2dd/ffffff',
-    inventoryQuantity: 98
+    inventoryQuantity: 98,
+    orderId: 8
   },
   {
     title: 'Greens Mustard',
     description: 'sagittis sapien cum',
     price: '122',
     photoURL: 'http://dummyimage.com/117x137.png/dddddd/000000',
-    inventoryQuantity: 57
+    inventoryQuantity: 57,
+    orderId: 9
   },
   {
     title: 'V8 - Berry Blend',
     description: 'blandit nam nulla integer',
     price: '735',
     photoURL: 'http://dummyimage.com/179x130.bmp/5fa2dd/ffffff',
-    inventoryQuantity: 38
+    inventoryQuantity: 38,
+    orderId: 10
   }
 ]
 
 const reviewData = [
-  {text: 'Triple-buffered actuating initiative'},
-  {text: 'Self-enabling fresh-thinking hardware'},
-  {text: 'Assimilated zero defect migration'},
-  {text: 'Digitized local project'},
-  {text: 'Triple-buffered explicit productivity'},
-  {text: 'Realigned dynamic approach'},
-  {text: 'Centralized incremental contingency'},
-  {text: 'Sharable client-driven moderator'},
-  {text: 'Customer-focused fault-tolerant approach'},
-  {text: 'Progressive uniform open architecture'}
+  {text: 'Triple-buffered actuating initiative', userId: 1, productId: 1},
+  {text: 'Self-enabling fresh-thinking hardware', userId: 1, productId: 1},
+  {text: 'Assimilated zero defect migration', userId: 1, productId: 1},
+  {text: 'Digitized local project', userId: 1, productId: 1},
+  {text: 'Triple-buffered explicit productivity', userId: 2, productId: 2},
+  {text: 'Realigned dynamic approach', userId: 2, productId: 2},
+  {text: 'Centralized incremental contingency', userId: 2, productId: 2},
+  {text: 'Sharable client-driven moderator', userId: 2, productId: 2},
+  {text: 'Customer-focused fault-tolerant approach', userId: 2, productId: 2},
+  {text: 'Progressive uniform open architecture', userId: 3, productId: 3}
 ]
 
 const categoryData = [
-  {color: 'red'},
-  {color: 'blue'},
-  {color: 'green'},
-  {color: 'black'},
-  {color: 'yellow'}
+  {name: 'hats'},
+  {name: 'gloves'},
+  {name: 'scarves'},
+  {name: 'coats'},
+  {name: 'pants'}
+]
+
+const cartData = [
+  {quantity: 1, userId: 1},
+  {quantity: 2, userId: 2},
+  {quantity: 3, userId: 3},
+  {quantity: 4, userId: 4},
+  {quantity: 5, userId: 5}
+]
+
+const productCategoryData = [
+  {productId: 1, categoryId: 1},
+  {productId: 2, categoryId: 2},
+  {productId: 3, categoryId: 3},
+  {productId: 4, categoryId: 4},
+  {productId: 5, categoryId: 5}
 ]
 
 module.exports = {
   userData,
-  ordersData,
+  orderData,
   productData,
   reviewData,
-  categoryData
+  categoryData,
+  cartData,
+  productCategoryData
 }
