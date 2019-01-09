@@ -26,6 +26,22 @@ export const fetchProduct = productId => async dispatch => {
   }
 }
 
+export const createProduct = newProduct => async dispatch => {
+  try {
+    const {data} = await axios.post('/api/products', newProduct)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const editproduct = (id, product) => async dispatch => {
+  try {
+    const {data} = await axios.put(`/api/products/${id}`, product)
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_PRODUCTS:
