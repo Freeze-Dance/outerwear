@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import Order from './Order.js'
-// import { fetchCustomerOrders } from '../store'
+import {fetchCustomerOrders} from '../store'
 
 //temp data until store setup with customerOrders - once mapToState use this.props.customerOrders
 const customerOrders = [
@@ -76,7 +76,6 @@ class OrderHistory extends Component {
 
 // const mapState = (state) => ({
 //     customerOrders: state.order.customerOrders,
-//     test: 'string'
 // });
 
 // write dispatch to fetchOrders for customer (place into store.state)
