@@ -30,7 +30,6 @@ class HomePage extends React.Component {
     return (
       <React.Fragment>
         <h1>All Products</h1>
-        <h2>{this.state.color.toUpperCase}</h2>
         <select onChange={this.handleChange}>
           <option value="">...</option>
           <option value="red">Red</option>
