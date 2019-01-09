@@ -13,6 +13,7 @@ class Navbar extends React.Component {
   }
   render() {
     let {isLoggedIn, handleClick} = this.props
+    console.log(this.props, '<<< props in navbar')
     return (
       <div>
         <h1>Freeze Dance</h1>
@@ -25,6 +26,9 @@ class Navbar extends React.Component {
                 Logout
               </a>
               <Link to="/cart">Cart</Link>
+              <Link to={`/orderhistory/${this.props.user.id}`}>
+                Previous Orders
+              </Link>
               {this.props.user.admin ? (
                 <Link to="/dashboard">Dashboard</Link>
               ) : (
