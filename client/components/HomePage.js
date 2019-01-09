@@ -57,16 +57,18 @@ class HomePage extends React.Component {
                   <img src={product.photoURL} />
                 </li>
               </Link>
-            ) : product.categories[0].name === this.state.category &&
-            product.title
-              .toUpperCase()
-              .includes(this.state.search.toUpperCase()) ? (
-              <Link to={`/products/${product.id}`}>
-                <li key={product.id}>
-                  {product.title} : {`$${product.price / 100}`} <br />
-                  <img src={product.photoURL} />
-                </li>
-              </Link>
+            ) : product.categories.length ? (
+              product.categories[0].name === this.state.category &&
+              product.title
+                .toUpperCase()
+                .includes(this.state.search.toUpperCase()) ? (
+                <Link to={`/products/${product.id}`}>
+                  <li key={product.id}>
+                    {product.title} : {`$${product.price / 100}`} <br />
+                    <img src={product.photoURL} />
+                  </li>
+                </Link>
+              ) : null
             ) : null
           })}
         </ul>

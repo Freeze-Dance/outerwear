@@ -61,21 +61,23 @@ class dashboard extends React.Component {
                   <button>edit</button>
                 </Link>
               </React.Fragment>
-            ) : product.categories[0].name === this.state.category &&
-            product.title
-              .toUpperCase()
-              .includes(this.state.search.toUpperCase()) ? (
-              <React.Fragment>
-                <Link to={`/products/${product.id}`}>
-                  <li key={product.id}>
-                    {product.title} : {`$${product.price / 100}`} <br />
-                    <img src={product.photoURL} />{' '}
-                  </li>
-                </Link>
-                <Link to={`/editproduct/${product.id}`}>
-                  <button>edit</button>
-                </Link>
-              </React.Fragment>
+            ) : product.categories.length ? (
+              product.categories[0].name === this.state.category &&
+              product.title
+                .toUpperCase()
+                .includes(this.state.search.toUpperCase()) ? (
+                <React.Fragment>
+                  <Link to={`/products/${product.id}`}>
+                    <li key={product.id}>
+                      {product.title} : {`$${product.price / 100}`} <br />
+                      <img src={product.photoURL} />{' '}
+                    </li>
+                  </Link>
+                  <Link to={`/editproduct/${product.id}`}>
+                    <button>edit</button>
+                  </Link>
+                </React.Fragment>
+              ) : null
             ) : null
           })}
         </ul>
@@ -85,8 +87,7 @@ class dashboard extends React.Component {
 }
 const mapState = state => {
   return {
-    products: state.product.products,
-    test: 'string'
+    products: state.product.products
   }
 }
 
