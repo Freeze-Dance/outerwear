@@ -47,13 +47,6 @@ async function seed() {
       productCategoryData.map(obj => ProductCategory.create(obj))
     )
 
-    // Create many-many
-    for (let i = 0; i < createdProducts.length; i++) {
-      await createdProducts[i].addCategory(
-        createdCategories[Math.round(Math.random() * 4)]
-      )
-    }
-
     console.log('db synced!')
     console.log(`seeded successfully`)
   } catch (e) {

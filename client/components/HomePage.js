@@ -1,7 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import store, {fetchProducts} from '../store'
+import {fetchProducts} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -11,18 +11,19 @@ class HomePage extends React.Component {
   constructor() {
     super()
     this.state = {
-      color: ''
+      category: '',
+      search: ''
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
-  async componentDidMount() {
-    await this.props.fetchProducts()
+  componentDidMount() {
+    this.props.fetchProducts()
   }
 
   handleChange(event) {
     this.setState({
-      color: event.target.value
+      category: event.target.value
     })
   }
 
@@ -32,24 +33,42 @@ class HomePage extends React.Component {
         <h1>All Products</h1>
         <select onChange={this.handleChange}>
           <option value="">...</option>
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-          <option value="black">Black</option>
-          <option value="yellow">Yellow</option>
+          <option value="hats">Hats</option>
+          <option value="gloves">Gloves</option>
+          <option value="scarves">Scarves</option>
+          <option value="coats">Coats</option>
+          <option value="pants">Pants</option>
         </select>
+        Search:{' '}
+        <input
+          type="text"
+          value={this.state.search}
+          onChange={e => this.setState({search: e.target.value})}
+        />
         <ul>
           {this.props.products.map(product => {
-            return !this.state.color ? (
-              <li key={product.id}>
-                {product.title} {product.price}
-                <img src={product.photoURL} />
-              </li>
-            ) : product.categories[0].color === this.state.color ? (
-              <li key={product.id}>
-                {product.title} {product.price}
-                <img src={product.photoURL} />
-              </li>
+            return !this.state.category &&
+              product.title
+                .toUpperCase()
+                .includes(this.state.search.toUpperCase()) ? (
+              <Link to={`/products/${product.id}`}>
+                <li key={product.id}>
+                  {product.title} : {`$${product.price / 100}`} <br />
+                  <img src={product.photoURL} />
+                </li>
+              </Link>
+            ) : product.categories.length ? (
+              product.categories[0].name === this.state.category &&
+              product.title
+                .toUpperCase()
+                .includes(this.state.search.toUpperCase()) ? (
+                <Link to={`/products/${product.id}`}>
+                  <li key={product.id}>
+                    {product.title} : {`$${product.price / 100}`} <br />
+                    <img src={product.photoURL} />
+                  </li>
+                </Link>
+              ) : null
             ) : null
           })}
         </ul>
