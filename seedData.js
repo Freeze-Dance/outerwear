@@ -20,8 +20,8 @@ const userData = [
     cart: [6, 7, 8]
   },
   {
-    email: 'jgeffen2@rediff.com',
-    password: 'xvgidmN',
+    email: 'admin@admin.com',
+    password: 'admin',
     salt: '249ccc61fdb2c7d7116e8cee985f3ca5dbcec4d275a883ba5e7e3a17e4066366',
     googleId: 3,
     address: '4 Maple Wood Parkway',
@@ -30,8 +30,8 @@ const userData = [
     cart: [6, 7, 8]
   },
   {
-    email: 'kbignold3@xrea.com',
-    password: 'sR1xPWwo',
+    email: 'user@user.com',
+    password: 'user',
     salt: '1d2c5fb9cf217b947e4b743217eae3e1a05e961e8a07b4f83a467c9d5d694685',
     googleId: 4,
     address: '78755 Sunnyside Place',
@@ -239,7 +239,13 @@ const reviewData = [
   {text: 'Progressive uniform open architecture'}
 ]
 
-const categoryData = [{name: 'expensive'}, {name: 'available for pickup'}]
+const categoryData = [
+  {color: 'red'},
+  {color: 'blue'},
+  {color: 'green'},
+  {color: 'black'},
+  {color: 'yellow'}
+]
 
 module.exports = {
   userData,

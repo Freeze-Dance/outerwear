@@ -18,11 +18,9 @@ async function seed() {
     const createdUsers = await Promise.all(
       userData.map(obj => User.create(obj))
     )
-    console.log('before')
     const createdOrders = await Promise.all(
       ordersData.map(obj => Orders.create(obj))
     )
-    console.log('get here?')
     const createdProducts = await Promise.all(
       productData.map(obj => Product.create(obj))
     )
@@ -34,9 +32,11 @@ async function seed() {
     )
 
     // Create many-many
-    await createdProducts[0].addCategory(createdCategories[0])
-    await createdProducts[1].addCategory(createdCategories[1])
-    await createdProducts[2].addCategories(createdCategories)
+    for (let i = 0; i < createdProducts.length; i++) {
+      await createdProducts[i].addCategory(
+        createdCategories[Math.round(Math.random() * 4)]
+      )
+    }
 
     console.log('db synced!')
     console.log(`seeded successfully`)

@@ -1,13 +1,9 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import store, {fetchProducts} from '../store'
+import {fetchProducts} from '../store'
+import {Link} from 'react-router-dom'
 
-/**
- * COMPONENT
- */
-
-class HomePage extends React.Component {
+class dashboard extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -17,6 +13,7 @@ class HomePage extends React.Component {
   }
 
   async componentDidMount() {
+    console.log('????????')
     await this.props.fetchProducts()
   }
 
@@ -37,18 +34,27 @@ class HomePage extends React.Component {
           <option value="green">Green</option>
           <option value="black">Black</option>
           <option value="yellow">Yellow</option>
-        </select>
+        </select>{' '}
+        <Link to="/newproduct">
+          <button>New Product</button>
+        </Link>
         <ul>
           {this.props.products.map(product => {
             return !this.state.color ? (
               <li key={product.id}>
                 {product.title} {product.price}
-                <img src={product.photoURL} />
+                <img src={product.photoURL} />{' '}
+                <Link to={`/editproduct/${product.id}`}>
+                  <button>edit</button>
+                </Link>
               </li>
             ) : product.categories[0].color === this.state.color ? (
               <li key={product.id}>
                 {product.title} {product.price}
-                <img src={product.photoURL} />
+                <img src={product.photoURL} />{' '}
+                <Link to={`/editproduct/${product.id}`}>
+                  <button>edit</button>
+                </Link>
               </li>
             ) : null
           })}
@@ -57,10 +63,6 @@ class HomePage extends React.Component {
     )
   }
 }
-
-/**
- * CONTAINER
- */
 const mapState = state => {
   return {
     products: state.product.products,
@@ -72,11 +74,4 @@ const mapDispatch = dispatch => ({
   fetchProducts: () => dispatch(fetchProducts())
 })
 
-export default connect(mapState, mapDispatch)(HomePage)
-
-/**
- * PROP TYPES
- */
-// HomePage.propTypes = {
-//   email: PropTypes.string
-// }
+export default connect(mapState, mapDispatch)(dashboard)

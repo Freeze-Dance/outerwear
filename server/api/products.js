@@ -14,7 +14,7 @@ router.get('/:id', async (req, res, next) => {
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll()
+    const products = await Product.findAll({include: {all: true}})
     res.json(products)
   } catch (err) {
     next(err)
@@ -23,19 +23,9 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    if (!req.user.admin) {
-      res.status(403).send('cant create new product')
-    }
-    const productBody = {
-      title: req.body.title,
-      description: req.body.description,
-      price: req.body.price,
-      catergory: req.body.catergory,
-      photoURL: req.body.photoURL,
-      inventoryQuantity: req.body.inventoryQuantity
-    }
-    const product = await Product.create(productBody)
-    res.json(product)
+    console.log('>>>>>>>', req.body)
+    const data = await Product.create(req.body)
+    res.json(data)
   } catch (err) {
     next(err)
   }
@@ -43,31 +33,13 @@ router.post('/', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    if (!req.user.admin) {
-      res.status(403).send('cant create new product')
-    }
-
-    const productBody = {
-      title: req.body.title,
-      description: req.body.description,
-      price: req.body.price,
-      catergory: req.body.catergory,
-      photoURL: req.body.photoURL,
-      inventoryQuantity: req.body.inventoryQuantity
-    }
-
-    const product = await Product.update(productBody, {
+    const product = await Product.update(req.body, {
       returning: true,
       where: {
         id: req.params.id
       }
     })
-
-    if (!product) {
-      res.status(404).send(`No product found ${req.params.id}`)
-    } else {
-      res.json(product)
-    }
+    res.sendStatus(201)
   } catch (err) {
     next(err)
   }
