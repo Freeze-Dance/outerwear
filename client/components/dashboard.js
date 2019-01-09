@@ -7,7 +7,7 @@ class dashboard extends React.Component {
   constructor() {
     super()
     this.state = {
-      color: '',
+      category: '',
       search: ''
     }
     this.handleChange = this.handleChange.bind(this)
@@ -19,7 +19,7 @@ class dashboard extends React.Component {
 
   handleChange(event) {
     this.setState({
-      color: event.target.value
+      category: event.target.value
     })
   }
 
@@ -29,11 +29,11 @@ class dashboard extends React.Component {
         <h1>All Products</h1>
         <select onChange={this.handleChange}>
           <option value="">...</option>
-          <option value="red">Red</option>
-          <option value="blue">Blue</option>
-          <option value="green">Green</option>
-          <option value="black">Black</option>
-          <option value="yellow">Yellow</option>
+          <option value="hats">Hats</option>
+          <option value="gloves">Gloves</option>
+          <option value="scarves">Scarves</option>
+          <option value="coats">Coats</option>
+          <option value="pants">Pants</option>
         </select>{' '}
         Search:{' '}
         <input
@@ -46,7 +46,7 @@ class dashboard extends React.Component {
         </Link>
         <ul>
           {this.props.products.map(product => {
-            return !this.state.color &&
+            return !this.state.category &&
               product.title
                 .toUpperCase()
                 .includes(this.state.search.toUpperCase()) ? (
@@ -61,7 +61,7 @@ class dashboard extends React.Component {
                   <button>edit</button>
                 </Link>
               </React.Fragment>
-            ) : product.categories[0].color === this.state.color &&
+            ) : product.categories[0].name === this.state.category &&
             product.title
               .toUpperCase()
               .includes(this.state.search.toUpperCase()) ? (
