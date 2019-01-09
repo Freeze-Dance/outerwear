@@ -15,9 +15,6 @@ const Product = db.define('product', {
   price: {
     type: Sequelize.INTEGER
   },
-  category: {
-    type: Sequelize.STRING
-  },
   photoURL: {
     type: Sequelize.STRING,
     defaultValue: 'someURL'
