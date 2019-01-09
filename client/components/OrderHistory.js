@@ -64,7 +64,11 @@ class OrderHistory extends Component {
     return (
       <Fragment>
         <h1>Your Order History</h1>
-        {previousOrders}
+        {previousOrders.length > 0 ? (
+          previousOrders
+        ) : (
+          <h2>You haven't ordered anything yet. Get shopping!</h2>
+        )}
       </Fragment>
     )
   }
