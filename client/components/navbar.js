@@ -13,7 +13,6 @@ class Navbar extends React.Component {
   }
   render() {
     let {isLoggedIn, handleClick} = this.props
-    console.log(this.props, '<<< props in navbar')
     return (
       <div>
         <h1>Freeze Dance</h1>
