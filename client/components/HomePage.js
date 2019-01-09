@@ -1,7 +1,7 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import store, {fetchProducts} from '../store'
+import {fetchProducts} from '../store'
+import {Link} from 'react-router-dom'
 
 /**
  * COMPONENT
@@ -11,13 +11,14 @@ class HomePage extends React.Component {
   constructor() {
     super()
     this.state = {
-      color: ''
+      color: '',
+      search: ''
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
-  async componentDidMount() {
-    await this.props.fetchProducts()
+  componentDidMount() {
+    this.props.fetchProducts()
   }
 
   handleChange(event) {
@@ -27,6 +28,7 @@ class HomePage extends React.Component {
   }
 
   render() {
+    console.log(this.state)
     return (
       <React.Fragment>
         <h1>All Products</h1>
@@ -38,18 +40,34 @@ class HomePage extends React.Component {
           <option value="black">Black</option>
           <option value="yellow">Yellow</option>
         </select>
+        Search:{' '}
+        <input
+          type="text"
+          value={this.state.search}
+          onChange={e => this.setState({search: e.target.value})}
+        />
         <ul>
           {this.props.products.map(product => {
-            return !this.state.color ? (
-              <li key={product.id}>
-                {product.title} {product.price}
-                <img src={product.photoURL} />
-              </li>
-            ) : product.categories[0].color === this.state.color ? (
-              <li key={product.id}>
-                {product.title} {product.price}
-                <img src={product.photoURL} />
-              </li>
+            return !this.state.color &&
+              product.title
+                .toUpperCase()
+                .includes(this.state.search.toUpperCase()) ? (
+              <Link to={`/products/${product.id}`}>
+                <li key={product.id}>
+                  {product.title} : {`$${product.price / 100}`} <br />
+                  <img src={product.photoURL} />
+                </li>
+              </Link>
+            ) : product.categories[0].color === this.state.color &&
+            product.title
+              .toUpperCase()
+              .includes(this.state.search.toUpperCase()) ? (
+              <Link to={`/products/${product.id}`}>
+                <li key={product.id}>
+                  {product.title} : {`$${product.price / 100}`} <br />
+                  <img src={product.photoURL} />
+                </li>
+              </Link>
             ) : null
           })}
         </ul>
@@ -58,6 +76,7 @@ class HomePage extends React.Component {
   }
 }
 
+console.log('hello darkness my old friend'.includes('hello'))
 /**
  * CONTAINER
  */

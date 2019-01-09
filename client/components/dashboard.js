@@ -7,14 +7,14 @@ class dashboard extends React.Component {
   constructor() {
     super()
     this.state = {
-      color: ''
+      color: '',
+      search: ''
     }
     this.handleChange = this.handleChange.bind(this)
   }
 
-  async componentDidMount() {
-    console.log('????????')
-    await this.props.fetchProducts()
+  componentDidMount() {
+    this.props.fetchProducts()
   }
 
   handleChange(event) {
@@ -35,27 +35,47 @@ class dashboard extends React.Component {
           <option value="black">Black</option>
           <option value="yellow">Yellow</option>
         </select>{' '}
+        Search:{' '}
+        <input
+          type="text"
+          value={this.state.search}
+          onChange={e => this.setState({search: e.target.value})}
+        />
         <Link to="/newproduct">
           <button>New Product</button>
         </Link>
         <ul>
           {this.props.products.map(product => {
-            return !this.state.color ? (
-              <li key={product.id}>
-                {product.title} {product.price}
-                <img src={product.photoURL} />{' '}
+            return !this.state.color &&
+              product.title
+                .toUpperCase()
+                .includes(this.state.search.toUpperCase()) ? (
+              <React.Fragment>
+                <Link to={`/products/${product.id}`}>
+                  <li key={product.id}>
+                    {product.title} : {`$${product.price / 100}`} <br />
+                    <img src={product.photoURL} />{' '}
+                  </li>
+                </Link>
                 <Link to={`/editproduct/${product.id}`}>
                   <button>edit</button>
                 </Link>
-              </li>
-            ) : product.categories[0].color === this.state.color ? (
-              <li key={product.id}>
-                {product.title} {product.price}
-                <img src={product.photoURL} />{' '}
+              </React.Fragment>
+            ) : product.categories[0].color === this.state.color &&
+            product.title
+              .toUpperCase()
+              .includes(this.state.search.toUpperCase()) ? (
+              <React.Fragment>
+                <Link to={`/products/${product.id}`}>
+                  <li key={product.id}>
+                    {product.title} : {`$${product.price / 100}`} <br />
+                    <img src={product.photoURL} />{' '}
+                  </li>
+                </Link>
                 <Link to={`/editproduct/${product.id}`}>
                   <button>edit</button>
                 </Link>
-              </li>
+              </React.Fragment>
             ) : null
           })}
         </ul>
