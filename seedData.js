@@ -256,6 +256,14 @@ const cartData = [
   {quantity: 5, userId: 5}
 ]
 
+const cartProductData = [
+  {productId: 1, cartId: 1},
+  {productId: 2, cartId: 2},
+  {productId: 3, cartId: 3},
+  {productId: 4, cartId: 4},
+  {productId: 5, cartId: 5}
+]
+
 const productCategoryData = [
   {productId: 1, categoryId: 1},
   {productId: 2, categoryId: 2},
@@ -269,6 +277,14 @@ const productCategoryData = [
   {productId: 10, categoryId: 5}
 ]
 
+const orderProductData = [
+  {productId: 1, orderId: 1, purchasedPrice: 100},
+  {productId: 2, orderId: 2, purchasedPrice: 200},
+  {productId: 3, orderId: 3, purchasedPrice: 300},
+  {productId: 4, orderId: 4, purchasedPrice: 400},
+  {productId: 5, orderId: 5, purchasedPrice: 500}
+]
+
 module.exports = {
   userData,
   orderData,
@@ -276,5 +292,7 @@ module.exports = {
   reviewData,
   categoryData,
   cartData,
-  productCategoryData
+  cartProductData,
+  productCategoryData,
+  orderProductData
 }

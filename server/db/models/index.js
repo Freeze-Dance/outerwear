@@ -5,6 +5,13 @@ const Review = require('./review')
 const User = require('./user')
 const Category = require('./category')
 const Cart = require('./cart')
+const Sequelize = require('sequelize')
+
+const OrderProduct = db.define('orderProduct', {
+  purchasedPrice: {
+    type: Sequelize.INTEGER
+  }
+})
 
 User.hasMany(Order)
 Order.belongsTo(User)
@@ -15,19 +22,20 @@ Review.belongsTo(User)
 User.hasOne(Cart)
 Cart.belongsTo(User)
 
-Cart.hasMany(Product)
-Product.belongsTo(Cart)
-
 Product.hasMany(Review)
 Review.belongsTo(Product)
 
-Order.hasMany(Product)
-Product.belongsTo(Order)
+Cart.belongsToMany(Product, {through: 'cartProduct'})
+Product.belongsToMany(Cart, {through: 'cartProduct'})
 
-Product.belongsToMany(Category, {through: 'ProductCategory'})
-Category.belongsToMany(Product, {through: 'ProductCategory'})
+Order.belongsToMany(Product, {through: 'orderProduct'})
+Product.belongsToMany(Order, {through: 'orderProduct'})
 
-const ProductCategory = db.model('ProductCategory')
+Product.belongsToMany(Category, {through: 'productCategory'})
+Category.belongsToMany(Product, {through: 'productCategory'})
+
+const CartProduct = db.model('cartProduct')
+const ProductCategory = db.model('productCategory')
 
 module.exports = {
   db,
@@ -37,5 +45,7 @@ module.exports = {
   User,
   Category,
   Cart,
-  ProductCategory
+  CartProduct,
+  ProductCategory,
+  OrderProduct
 }
