@@ -239,7 +239,13 @@ const reviewData = [
   {text: 'Progressive uniform open architecture'}
 ]
 
-const categoryData = [{name: 'expensive'}, {name: 'available for pickup'}]
+const categoryData = [
+  {color: 'red'},
+  {color: 'blue'},
+  {color: 'green'},
+  {color: 'black'},
+  {color: 'yellow'}
+]
 
 module.exports = {
   userData,

@@ -10,16 +10,20 @@ const Navbar = ({handleClick, isLoggedIn}) => (
     <nav>
       {isLoggedIn ? (
         <div>
-          <Link to="/home">Home</Link>
+          <Link to="/">Home</Link>
+          {/* {isSingleProduct ? <div>{Category}</div> : <div/>} //shows category only in single product view */}
           <a href="#" onClick={handleClick}>
             Logout
           </a>
+          <Link to="/cart">Cart</Link>
         </div>
       ) : (
         <div>
           {/* The navbar will show these links before you log in */}
+          <Link to="/">Home</Link>
           <Link to="/login">Login</Link>
           <Link to="/signup">Sign Up</Link>
+          <Link to="/cart">Cart</Link>
         </div>
       )}
     </nav>
@@ -32,7 +36,8 @@ const Navbar = ({handleClick, isLoggedIn}) => (
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isSingleProduct: !!state.currentProduct
   }
 }
 
