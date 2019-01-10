@@ -1,5 +1,12 @@
 const router = require('express').Router()
-const {Cart, Product, User} = require('../db/models')
+const {
+  Cart,
+  Product,
+  User,
+  CartProduct,
+  OrderProduct,
+  Order
+} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -77,6 +84,34 @@ router.delete('/deleteItem/:itemId', async (req, res, next) => {
       }
     })
     res.json('Item successfully deleted')
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/submit/:cartId', async (req, res, next) => {
+  try {
+    let products = req.body.products
+    let subTotal = req.body.quantity.reduce((acc, curr, idx) => {
+      acc += curr * products[idx].price
+    }, 0)
+    const order = await Order.create({
+      quantity: req.body.quantity,
+      time: Date.now(),
+      subTotal: subTotal
+    })
+    products.forEach(async product => {
+      await OrderProduct.create({
+        purchasedPrice: product.price,
+        productId: product.id,
+        orderId: order.id
+      })
+    })
+    await CartProduct.destroy({
+      where: {
+        cartId: req.params.cartId
+      }
+    })
   } catch (err) {
     next(err)
   }

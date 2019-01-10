@@ -8,6 +8,7 @@ const SET_CART = 'SET_CART'
 const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART'
 const EDIT_QUANTITY = 'EDIT_QUANTITY'
 const DELETE_CART_ITEM = 'DELETE_CART_ITEM'
+const SUBMIT_CART = 'SUBMIT_CART'
 
 export const setCart = cart => ({
   type: SET_CART,
@@ -17,6 +18,11 @@ export const setCart = cart => ({
 export const addItemToCart = item => ({
   type: ADD_ITEM_TO_CART,
   item
+})
+
+export const checkoutCart = cart => ({
+  type: SUBMIT_CART,
+  cart
 })
 
 export const editQuantity = (item, quantity) => ({
@@ -38,21 +44,29 @@ export const fetchCart = userId => async dispatch => {
   dispatch(setCart(data))
 }
 
-export const itemToCart = itemAdd => async dispatch => {
-  const newItem = await axios.post('/api/cart/add', itemAdd)
-  dispatch(addItemToCart(newItem.data))
-}
+// export const itemToCart = itemAdd => async dispatch => {
+//   const newItem = await axios.post('/api/cart/add', itemAdd)
+//   dispatch(addItemToCart(newItem.data))
+// }
 
-export const updateItem = itemUpdate => async dispatch => {
-  const updatedCart = await axios.put('/api/cart/edit', itemUpdate)
-  dispatch(editQuantity(updatedCart.data))
-}
+// export const updateItem = itemUpdate => async dispatch => {
+//   const updatedCart = await axios.put('/api/cart/edit', itemUpdate)
+//   dispatch(editQuantity(updatedCart.data))
+// }
 
-export const deleteItem = itemId => async dispatch => {
-  const response = await axios.delete(`/api/cart/deleteItem/${itemId}`)
-  if (response.data === 'Item successfully deleted') {
-    dispatch(deleteCartItem(itemId))
-  }
+// export const deleteItem = itemId => async dispatch => {
+//   const response = await axios.delete(`/api/cart/deleteItem/${itemId}`)
+//   if (response.data === 'Item successfully deleted') {
+//     dispatch(deleteCartItem(itemId))
+//   }
+// }
+
+export const submitCart = (cartId, products, quantity) => async dispatch => {
+  const {data} = await axios.put(`/api/carts/submit/${cartId}`, {
+    products,
+    quantity
+  })
+  dispatch(checkoutCart(data))
 }
 
 const cartReducer = (state = initialState, action) => {

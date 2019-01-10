@@ -10,9 +10,6 @@ const Sequelize = require('sequelize')
 const OrderProduct = db.define('orderProduct', {
   purchasedPrice: {
     type: Sequelize.INTEGER
-  },
-  orderQuantity: {
-    type: Sequelize.INTEGER
   }
 })
 
