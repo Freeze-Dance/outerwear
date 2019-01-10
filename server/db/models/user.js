@@ -32,9 +32,6 @@ const User = db.define('user', {
   },
   admin: {
     type: Sequelize.BOOLEAN
-  },
-  guest: {
-    type: Sequelize.BOOLEAN
   }
 })
 

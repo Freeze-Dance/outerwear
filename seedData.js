@@ -5,8 +5,7 @@ const userData = [
     salt: '16ea1989139d07b124687de6dc067318d2c937a27430d93098bcbd70083e33a7',
     googleId: 1,
     address: '45246 Leroy Plaza',
-    admin: false,
-    guest: false
+    admin: false
   },
   {
     email: 'djohns1@geocities.com',
@@ -14,8 +13,7 @@ const userData = [
     salt: '8f188af7b43ed99631a6eed6c133a58fc9f2ff9576066ef35824d209e8cb8225',
     googleId: 2,
     address: '669 Bellgrove Park',
-    admin: false,
-    guest: false
+    admin: false
   },
   {
     email: 'admin@admin.com',
@@ -23,8 +21,7 @@ const userData = [
     salt: '249ccc61fdb2c7d7116e8cee985f3ca5dbcec4d275a883ba5e7e3a17e4066366',
     googleId: 3,
     address: '4 Maple Wood Parkway',
-    admin: true,
-    guest: false
+    admin: true
   },
   {
     email: 'user@user.com',
@@ -32,8 +29,7 @@ const userData = [
     salt: '1d2c5fb9cf217b947e4b743217eae3e1a05e961e8a07b4f83a467c9d5d694685',
     googleId: 4,
     address: '78755 Sunnyside Place',
-    admin: false,
-    guest: false
+    admin: false
   },
   {
     email: 'omitcheson4@naver.com',
@@ -41,8 +37,7 @@ const userData = [
     salt: '165fb630ad79a805816f8b18ab9b6f3f4c0e65a15697de82fe6b1418c266afe7',
     googleId: 5,
     address: '8 Moulton Circle',
-    admin: false,
-    guest: false
+    admin: false
   },
   {
     email: 'kfildes5@4shared.com',
@@ -50,8 +45,7 @@ const userData = [
     salt: '75463d5d1eccb6e718681d5dff91ab9c11aafe78c4185699f7ab2b3c3e810b62',
     googleId: 6,
     address: '26 Fallview Way',
-    admin: false,
-    guest: true
+    admin: false
   },
   {
     email: 'tpreshaw6@hugedomains.com',
@@ -59,8 +53,7 @@ const userData = [
     salt: '7fc8a2058ebcdd69b4693f919046f3508bcfc3cde8f61a8c782e3a78dbc84e00',
     googleId: 7,
     address: '2578 Warbler Court',
-    admin: true,
-    guest: true
+    admin: true
   },
   {
     email: 'apleasants7@guardian.co.uk',
@@ -68,8 +61,7 @@ const userData = [
     salt: '4b8911dee313264eae1690827e18bf0059a1ae2511e9dd96f224b9e5cd8e348e',
     googleId: 8,
     address: '3235 Sugar Park',
-    admin: true,
-    guest: true
+    admin: true
   },
   {
     email: 'kmunt8@quantcast.com',
@@ -77,8 +69,7 @@ const userData = [
     salt: 'c12dde873e9757036a26ba31bc2f7eba729204d100a22d9e1ea4e5be0a3dc02d',
     googleId: 9,
     address: '620 Quincy Alley',
-    admin: true,
-    guest: false
+    admin: true
   },
   {
     email: 'vmessingham9@ask.com',
@@ -86,8 +77,7 @@ const userData = [
     salt: '35bb6dfe9d6cbe7d21f72c8c61bde81170a7fff28478b18588b7df1070efb3d5',
     googleId: 10,
     address: '5 Di Loreto Plaza',
-    admin: true,
-    guest: false
+    admin: true
   }
 ]
 const orderData = [
