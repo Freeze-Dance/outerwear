@@ -260,10 +260,10 @@ const cartProductData = [
   {productId: 1, cartId: 1},
   {productId: 2, cartId: 2},
   {productId: 3, cartId: 3},
-  {productId: 4, cartId: 4},
-  {productId: 3, cartId: 5},
   {productId: 4, cartId: 5},
-  {productId: 5, cartId: 5}
+  {productId: 3, cartId: 4},
+  {productId: 4, cartId: 4},
+  {productId: 5, cartId: 4}
 ]
 
 const productCategoryData = [

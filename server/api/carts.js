@@ -89,29 +89,35 @@ router.delete('/deleteItem/:itemId', async (req, res, next) => {
   }
 })
 
-router.put('/submit/:cartId', async (req, res, next) => {
+router.put('/submit/:cartId', (req, res, next) => {
   try {
+    console.log('quantity>>>>>', req.body.quantity)
+    console.log('products>>>>', req.body.products)
+    let quantity = req.body.quantity
     let products = req.body.products
-    let subTotal = req.body.quantity.reduce((acc, curr, idx) => {
-      acc += curr * products[idx].price
+    let subTotal = products.reduce((acc, curr) => {
+      console.log('CURRENT', curr)
+      console.log('ACUMULATE WITH', quantity[`quantity${curr.id}`])
+      return (acc += curr.price * quantity[`quantity${curr.id}`])
     }, 0)
-    const order = await Order.create({
-      quantity: req.body.quantity,
-      time: Date.now(),
-      subTotal: subTotal
-    })
-    products.forEach(async product => {
-      await OrderProduct.create({
-        purchasedPrice: product.price,
-        productId: product.id,
-        orderId: order.id
-      })
-    })
-    await CartProduct.destroy({
-      where: {
-        cartId: req.params.cartId
-      }
-    })
+    console.log(subTotal)
+    // const order = await Order.create({
+    //   quantity: req.body.quantity,
+    //   time: Date.now(),
+    //   subTotal: subTotal
+    // })
+    // products.forEach(async product => {
+    //   await OrderProduct.create({
+    //     purchasedPrice: product.price,
+    //     productId: product.id,
+    //     orderId: order.id
+    //   })
+    // })
+    // await CartProduct.destroy({
+    //   where: {
+    //     cartId: req.params.cartId
+    //   }
+    // })
   } catch (err) {
     next(err)
   }

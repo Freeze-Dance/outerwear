@@ -26,9 +26,18 @@ class Cart extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.cart.products.map(product => {})
+    let quantity = {}
+    this.props.cart.products.forEach(product => {
+      quantity[`quantity${product.id}`] =
+        event.target[`quantity${product.id}`].value
+    })
+    console.log(quantity)
     // event.target.quantity5.value
-    this.props.submitCart(this.props.cart.id, this.props.cart.products)
+    this.props.submitCart(
+      this.props.cart.id,
+      this.props.cart.products,
+      quantity
+    )
   }
 
   render() {
