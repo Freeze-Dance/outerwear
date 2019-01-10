@@ -94,51 +94,61 @@ const orderData = [
   {
     time: '2017-03-16',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 1
   },
   {
     time: '2018-06-17',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 2
   },
   {
     time: '2017-06-14',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 3
   },
   {
     time: '2017-07-22',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 4
   },
   {
     time: '2017-01-24',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 5
   },
   {
     time: '2018-01-16',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 6
   },
   {
     time: '2017-08-16',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 7
   },
   {
     time: '2018-06-02',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 8
   },
   {
     time: '2017-09-08',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 9
   },
   {
     time: '2018-03-06',
     quantity: [1, 2, 3],
+    subTotal: 100,
     userId: 10
   }
 ]
@@ -278,11 +288,11 @@ const productCategoryData = [
 ]
 
 const orderProductData = [
-  {productId: 1, orderId: 1, purchasedPrice: 100},
-  {productId: 2, orderId: 2, purchasedPrice: 200},
-  {productId: 3, orderId: 3, purchasedPrice: 300},
-  {productId: 4, orderId: 4, purchasedPrice: 400},
-  {productId: 5, orderId: 5, purchasedPrice: 500}
+  {productId: 1, orderId: 1, purchasedPrice: 100, orderQuantity: 1},
+  {productId: 2, orderId: 2, purchasedPrice: 200, orderQuantity: 1},
+  {productId: 3, orderId: 3, purchasedPrice: 300, orderQuantity: 1},
+  {productId: 4, orderId: 4, purchasedPrice: 400, orderQuantity: 1},
+  {productId: 5, orderId: 5, purchasedPrice: 500, orderQuantity: 1}
 ]
 
 module.exports = {
