@@ -13,7 +13,7 @@ class Cart extends Component {
   }
 
   componentDidMount() {
-    this.props.setCart()
+    this.props.setCart(this.props.match.params)
   }
 
   handleChange(event) {
@@ -28,7 +28,7 @@ class Cart extends Component {
     console.log('cart', cart)
     return (
       <div button className="button" onClick={() => this.props.fetchCart(cart)}>
-        <h1>Test </h1>
+        <h1>CART ID: {this.props.cart.id} </h1>
       </div>
     )
   }
@@ -36,13 +36,13 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart.cartItems
+    cart: state.cart.cart
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCart: () => dispatch(fetchCart())
+    setCart: userId => dispatch(fetchCart(userId))
   }
 }
 

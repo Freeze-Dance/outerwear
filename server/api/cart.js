@@ -1,12 +1,19 @@
 const router = require('express').Router()
-const {Cart, Product} = require('../db/models')
+const {Cart, Product, User} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
-    const cart = await Cart.findOrCreate({
-      where: {userId: req.body.id},
-      include: {all: true}
+    let cart = await Cart.findOne({
+      where: {userId: req.query.userId}
     })
+
+    // If cart does not exist... create cart and set to user
+
+    if (cart === null) {
+      cart = await Cart.create()
+      const user = await User.findById(req.query.userId)
+      await user.setCart(cart)
+    }
     res.json(cart)
   } catch (err) {
     next(err)

@@ -31,9 +31,12 @@ export const deleteCartItem = item => ({
   item
 })
 
-export const fetchCart = () => async dispatch => {
-  const cart = await axios.get('/api/cart')
-  dispatch(setCart(cart.data))
+export const fetchCart = userId => async dispatch => {
+  const {data} = await axios.get('/api/cart', {
+    params: userId
+  })
+  console.log(data)
+  dispatch(setCart(data))
 }
 
 export const itemToCart = itemAdd => async dispatch => {
@@ -56,7 +59,7 @@ export const deleteItem = itemId => async dispatch => {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CART:
-      return {...state, cartItem: action.cart}
+      return {...state, cart: action.cart}
     case ADD_ITEM_TO_CART:
       return {...state, cartItem: [...state.cartItem, action.item]}
     case EDIT_QUANTITY:

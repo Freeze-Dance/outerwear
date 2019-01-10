@@ -88,6 +88,15 @@ const userData = [
     address: '5 Di Loreto Plaza',
     admin: true,
     guest: false
+  },
+  {
+    email: 'yaodi@yaodi.com',
+    password: 'yaodi',
+    salt: '16ea1989139d07b124687de6dc067318d2c937a27430d93098bcbd70083e33a7',
+    googleId: 1,
+    address: '45246 Leroy Plaza',
+    admin: true,
+    guest: false
   }
 ]
 const orderData = [
