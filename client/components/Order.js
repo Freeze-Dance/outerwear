@@ -1,4 +1,4 @@
-import React, {Component, Fragment} from 'react'
+import React, {Fragment} from 'react'
 
 function Order(props) {
   const {id, time, orderStatus, products, subTotal} = props.order
@@ -13,14 +13,15 @@ function Order(props) {
         <div>
           {products.map(product => (
             <div key={product.id}>
+              <img src={product.photoURL} />
               <ul>
                 <li>{product.title}</li>
-                <li>{product.price}</li>
+                <li>${product.price / 100}</li>
                 <li>{product.orderProductQuantity}</li>
-                <li>{product.price * product.orderProductQuantity}</li>
+                <li>${product.price * product.orderProductQuantity / 100}</li>
               </ul>
-              <div>{subTotal}</div>
-              <div>{orderStatus}</div>
+              <div>SubTotal: ${subTotal / 100}</div>
+              <div>Order Status: {orderStatus}</div>
             </div>
           ))}
         </div>
