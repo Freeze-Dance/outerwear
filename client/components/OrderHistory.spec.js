@@ -9,7 +9,7 @@ const adapter = new Adapter()
 enzyme.configure({adapter})
 
 describe('OrderHistory', () => {
-  it.only('renders at least one <Order /> component', () => {
+  it('renders at least one <Order /> component', () => {
     const wrapper = shallow(<OrderHistory />)
     expect(wrapper.find(Order)).length.to.be.greaterThan(0)
   })

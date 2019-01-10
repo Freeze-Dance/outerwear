@@ -4,22 +4,22 @@ import {expect} from 'chai'
 import {fetchCustomerOrders} from './order'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
-// import configureMockStore from 'redux-mock-store'
+import configureMockStore from 'redux-mock-store'
 import thunkMiddleware from 'redux-thunk'
 // import history from '../history'
 
 const middlewares = [thunkMiddleware]
-// const mockStore = configureMockStore(middlewares)
+const mockStore = configureMockStore(middlewares)
 
 describe('thunk creators', () => {
   let store
   let mockAxios
 
-  //   const initialState = {user: {}}
+  const initialState = {user: {}}
 
   beforeEach(() => {
     mockAxios = new MockAdapter(axios)
-    // store = mockStore(initialState)
+    store = mockStore(initialState)
   })
 
   afterEach(() => {
@@ -75,11 +75,11 @@ describe('thunk creators', () => {
         }
       ]
 
-      mockAxios.onGet(`/user/3`).replyOnce(200, fakeOrders)
+      mockAxios.onGet(`/api/orders/3`).replyOnce(200, fakeOrders)
       await store.dispatch(fetchCustomerOrders(3))
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GET_CUSTOMER_ORDERS')
-      expect(actions[0].customerOrders).to.be.deep.equal(fakeOrders)
+      expect(actions[0].orders).to.be.deep.equal(fakeOrders)
     })
   })
 
