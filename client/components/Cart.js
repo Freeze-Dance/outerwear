@@ -28,7 +28,7 @@ class Cart extends Component {
     console.log('cart', cart)
     return (
       <div button className="button" onClick={() => this.props.fetchCart(cart)}>
-        <h1>CART ID: {this.props.cart.id} </h1>
+        <h1>CART ITEM: {cart.products[0].title}</h1>{' '}
       </div>
     )
   }
@@ -36,7 +36,7 @@ class Cart extends Component {
 
 const mapStateToProps = state => {
   return {
-    cart: state.cart.cart
+    cart: state.cart.currentCart
   }
 }
 

@@ -3,8 +3,18 @@ const {Cart, Product, User} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
+    const carts = await Cart.findAll({include: {all: true}})
+
+    res.json(carts)
+  } catch (err) {
+    next(err)
+  }
+})
+router.get('/usercart', async (req, res, next) => {
+  try {
     let cart = await Cart.findOne({
-      where: {userId: req.query.userId}
+      where: {userId: req.query.userId},
+      include: {all: true}
     })
 
     // If cart does not exist... create cart and set to user
