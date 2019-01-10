@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import Order from './Order.js'
 import {fetchCustomerOrders} from '../store'
+import Typography from '@material-ui/core/Typography'
 
 //temp data until store setup with customerOrders - once mapToState use this.props.customerOrders
 const customerOrders = [
@@ -32,7 +33,7 @@ const customerOrders = [
   },
   {
     id: 2,
-    time: '2017-03-15 19:00:00-05',
+    time: '2017-03-17 17:00:00-05',
     orderStatus: 'shipped',
     products: [
       {
@@ -63,11 +64,13 @@ class OrderHistory extends Component {
     ))
     return (
       <Fragment>
-        <h1>Your Order History</h1>
+        <Typography variant="h4" align="center" gutterBottom>
+          Your Previous Orders
+        </Typography>
         {previousOrders.length > 0 ? (
           previousOrders
         ) : (
-          <h2>You haven't ordered anything yet. Get shopping!</h2>
+          <h2>Looks like you haven't ordered anything yet. Get shopping!</h2>
         )}
       </Fragment>
     )
