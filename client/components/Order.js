@@ -20,6 +20,7 @@ const styles = {
 function Order(props) {
   const {id, time, orderStatus, products, subTotal} = props.order
   const {classes} = props
+  console.log(props, '<<<')
   return (
     <Fragment>
       <Paper className={classes.root}>

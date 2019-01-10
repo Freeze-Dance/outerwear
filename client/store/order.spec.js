@@ -82,20 +82,4 @@ describe('thunk creators', () => {
       expect(actions[0].orders).to.be.deep.equal(fakeOrders)
     })
   })
-
-  //   describe('fetchProduct', () => {
-  //     it('eventually dispatches the GET_PRODUCT action', async () => {
-  //       const fakeProduct = {
-  //         title: 'Gloves',
-  //         price: 1000,
-  //         category: 'gloves',
-  //         inventoryQuantity: 10
-  //       }
-  //       mockAxios.onGet('/products/3').replyOnce(200, fakeProduct)
-  //       await store.dispatch(fetchProduct(3))
-  //       const actions = store.getActions()
-  //       expect(actions[0].type).to.be.equal('GET_PRODUCT')
-  //       expect(actions[0].product).to.be.deep.equal(fakeProduct)
-  //     })
-  //   })
 })
