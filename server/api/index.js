@@ -5,8 +5,11 @@ router.use('/users', require('./users'))
 router.use('/products', require('./products'))
 
 router.put('/guestAdd', (req, res, next) => {
-  console.log(req.body)
-  req.session.cart = []
+  console.log(req.session.cart)
+  req.session.cart === undefined
+    ? (req.session.cart = [req.body])
+    : req.session.cart.push(req.body)
+  console.log(req.session)
   res.send('hello')
 })
 
