@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 const initialState = {
-  cartItem: [],
-  cart: {}
+  currentCart: {products: [{title: ''}]}
 }
 
 const SET_CART = 'SET_CART'
@@ -32,10 +31,10 @@ export const deleteCartItem = item => ({
 })
 
 export const fetchCart = userId => async dispatch => {
-  const {data} = await axios.get('/api/cart', {
+  const {data} = await axios.get('/api/carts/usercart', {
     params: userId
   })
-  console.log(data)
+  console.log('THUNK CART >>>>>', data)
   dispatch(setCart(data))
 }
 
@@ -59,7 +58,7 @@ export const deleteItem = itemId => async dispatch => {
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CART:
-      return {...state, cart: action.cart}
+      return {...state, currentCart: action.cart}
     case ADD_ITEM_TO_CART:
       return {...state, cartItem: [...state.cartItem, action.item]}
     case EDIT_QUANTITY:
