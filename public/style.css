@@ -19,3 +19,9 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+
+/* using .flex-space-between in Order.js currently */
+.flex-space-between {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Order, User} = require('../db/models')
+const {Order, Product} = require('../db/models')
 
 router.get('/:userId', async (req, res, next) => {
   try {
@@ -9,7 +9,7 @@ router.get('/:userId', async (req, res, next) => {
       },
       include: [
         {
-          model: User
+          model: Product
         }
       ]
     })
