@@ -32,7 +32,7 @@ describe('thunk creators', () => {
       const fakeProducts = [
         {title: 'Coat', price: 1000, category: 'gloves', inventoryQuantity: 10}
       ]
-      mockAxios.onGet('/products').replyOnce(200, fakeProducts)
+      mockAxios.onGet('/api/products').replyOnce(200, fakeProducts)
       await store.dispatch(fetchProducts())
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GET_PRODUCTS')
@@ -48,7 +48,7 @@ describe('thunk creators', () => {
         category: 'gloves',
         inventoryQuantity: 10
       }
-      mockAxios.onGet('/products/3').replyOnce(200, fakeProduct)
+      mockAxios.onGet('/api/products/3').replyOnce(200, fakeProduct)
       await store.dispatch(fetchProduct(3))
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GET_PRODUCT')
