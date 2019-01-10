@@ -21,30 +21,32 @@ class Routes extends Component {
     const {isLoggedIn} = this.props
 
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/products/:productId" component={SingleProduct} />
-        <Route exact path="/" component={HomePage} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/cart" component={Cart} />
-        <Route exact path="/dashboard" component={dashboard} />
-        <Route exact path="/newproduct" component={NewProduct} />
-        <Route exact path="/editproduct/:id" component={editproduct} />
-        <Route exact path="/orderhistory/:userId" component={OrderHistory} />
+      <React.Fragment>
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+          <Route exact path="/" component={HomePage} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={Signup} />
+          <Route exact path="/products/:productId" component={SingleProduct} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/dashboard" component={dashboard} />
+          <Route exact path="/newproduct" component={NewProduct} />
+          <Route exact path="/editproduct/:id" component={editproduct} />
 
-        {isLoggedIn && (
+          {/* Displays our Login component as a fallback */}
+        </Switch>
+        {isLoggedIn ? (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/" component={HomePage} />
-            <Route exact path="/cart" component={Cart} />
+            <Route exact path="/cart/:userId" component={Cart} />
+            <Route
+              exact
+              path="/orderhistory/:userId"
+              component={OrderHistory}
+            />
           </Switch>
-        )}
-        {/* Displays our Login component as a fallback */}
-      </Switch>
+        ) : null}
+      </React.Fragment>
     )
   }
 }
