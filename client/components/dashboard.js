@@ -15,6 +15,7 @@ class dashboard extends React.Component {
 
   componentDidMount() {
     this.props.fetchProducts()
+    // this.props.fetchOrders() - need to create fetchOrders in store/order.js
   }
 
   handleChange(event) {
