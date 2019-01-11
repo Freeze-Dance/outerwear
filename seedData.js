@@ -85,61 +85,71 @@ const orderData = [
     time: '2017-03-16',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 1
+    userId: 1,
+    status: 'Created'
   },
   {
     time: '2018-06-17',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 2
+    userId: 2,
+    status: 'Processing'
   },
   {
     time: '2017-06-14',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 3
+    userId: 3,
+    status: 'Canceled'
   },
   {
     time: '2017-07-22',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 4
+    userId: 4,
+    status: 'Completed'
   },
   {
     time: '2017-01-24',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 5
+    userId: 5,
+    status: 'Created'
   },
   {
     time: '2018-01-16',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 6
+    userId: 6,
+    status: 'Created'
   },
   {
     time: '2017-08-16',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 7
+    userId: 7,
+    status: 'Processing'
   },
   {
     time: '2018-06-02',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 8
+    userId: 8,
+    status: 'Processing'
   },
   {
     time: '2017-09-08',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 9
+    userId: 9,
+    status: 'Completed'
   },
   {
     time: '2018-03-06',
     quantity: [1, 2, 3],
     subTotal: 100,
-    userId: 10
+    userId: 10,
+    status: 'Canceled'
   }
 ]
 

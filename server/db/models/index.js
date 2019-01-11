@@ -11,6 +11,10 @@ const OrderProduct = db.define('orderProduct', {
   purchasedPrice: {
     type: Sequelize.INTEGER
   }
+  //, check why removed from yesterday
+  // quantity: {
+  //   type: Sequelize.INTEGER
+  // }
 })
 
 User.hasMany(Order)

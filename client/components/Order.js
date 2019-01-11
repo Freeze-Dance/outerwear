@@ -18,7 +18,7 @@ const styles = {
 }
 
 function Order(props) {
-  const {id, time, orderStatus, products, subTotal} = props.order
+  const {id, time, status, products, subTotal} = props.order
   const {classes} = props
   return (
     <Fragment>
@@ -51,10 +51,10 @@ function Order(props) {
                 <TableCell>
                   ${product.orderProduct.purchasedPrice / 100}
                 </TableCell>
-                <TableCell>{product.orderProduct.orderQuantity}</TableCell>
+                <TableCell>{product.orderProduct.quantity}</TableCell>
                 <TableCell>
                   ${product.orderProduct.purchasedPrice *
-                    product.orderProduct.orderQuantity /
+                    product.orderProduct.quantity /
                     100}
                 </TableCell>
               </TableRow>
@@ -66,7 +66,7 @@ function Order(props) {
             </TableRow>
             <TableRow>
               <TableCell colSpan={2}>Order Status</TableCell>
-              <TableCell>{orderStatus}</TableCell>
+              <TableCell>{status}</TableCell>
             </TableRow>
           </TableBody>
         </Table>
