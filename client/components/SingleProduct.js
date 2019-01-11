@@ -103,6 +103,9 @@ const mapDispatchToProps = dispatch => ({
   },
   creatingReview(review) {
     return dispatch(creatingReview(review))
+  },
+  fetchReview(review) {
+    return dispatch
   }
 })
 
