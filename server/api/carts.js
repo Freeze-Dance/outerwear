@@ -37,6 +37,17 @@ router.get('/usercart', async (req, res, next) => {
     next(err)
   }
 })
+router.put('/addToCart/:userId', async (req, res, next) => {
+  let cart = await Cart.findOne({where: {userId: req.params.userId}})
+  let join = await CartProduct.findOrCreate({
+    where: {cartId: cart.id, productId: req.body.productId}
+  })
+  console.log('cart<<<<<<<', join[0])
+  if (!join[1]) join[0].update({quantity: join[0].quantity + 1})
+  console.log('CART>>>>>', cart)
+
+  // cart.addProduct()
+})
 
 router.post('/add', async (req, res, next) => {
   try {

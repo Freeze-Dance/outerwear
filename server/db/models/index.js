@@ -15,6 +15,12 @@ const OrderProduct = db.define('orderProduct', {
     type: Sequelize.INTEGER
   }
 })
+const CartProduct = db.define('cartProduct', {
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 1
+  }
+})
 
 User.hasMany(Order)
 Order.belongsTo(User)
@@ -37,7 +43,6 @@ Product.belongsToMany(Order, {through: 'orderProduct'})
 Product.belongsToMany(Category, {through: 'productCategory'})
 Category.belongsToMany(Product, {through: 'productCategory'})
 
-const CartProduct = db.model('cartProduct')
 const ProductCategory = db.model('productCategory')
 
 module.exports = {

@@ -4,6 +4,7 @@ import {fetchProduct, creatingReview, fetchReview} from '../store/product'
 import {Link} from 'react-router-dom'
 import Axios from 'axios'
 import StarRatings from 'react-star-ratings'
+import {addToCart} from '../store/cart'
 
 class SingleProduct extends Component {
   constructor(props) {
@@ -13,6 +14,7 @@ class SingleProduct extends Component {
     }
     this.createNewReview = this.createNewReview.bind(this)
     this.changeRating = this.changeRating.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   changeRating(newRating, name) {
@@ -37,13 +39,16 @@ class SingleProduct extends Component {
     })
   }
 
+  handleClick() {
+    this.props.addToCart(this.props.product.id, this.props.user.id)
+  }
+
   componentDidMount() {
     const {productId} = this.props.match.params
     this.props.fetchProduct(productId)
   }
 
   render() {
-    console.log('prop', this.props)
     const {
       title,
       description,
@@ -76,6 +81,9 @@ class SingleProduct extends Component {
             Rate this product!
             <button type="submit"> Submit review </button>
           </form>
+          <button type="button" onClick={this.handleClick}>
+            Add to Cart
+          </button>
           {/* <button
           type="button"
           onClick={() =>
@@ -95,16 +103,21 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-const mapDispatchToProps = dispatch => ({
-  fetchProduct(productId) {
-    return dispatch(fetchProduct(productId))
-  },
-  creatingReview(review) {
-    return dispatch(creatingReview(review))
-  },
-  fetchReview(review) {
-    return dispatch
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchProduct: productId => {
+      return dispatch(fetchProduct(productId))
+    },
+    creatingReview(review) {
+      return dispatch(creatingReview(review))
+    },
+    // fetchReview(review) {
+    //   return dispatch
+    // },
+    addToCart: (productId, userId) => {
+      return dispatch(addToCart(productId, userId))
+    }
   }
-})
+}
 
 export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)

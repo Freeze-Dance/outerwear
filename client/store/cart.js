@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const initialState = {
-  currentCart: {products: [{title: ''}]}
+  currentCart: {products: [{title: '', cartProduct: {quantity: 0}}]}
 }
 
 const SET_CART = 'SET_CART'
@@ -42,6 +42,16 @@ export const fetchCart = userId => async dispatch => {
   })
   console.log('THUNK CART >>>>>', data)
   dispatch(setCart(data))
+}
+
+export const addToCart = (productId, userId) => async dispatch => {
+  console.log('>>>>>thunk', !!userId)
+  if (userId) {
+    const {data} = await axios.put(`/api/carts/addToCart/${userId}`, {
+      productId,
+      userId
+    })
+  }
 }
 
 // export const itemToCart = itemAdd => async dispatch => {
