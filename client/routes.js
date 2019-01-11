@@ -44,6 +44,11 @@ class Routes extends Component {
               path="/orderhistory/:userId"
               component={OrderHistory}
             />
+            <Route
+              exact
+              path="/products/:productId/createreview"
+              component={SingleProduct}
+            />
           </Switch>
         ) : null}
       </React.Fragment>
