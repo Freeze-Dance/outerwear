@@ -31,14 +31,14 @@ class SingleProduct extends Component {
           <div id="price">Price: {`$${price / 100}`}</div>
           <div id="quantity">Quantity: {inventoryQuantitiy}</div>
         </div>
-        <button
+        {/* <button
           type="button"
           onClick={() =>
             Axios.put(`/api/guestAdd`, {id: this.props.match.params.productId})
           }
         >
           Add to Cart
-        </button>
+        </button> */}
       </div>
     )
   }

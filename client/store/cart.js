@@ -61,10 +61,16 @@ export const fetchCart = userId => async dispatch => {
 //   }
 // }
 
-export const submitCart = (cartId, products, quantity) => async dispatch => {
+export const submitCart = (
+  cartId,
+  products,
+  quantity,
+  userId
+) => async dispatch => {
   const {data} = await axios.put(`/api/carts/submit/${cartId}`, {
     products,
-    quantity
+    quantity,
+    userId
   })
   dispatch(checkoutCart(data))
 }

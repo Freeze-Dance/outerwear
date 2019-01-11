@@ -33,10 +33,12 @@ class Cart extends Component {
     })
     console.log(quantity)
     // event.target.quantity5.value
+    this.props.setCart(this.props.match.params)
     this.props.submitCart(
       this.props.cart.id,
       this.props.cart.products,
-      quantity
+      quantity,
+      this.props.match.params.userId
     )
   }
 
@@ -67,8 +69,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setCart: userId => dispatch(fetchCart(userId)),
-    submitCart: (cartId, products, quantity) =>
-      dispatch(submitCart(cartId, products, quantity))
+    submitCart: (cartId, products, quantity, userId) =>
+      dispatch(submitCart(cartId, products, quantity, userId))
   }
 }
 
