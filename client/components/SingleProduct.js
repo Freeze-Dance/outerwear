@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchProduct, creatingReview, fetchReview} from '../store/product'
+import {fetchProduct, creatingReview} from '../store/product'
 import {Link} from 'react-router-dom'
 import Axios from 'axios'
 import StarRatings from 'react-star-ratings'
@@ -49,7 +49,8 @@ class SingleProduct extends Component {
       description,
       price,
       photoURL,
-      inventoryQuantitiy
+      inventoryQuantitiy,
+      reviews
     } = this.props.product
 
     return (
@@ -84,6 +85,15 @@ class SingleProduct extends Component {
         >
           Add to Cart
         </button> */}
+          <ul>
+            {reviews &&
+              reviews.map(review => (
+                <li key={review.id}>
+                  {' '}
+                  {review.text} {review.rating}{' '}
+                </li>
+              ))}
+          </ul>
         </div>
       </div>
     )
@@ -101,9 +111,6 @@ const mapDispatchToProps = dispatch => ({
   },
   creatingReview(review) {
     return dispatch(creatingReview(review))
-  },
-  fetchReview(review) {
-    return dispatch
   }
 })
 
