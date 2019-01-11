@@ -1,41 +1,38 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import Order from './Order.js'
-import {fetchCustomerOrders} from '../store'
+import {fetchAllOrders} from '../store'
 import Typography from '@material-ui/core/Typography'
 
 class OrderHistory extends Component {
   componentDidMount() {
-    const {userId} = this.props.match.params
-    this.props.fetchCustomerOrders(userId)
+    this.props.fetchAllOrders()
+    console.log('DashboardOrders Component Mounted', this.props.allOrders)
   }
 
   render() {
-    const previousOrders = this.props.customerOrders.map(order => (
+    // add in customer info and edit button info as props into order
+    const allOrdersForAdmin = this.props.allOrders.map(order => (
       <Order key={order.id} order={order} />
     ))
     return (
       <Fragment>
         <Typography variant="h4" align="center" gutterBottom>
-          Your Previous Orders
+          All Orders
         </Typography>
-        {previousOrders.length > 0 ? (
-          previousOrders
-        ) : (
-          <h2>Looks like you haven't ordered anything yet. Get shopping!</h2>
-        )}
+        {allOrdersForAdmin}
       </Fragment>
     )
   }
 }
 
 const mapState = state => ({
-  customerOrders: state.order.customerOrders
+  allOrders: state.order.allOrders
 })
 
 const mapDispatch = dispatch => ({
-  fetchCustomerOrders(userId) {
-    return dispatch(fetchCustomerOrders(userId))
+  fetchAllOrders() {
+    return dispatch(fetchAllOrders())
   }
 })
 
