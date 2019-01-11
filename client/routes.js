@@ -45,6 +45,11 @@ class Routes extends Component {
               path="/orderhistory/:userId"
               component={OrderHistory}
             />
+            <Route
+              exact
+              path="/products/:productId/createreview"
+              component={SingleProduct}
+            />
             <Route exact path="/dashboardorders" component={DashboardOrders} />
           </Switch>
         ) : null}

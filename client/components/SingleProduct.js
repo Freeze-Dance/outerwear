@@ -1,10 +1,42 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchProduct} from '../store/product'
+import {fetchProduct, creatingReview, fetchReview} from '../store/product'
 import {Link} from 'react-router-dom'
 import Axios from 'axios'
+import StarRatings from 'react-star-ratings'
 
 class SingleProduct extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      rating: 5
+    }
+    this.createNewReview = this.createNewReview.bind(this)
+    this.changeRating = this.changeRating.bind(this)
+  }
+
+  changeRating(newRating, name) {
+    this.setState({
+      rating: newRating
+    })
+  }
+
+  createNewReview(event) {
+    event.preventDefault()
+    // Review, rating, productId, user Id
+    const text = event.target.review.value
+    const userId = this.props.user.id
+    const productId = this.props.product.id
+    const rating = this.state.rating
+
+    this.props.creatingReview({
+      text,
+      userId,
+      productId,
+      rating
+    })
+  }
+
   componentDidMount() {
     const {productId} = this.props.match.params
     this.props.fetchProduct(productId)
@@ -31,7 +63,20 @@ class SingleProduct extends Component {
           <div id="price">Price: {`$${price / 100}`}</div>
           <div id="quantity">Quantity: {inventoryQuantitiy}</div>
         </div>
-        {/* <button
+        <div>
+          <form onSubmit={this.createNewReview}>
+            Review: <textarea name="review" rows="5" cols="100" />
+            <StarRatings
+              rating={this.state.rating}
+              starRatedColor="blue"
+              changeRating={this.changeRating}
+              numberOfStars={5}
+              name="rating"
+            />
+            Rate this product!
+            <button type="submit"> Submit review </button>
+          </form>
+          {/* <button
           type="button"
           onClick={() =>
             Axios.put(`/api/guestAdd`, {id: this.props.match.params.productId})
@@ -39,18 +84,26 @@ class SingleProduct extends Component {
         >
           Add to Cart
         </button> */}
+        </div>
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  product: state.product.currentProduct
+  product: state.product.currentProduct,
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchProduct(productId) {
     return dispatch(fetchProduct(productId))
+  },
+  creatingReview(review) {
+    return dispatch(creatingReview(review))
+  },
+  fetchReview(review) {
+    return dispatch
   }
 })
 
