@@ -1,5 +1,12 @@
 const router = require('express').Router()
-const {Cart, Product, User} = require('../db/models')
+const {
+  Cart,
+  Product,
+  User,
+  CartProduct,
+  OrderProduct,
+  Order
+} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   try {
@@ -12,6 +19,7 @@ router.get('/', async (req, res, next) => {
 })
 router.get('/usercart', async (req, res, next) => {
   try {
+    console.log(req.session.cart)
     let cart = await Cart.findOne({
       where: {userId: req.query.userId},
       include: {all: true}
@@ -77,6 +85,42 @@ router.delete('/deleteItem/:itemId', async (req, res, next) => {
       }
     })
     res.json('Item successfully deleted')
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/submit/:cartId', async (req, res, next) => {
+  try {
+    let quantity = req.body.quantity
+    let products = req.body.products
+    let subTotal = products.reduce((acc, curr) => {
+      return (acc += curr.price * quantity[`quantity${curr.id}`])
+    }, 0)
+    // console.log('req body >>>>>>', req.body)
+    // console.log('cart id param >>>>>>>', req.params.cartId)
+    // console.log('SUBTOTAL>>>>', subTotal)
+    const order = await Order.create({
+      // quantity: req.body.quantity,
+      time: Date.now(),
+      subTotal: subTotal,
+      userId: req.body.userId
+    })
+    console.log('ORDER>>>>>', order)
+    products.forEach(async product => {
+      let orderProductRow = await OrderProduct.create({
+        purchasedPrice: product.price,
+        productId: product.id,
+        orderId: order.id,
+        quantity: quantity[`quantity${product.id}`]
+      })
+      console.log('order product row >>>>>>>>', orderProductRow)
+    })
+    await CartProduct.destroy({
+      where: {
+        cartId: req.params.cartId
+      }
+    })
   } catch (err) {
     next(err)
   }

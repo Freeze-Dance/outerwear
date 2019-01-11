@@ -12,7 +12,7 @@ class Navbar extends React.Component {
     this.props.fetchUser()
   }
   render() {
-    let {isLoggedIn, handleClick} = this.props
+    let {isLoggedIn, isAdmin, handleClick} = this.props
     return (
       <div>
         <h1>Freeze Dance</h1>
@@ -20,18 +20,16 @@ class Navbar extends React.Component {
           {isLoggedIn ? (
             <div>
               <Link to="/">Home</Link>
-              {/* {isSingleProduct ? <div>{Category}</div> : <div/>} //shows category only in single product view */}
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
-              <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
               <Link to={`/orderhistory/${this.props.user.id}`}>
                 Previous Orders
               </Link>
-              {this.props.user.admin ? (
+              {isAdmin ? (
                 <Link to="/dashboard">Dashboard</Link>
               ) : (
-                <div />
+                <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
               )}
             </div>
           ) : (
@@ -57,6 +55,7 @@ const mapState = state => {
   return {
     isLoggedIn: !!state.user.id,
     isSingleProduct: !!state.currentProduct,
+    isAdmin: !!state.user.admin,
     user: state.user
   }
 }
