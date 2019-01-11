@@ -97,11 +97,11 @@ router.put('/submit/:cartId', async (req, res, next) => {
     let subTotal = products.reduce((acc, curr) => {
       return (acc += curr.price * quantity[`quantity${curr.id}`])
     }, 0)
-    // console.log('req body >>>>>>', req.body)
-    // console.log('cart id param >>>>>>>', req.params.cartId)
-    // console.log('SUBTOTAL>>>>', subTotal)
+    console.log('req body >>>>>>', req.body)
+    console.log('cart id param >>>>>>>', req.params.cartId)
+    console.log('SUBTOTAL>>>>', subTotal)
     const order = await Order.create({
-      // quantity: req.body.quantity,
+      quantity: req.body.quantity,
       time: Date.now(),
       subTotal: subTotal,
       userId: req.body.userId

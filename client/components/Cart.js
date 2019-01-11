@@ -7,8 +7,7 @@ class Cart extends Component {
   constructor() {
     super()
     this.state = {
-      item: '',
-      quantity: []
+      item: ''
     }
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
