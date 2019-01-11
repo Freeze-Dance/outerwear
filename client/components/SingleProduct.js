@@ -64,29 +64,27 @@ class SingleProduct extends Component {
           <div id="quantity">Quantity: {inventoryQuantitiy}</div>
         </div>
         <div>
-          <button
-            type="button"
-            onClick={() =>
-              Axios.put(`/api/guestAdd`, {
-                id: this.props.match.params.productId
-              })
-            }
-          >
-            Add to Cart
-          </button>
+          <form onSubmit={this.createNewReview}>
+            Review: <textarea name="review" rows="5" cols="100" />
+            <StarRatings
+              rating={this.state.rating}
+              starRatedColor="blue"
+              changeRating={this.changeRating}
+              numberOfStars={5}
+              name="rating"
+            />
+            Rate this product!
+            <button type="submit"> Submit review </button>
+          </form>
+          {/* <button
+          type="button"
+          onClick={() =>
+            Axios.put(`/api/guestAdd`, {id: this.props.match.params.productId})
+          }
+        >
+          Add to Cart
+        </button> */}
         </div>
-        <form onSubmit={this.createNewReview}>
-          Review: <textarea name="review" rows="5" cols="100" />
-          <StarRatings
-            rating={this.state.rating}
-            starRatedColor="blue"
-            changeRating={this.changeRating}
-            numberOfStars={5}
-            name="rating"
-          />
-          Rate this product!
-          <button type="submit"> Submit review </button>
-        </form>
       </div>
     )
   }

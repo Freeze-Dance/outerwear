@@ -8,6 +8,7 @@ import dashboard from './components/dashboard'
 import NewProduct from './components/NewProduct'
 import editproduct from './components/editproduct'
 import OrderHistory from './components/OrderHistory'
+import DashboardOrders from './components/DashboardOrders'
 
 /**
  * COMPONENT
@@ -49,6 +50,7 @@ class Routes extends Component {
               path="/products/:productId/createreview"
               component={SingleProduct}
             />
+            <Route exact path="/dashboardorders" component={DashboardOrders} />
           </Switch>
         ) : null}
       </React.Fragment>
