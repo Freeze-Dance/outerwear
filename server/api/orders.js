@@ -21,14 +21,10 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
-// ALL ORDERS HISTORY FOR ADMIN
-router.get('/', async (req, res, next) => {
-  try {
-    const allOrders = await Order.findAll({include: {all: true}})
-    res.json(allOrders)
-  } catch (err) {
-    next(err)
-  }
+router.use((req, res, next) => {
+  const error = new Error('Not Found')
+  error.status = 404
+  next(error)
 })
 
 module.exports = router

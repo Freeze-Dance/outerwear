@@ -49,10 +49,14 @@ function Order(props) {
                 <TableCell>
                   <Link to={`/products/${product.id}`}>{product.title}</Link>
                 </TableCell>
-                <TableCell>${product.price / 100}</TableCell>
-                <TableCell>{product.orderProductQuantity}</TableCell>
                 <TableCell>
-                  ${product.price * product.orderProductQuantity / 100}
+                  ${product.orderProduct.purchasedPrice / 100}
+                </TableCell>
+                <TableCell>{product.orderProduct.orderQuantity}</TableCell>
+                <TableCell>
+                  ${product.orderProduct.purchasedPrice *
+                    product.orderProduct.orderQuantity /
+                    100}
                 </TableCell>
               </TableRow>
             ))}
