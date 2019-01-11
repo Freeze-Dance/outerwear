@@ -1,14 +1,18 @@
 const router = require('express').Router()
 const {Product, Review} = require('../db/models')
 
-router.get('/:id', async (req, res, next) => {
+router.get('/singleProduct/:id', async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id, {
-      include: [{model: Review, required: true}]
+      //fetches reviews for associated product
+      include: [{model: Review}]
     })
+    console.log('product', product)
 
-    if (!product)
+    if (!product) {
       return res.status(404).send(`Error - no product ${req.params.id}`)
+    }
+
     res.json(product)
   } catch (err) {
     next(err)
