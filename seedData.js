@@ -228,16 +228,56 @@ const productData = [
 ]
 
 const reviewData = [
-  {text: 'Triple-buffered actuating initiative', userId: 1, productId: 1},
-  {text: 'Self-enabling fresh-thinking hardware', userId: 1, productId: 1},
-  {text: 'Assimilated zero defect migration', userId: 1, productId: 1},
-  {text: 'Digitized local project', userId: 1, productId: 1},
-  {text: 'Triple-buffered explicit productivity', userId: 2, productId: 2},
-  {text: 'Realigned dynamic approach', userId: 2, productId: 2},
-  {text: 'Centralized incremental contingency', userId: 2, productId: 2},
-  {text: 'Sharable client-driven moderator', userId: 2, productId: 2},
-  {text: 'Customer-focused fault-tolerant approach', userId: 2, productId: 2},
-  {text: 'Progressive uniform open architecture', userId: 3, productId: 3}
+  {
+    text: 'Triple-buffered actuating initiative',
+    userId: 1,
+    productId: 1,
+    rating: 3
+  },
+  {
+    text: 'Self-enabling fresh-thinking hardware',
+    userId: 1,
+    productId: 1,
+    rating: 3
+  },
+  {
+    text: 'Assimilated zero defect migration',
+    userId: 1,
+    productId: 1,
+    rating: 3
+  },
+  {text: 'Digitized local project', userId: 1, productId: 1, rating: 3},
+  {
+    text: 'Triple-buffered explicit productivity',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {text: 'Realigned dynamic approach', userId: 2, productId: 2, rating: 3},
+  {
+    text: 'Centralized incremental contingency',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {
+    text: 'Sharable client-driven moderator',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {
+    text: 'Customer-focused fault-tolerant approach',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {
+    text: 'Progressive uniform open architecture',
+    userId: 3,
+    productId: 3,
+    rating: 3
+  }
 ]
 
 const categoryData = [
