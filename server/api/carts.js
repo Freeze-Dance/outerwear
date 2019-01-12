@@ -37,6 +37,15 @@ router.get('/usercart', async (req, res, next) => {
     next(err)
   }
 })
+router.put('/quantity', async (req, res, next) => {
+  let {sign, productId, cartId} = req.body
+  let join = await CartProduct.find({where: {productId, cartId}})
+  if (sign === 'add') join.update({quantity: join.quantity + 1})
+  else {
+    join.update({quantity: join.quantity - 1})
+  }
+  console.log('QUANTITY>>>>', join.quantity)
+})
 router.put('/addToCart/:userId', async (req, res, next) => {
   let cart = await Cart.findOne({where: {userId: req.params.userId}})
   let join = await CartProduct.findOrCreate({
@@ -103,10 +112,10 @@ router.delete('/deleteItem/:itemId', async (req, res, next) => {
 
 router.put('/submit/:cartId', async (req, res, next) => {
   try {
-    let quantity = req.body.quantity
+    let quantity = req.body.products.cartProduct.quantity
     let products = req.body.products
     let subTotal = products.reduce((acc, curr) => {
-      return (acc += curr.price * quantity[`quantity${curr.id}`])
+      return (acc += curr.price * curr.cartProduct.quantity)
     }, 0)
     console.log('req body >>>>>>', req.body)
     console.log('cart id param >>>>>>>', req.params.cartId)

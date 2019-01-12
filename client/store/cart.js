@@ -1,4 +1,5 @@
 import axios from 'axios'
+import Axios from 'axios'
 
 const initialState = {
   currentCart: {products: [{title: '', cartProduct: {quantity: 0}}]}
@@ -25,11 +26,15 @@ export const checkoutCart = cart => ({
   cart
 })
 
-export const editQuantity = (item, quantity) => ({
-  type: EDIT_QUANTITY,
-  item,
-  quantity
-})
+export const editQuantity = (sign, productId, cartId) => {
+  return async function(dispatch) {
+    const stuff = await Axios.put(`/api/carts/quantity`, {
+      sign,
+      productId,
+      cartId
+    })
+  }
+}
 
 export const deleteCartItem = item => ({
   type: DELETE_CART_ITEM,
@@ -71,15 +76,9 @@ export const addToCart = (productId, userId) => async dispatch => {
 //   }
 // }
 
-export const submitCart = (
-  cartId,
-  products,
-  quantity,
-  userId
-) => async dispatch => {
+export const submitCart = (cartId, products, userId) => async dispatch => {
   const {data} = await axios.put(`/api/carts/submit/${cartId}`, {
     products,
-    quantity,
     userId
   })
   dispatch(checkoutCart(data))

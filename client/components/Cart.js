@@ -1,41 +1,31 @@
 import React, {Component} from 'react'
 import CartItem from './CartItem'
 import {connect} from 'react-redux'
-import {fetchCart, submitCart} from '../store/cart'
+import {fetchCart, submitCart, editQuantity} from '../store/cart'
 
 class Cart extends Component {
   constructor() {
     super()
     this.state = {}
     this.handleClick = this.handleClick.bind(this)
-    // this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleSubmit = this.handleSubmit.bind(this)
   }
 
   componentDidMount() {
     this.props.setCart(this.props.match.params)
   }
 
-  handleClick(e) {
-    console.log('>>>>>>>>>', e.target.value)
+  handleClick(e, productId) {
+    this.props.editQuantity(e.target.value, productId, this.props.cart.id)
   }
-
-  // handleSubmit(event) {
-  //   event.preventDefault()
-  //   let quantity = {}
-  //   this.props.cart.products.forEach(product => {
-  //     quantity[`quantity${product.id}`] =
-  //       event.target[`quantity${product.id}`].value
-  //   })
-  //   console.log(quantity)
-  //   // event.target.quantity5.value
-  //   this.props.setCart(this.props.match.params)
-  //   this.props.submitCart(
-  //     this.props.cart.id,
-  //     this.props.cart.products,
-  //     quantity,
-  //     this.props.match.params.userId
-  //   )
-  // }
+  handleSubmit(e) {
+    e.preventDefault()
+    this.props.submitCart(
+      this.props.cart.id,
+      this.props.cart.products,
+      this.props.match.params
+    )
+  }
 
   render() {
     const cart = this.props.cart
@@ -49,14 +39,14 @@ class Cart extends Component {
               <button
                 type="button"
                 value="add"
-                onClick={e => this.handleClick(e)}
+                onClick={e => this.handleClick(e, product.id)}
               >
                 +
               </button>
               <button
                 type="button"
                 value="subtract"
-                onClick={e => this.handleClick(e)}
+                onClick={e => this.handleClick(e, product.id)}
               >
                 -
               </button>
@@ -84,8 +74,11 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     setCart: userId => dispatch(fetchCart(userId)),
-    submitCart: (cartId, products, quantity, userId) =>
-      dispatch(submitCart(cartId, products, quantity, userId))
+    submitCart: (cartId, products, userId) =>
+      dispatch(submitCart(cartId, products, userId)),
+    editQuantity: (sign, productId, cartId) => {
+      return dispatch(editQuantity(sign, productId, cartId))
+    }
   }
 }
 
