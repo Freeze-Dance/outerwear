@@ -17,35 +17,67 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
-router.get('/guestcart', async (req, res, next) => {
+router.put('/guestCart', async (req, res, next) => {
   try {
-    console.log('REQ SESSION', req.sessionID)
-    let after = await Promise.all(
-      req.session.cart.map(async item => {
-        let lol = await Product.findById(item.id)
-        return lol
+    console.log('GUEST CART PUT REQ BODY >>>>>>>', req.body)
+    console.log('GUEST CART PUT SESSION>>>>>>', req.session.cart)
+    let {productId, inc} = req.body
+    let cart = req.session.cart
+    console.log(productId)
+    if (inc === 1) {
+      req.session.cart.push({id: productId})
+    }
+    if (inc === -1) {
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id === productId) {
+          cart.splice(i, 1)
+          break
+        }
+      }
+    }
+    if (inc === 0) {
+      req.session.cart = cart.filter(obj => {
+        return obj.id !== productId
       })
-    )
-    res.json(after)
-
-    // If cart does not exist... create cart and set to user
-
-    // if (cart === null) {
-    //   cart = await Cart.create()
-    //   const user = await User.findById(req.query.userId)
-    //   await user.setCart(cart)
-    // }
-    // res.json(cart)
+    }
+    res.send('we did it')
+  } catch (e) {
+    console.error(e)
+  }
+})
+router.get('/guestCart', async (req, res, next) => {
+  try {
+    if (req.session.cart === undefined) {
+      req.session.cart = []
+      res.json({})
+    } else {
+      let data = await Promise.all(
+        req.session.cart.map(item => {
+          return Product.findById(item.id)
+        })
+      )
+      let ids = []
+      let cart = {}
+      for (let i = 0; i < data.length; i++) {
+        let id = data[i].id
+        if (ids.includes(id)) cart[id].quantity = cart[id].quantity + 1
+        else {
+          cart[id] = {...data[i].dataValues, quantity: 1}
+          ids.push(id)
+        }
+      }
+      console.log('req session ', req.session)
+      res.json(cart)
+    }
   } catch (err) {
     next(err)
   }
 })
 router.put('/guestAdd', (req, res, next) => {
-  console.log(req.session.cart)
+  console.log('guest add body>>>>', req.body)
   req.session.cart === undefined
     ? (req.session.cart = [req.body])
     : req.session.cart.push(req.body)
-  console.log(req.session)
   res.send('hello')
 })
 
@@ -149,15 +181,11 @@ router.put('/submit/:cartId', async (req, res, next) => {
     let subTotal = products.reduce((acc, curr) => {
       return (acc += curr.price * curr.cartProduct.quantity)
     }, 0)
-    console.log('req body >>>>>>', req.body)
-    console.log('cart id param >>>>>>>', req.params.cartId)
-    console.log('SUBTOTAL>>>>', subTotal)
     const order = await Order.create({
       time: Date.now(),
       subTotal: subTotal,
       userId: 4
     })
-    console.log('ORDER>>>>>', order)
     products.forEach(async product => {
       let orderProductRow = await OrderProduct.create({
         purchasedPrice: product.price,
@@ -165,7 +193,6 @@ router.put('/submit/:cartId', async (req, res, next) => {
         orderId: order.id,
         quantity: product.cartProduct.quantity
       })
-      console.log('order product row >>>>>>>>', orderProductRow)
     })
     await CartProduct.destroy({
       where: {

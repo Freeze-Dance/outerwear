@@ -46,7 +46,7 @@ class SingleProduct extends Component {
   }
   async handleGuest() {
     await Axios.put(`/api/carts/guestAdd`, {
-      id: this.props.match.params.productId
+      id: Number(this.props.match.params.productId)
     })
     this.props.history.push('/cart')
   }
