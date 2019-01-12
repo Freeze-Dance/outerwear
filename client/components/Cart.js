@@ -12,7 +12,7 @@ class Cart extends Component {
   }
 
   componentDidMount() {
-    this.props.setCart(this.props.match.params)
+    this.props.fetchCart(this.props.match.params)
   }
 
   handleClick(e, productId) {
@@ -25,42 +25,52 @@ class Cart extends Component {
       this.props.cart.products,
       this.props.match.params
     )
+    this.props.history.push('/')
   }
 
   render() {
     const cart = this.props.cart
+    console.log(cart.products, 'products')
     return (
-      <form onSubmit={this.handleSubmit}>
-        {cart.products.map(product => {
-          return (
-            <div key={product.id}>
-              <h1>CART ITEM: {product.title}</h1>
-              <h2>Quantity: {product.cartProduct.quantity}</h2>
-              <button
-                type="button"
-                value="add"
-                onClick={e => this.handleClick(e, product.id)}
-              >
-                +
-              </button>
-              <button
-                type="button"
-                value="subtract"
-                onClick={e => this.handleClick(e, product.id)}
-              >
-                -
-              </button>
-              {/* <input
-                type="number"
-                name="quantity"
-                value={this.state.products.}
-                onChange={handleChange}
-              /> */}
-            </div>
-          )
-        })}
-        <button type="submit">Checkout</button>
-      </form>
+      <React.Fragment>
+        {/* {cart.products.length ? */}
+        <form onSubmit={this.handleSubmit}>
+          {cart.products.map(product => {
+            return (
+              <div key={product.id}>
+                <h1>CART ITEM: {product.title}</h1>
+                <h2>Quantity: {product.cartProduct.quantity}</h2>
+                <button
+                  type="button"
+                  value="add"
+                  onClick={e => this.handleClick(e, product.id)}
+                >
+                  +
+                </button>
+                <button
+                  type="button"
+                  value="subtract"
+                  onClick={e => this.handleClick(e, product.id)}
+                >
+                  -
+                </button>
+                {/* <input
+                  type="number"
+                  name="quantity"
+                  value={this.state.products.}
+                  onChange={handleChange}
+                /> */}
+              </div>
+            )
+          })}
+          <button type="submit">Checkout</button>
+        </form>
+        {/* :
+        <div>
+          No items in the cart. Get shopping!
+        </div> */}
+        {/* } */}
+      </React.Fragment>
     )
   }
 }
@@ -73,7 +83,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    setCart: userId => dispatch(fetchCart(userId)),
+    fetchCart: userId => dispatch(fetchCart(userId)),
     submitCart: (cartId, products, userId) =>
       dispatch(submitCart(cartId, products, userId)),
     editQuantity: (sign, productId, cartId) => {

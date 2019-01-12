@@ -4,7 +4,7 @@ const {Product, Review} = require('../db/models')
 router.get('/:id', async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id, {
-      include: [{model: Review, required: true}]
+      include: {all: true}
     })
 
     if (!product)

@@ -41,6 +41,7 @@ class SingleProduct extends Component {
 
   handleClick() {
     this.props.addToCart(this.props.product.id, this.props.user.id)
+    this.props.history.push(`/cart/${this.props.user.id}`)
   }
 
   componentDidMount() {
