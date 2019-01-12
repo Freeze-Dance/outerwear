@@ -91,6 +91,12 @@ export const submitCart = (cartId, products, userId) => async dispatch => {
   dispatch(checkoutCart(data))
 }
 
+export const deleteItem = (cartId, productId, userId) => async dispatch => {
+  console.log(cartId, 'HIIIIIIIIIIIIIII')
+  const {data} = await axios.delete(`/api/carts/delete/${cartId}/${productId}`)
+  dispatch(fetchCart(userId))
+}
+
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CART:

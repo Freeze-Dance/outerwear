@@ -23,10 +23,6 @@ router.get('/usercart', async (req, res, next) => {
       where: {userId: req.query.userId},
       include: {all: true}
     })
-    console.log(
-      'QUANT@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@',
-      cart.products[0].cartProduct.quantity
-    )
 
     // If cart does not exist... create cart and set to user
 
@@ -106,23 +102,9 @@ router.put('/edit', async (req, res, next) => {
   }
 })
 
-router.delete('/deleteItem/:itemId', async (req, res, next) => {
+router.delete('/delete/:cartId/:productId', async (req, res, next) => {
   try {
-    const cart = await Cart.findOne({
-      where: {
-        userId: req.body.id
-      }
-    })
-    const product = await Product.findOne({
-      where: {
-        productId: req.body.id
-      }
-    })
-    await cart.removeProduct({
-      where: {
-        id: req.params.id
-      }
-    })
+    await CartProduct.destroy({where: req.params})
     res.json('Item successfully deleted')
   } catch (err) {
     next(err)

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import CartItem from './CartItem'
 import {connect} from 'react-redux'
-import {fetchCart, submitCart, editQuantity} from '../store/cart'
+import {fetchCart, submitCart, editQuantity, deleteItem} from '../store/cart'
 
 class Cart extends Component {
   constructor() {
@@ -9,6 +9,7 @@ class Cart extends Component {
     this.state = {}
     this.handleClick = this.handleClick.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
+    this.handleDelete = this.handleDelete.bind(this)
   }
 
   componentDidMount() {
@@ -26,6 +27,11 @@ class Cart extends Component {
       this.props.match.params
     )
     this.props.history.push('/')
+  }
+
+  handleDelete(cartId, productId, userId) {
+    console.log(cartId, ': CART ID', productId, ': PRODUCT ID')
+    this.props.deleteItem(cartId, productId, userId)
   }
 
   render() {
@@ -53,6 +59,18 @@ class Cart extends Component {
                   onClick={e => this.handleClick(e, product.id)}
                 >
                   -
+                </button>
+                <button
+                  type="button"
+                  onClick={() =>
+                    this.handleDelete(
+                      cart.id,
+                      product.id,
+                      this.props.match.params
+                    )
+                  }
+                >
+                  Remove Item
                 </button>
                 {/* <input
                   type="number"
@@ -88,6 +106,9 @@ const mapDispatchToProps = dispatch => {
       dispatch(submitCart(cartId, products, userId)),
     editQuantity: (sign, productId, cartId) => {
       return dispatch(editQuantity(sign, productId, cartId))
+    },
+    deleteItem: (cartId, productId, userId) => {
+      return dispatch(deleteItem(cartId, productId, userId))
     }
   }
 }
