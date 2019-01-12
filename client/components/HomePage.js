@@ -12,9 +12,12 @@ class HomePage extends React.Component {
     super()
     this.state = {
       category: '',
-      search: ''
+      search: '',
+      currentPage: 1,
+      productsPerPage: 3
     }
     this.handleChange = this.handleChange.bind(this)
+    this.changePage = this.changePage.bind(this)
   }
 
   componentDidMount() {
@@ -27,7 +30,25 @@ class HomePage extends React.Component {
     })
   }
 
+  changePage(event) {
+    console.log('event', typeof +event.target.id)
+    this.setState({
+      currentPage: +event.target.id
+    })
+  }
+
   render() {
+    const endIdx = this.state.currentPage * this.state.productsPerPage
+    const startIdx = endIdx - this.state.productsPerPage
+    const currentProducts = this.props.products.slice(startIdx, endIdx)
+    const pageNumbers = []
+    for (
+      let i = 1;
+      i <= Math.ceil(this.props.products.length / this.state.productsPerPage);
+      i++
+    ) {
+      pageNumbers.push(i)
+    }
     return (
       <React.Fragment>
         <h1>All Products</h1>
@@ -46,7 +67,7 @@ class HomePage extends React.Component {
           onChange={e => this.setState({search: e.target.value})}
         />
         <ul>
-          {this.props.products.map(product => {
+          {currentProducts.map(product => {
             return !this.state.category &&
               product.title
                 .toUpperCase()
@@ -71,6 +92,13 @@ class HomePage extends React.Component {
               ) : null
             ) : null
           })}
+        </ul>
+        <ul>
+          {pageNumbers.map(page => (
+            <li key={page} id={page} onClick={this.changePage}>
+              {page}
+            </li>
+          ))}
         </ul>
       </React.Fragment>
     )

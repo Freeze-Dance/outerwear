@@ -9,7 +9,8 @@ class SingleProduct extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rating: 5
+      rating: 0,
+      error: ''
     }
     this.createNewReview = this.createNewReview.bind(this)
     this.changeRating = this.changeRating.bind(this)
@@ -17,7 +18,8 @@ class SingleProduct extends Component {
 
   changeRating(newRating, name) {
     this.setState({
-      rating: newRating
+      rating: newRating,
+      error: ''
     })
   }
 
@@ -29,12 +31,18 @@ class SingleProduct extends Component {
     const productId = this.props.product.id
     const rating = this.state.rating
 
-    this.props.creatingReview({
-      text,
-      userId,
-      productId,
-      rating
-    })
+    if (rating > 0) {
+      this.props.creatingReview({
+        text,
+        userId,
+        productId,
+        rating
+      })
+    } else {
+      this.setState({
+        error: 'Star Rating Required'
+      })
+    }
   }
 
   componentDidMount() {
@@ -65,18 +73,24 @@ class SingleProduct extends Component {
           <div id="quantity">Quantity: {inventoryQuantitiy}</div>
         </div>
         <div>
-          <form onSubmit={this.createNewReview}>
-            Review: <textarea name="review" rows="5" cols="100" />
-            <StarRatings
-              rating={this.state.rating}
-              starRatedColor="blue"
-              changeRating={this.changeRating}
-              numberOfStars={5}
-              name="rating"
-            />
-            Rate this product!
-            <button type="submit"> Submit review </button>
-          </form>
+          {Object.keys(this.props.user).length > 0 ? (
+            <form onSubmit={this.createNewReview}>
+              Review: <textarea name="review" required rows="5" cols="100" />
+              <StarRatings
+                rating={this.state.rating}
+                starRatedColor="blue"
+                changeRating={this.changeRating}
+                numberOfStars={5}
+                name="rating"
+              />
+              Rate this product!
+              <button type="submit"> Submit review </button>
+            </form>
+          ) : (
+            <div> PLEASE LOG IN TO LEAVE A REVIEW</div>
+          )}
+          {this.state.error ? <div>{this.state.error}</div> : null}
+
           {/* <button
           type="button"
           onClick={() =>
@@ -89,8 +103,7 @@ class SingleProduct extends Component {
             {reviews &&
               reviews.map(review => (
                 <li key={review.id}>
-                  {' '}
-                  {review.text} {review.rating}{' '}
+                  {review.text} {review.rating}
                 </li>
               ))}
           </ul>
