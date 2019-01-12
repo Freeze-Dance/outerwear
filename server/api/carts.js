@@ -130,7 +130,8 @@ router.put('/submit/:cartId', async (req, res, next) => {
       let orderProductRow = await OrderProduct.create({
         purchasedPrice: product.price,
         productId: product.id,
-        orderId: order.id
+        orderId: order.id,
+        quantity: product.cartProduct.quantity
       })
       console.log('order product row >>>>>>>>', orderProductRow)
     })

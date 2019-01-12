@@ -7,11 +7,10 @@ router.get('/:userId', async (req, res, next) => {
       where: {
         userId: req.params.userId
       },
-      include: [
-        {
-          model: Product
-        }
-      ]
+      include: {
+        all: true
+      },
+      order: [['createdAt', 'DESC']]
     })
     if (!customerOrders)
       return res.status(404).send(`Error - no order for ${req.params.userId}`)

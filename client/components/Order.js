@@ -51,10 +51,10 @@ function Order(props) {
                 <TableCell>
                   ${product.orderProduct.purchasedPrice / 100}
                 </TableCell>
-                <TableCell>{product.orderProduct.orderQuantity}</TableCell>
+                <TableCell>{product.orderProduct.quantity}</TableCell>
                 <TableCell>
                   ${product.orderProduct.purchasedPrice *
-                    product.orderProduct.orderQuantity /
+                    product.orderProduct.quantity /
                     100}
                 </TableCell>
               </TableRow>

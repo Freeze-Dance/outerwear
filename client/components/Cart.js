@@ -29,6 +29,7 @@ class Cart extends Component {
       this.props.cart.products,
       this.props.match.params
     )
+    this.props.history.push('/')
     // this.props.history.push(`/orderhistory/${this.props.match.params.userId}`)
   }
 
