@@ -45,6 +45,9 @@ router.put('/guestCart', async (req, res, next) => {
     console.error(e)
   }
 })
+// router.put('/guestSubmit',async (req,res,next)=>{
+
+// })
 router.get('/guestCart', async (req, res, next) => {
   try {
     if (req.session.cart === undefined) {
