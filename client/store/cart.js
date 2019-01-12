@@ -51,6 +51,7 @@ export const fetchCart = userId => async dispatch => {
   const {data} = await axios.get('/api/carts/usercart', {
     params: userId
   })
+  if (!data.products) data.products = []
   console.log(data, 'DATA')
   dispatch(setCart(data))
 }

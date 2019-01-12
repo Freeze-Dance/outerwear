@@ -15,6 +15,7 @@ class SingleProduct extends Component {
     this.createNewReview = this.createNewReview.bind(this)
     this.changeRating = this.changeRating.bind(this)
     this.handleClick = this.handleClick.bind(this)
+    this.handleGuest = this.handleGuest.bind(this)
   }
 
   changeRating(newRating, name) {
@@ -43,6 +44,12 @@ class SingleProduct extends Component {
     this.props.addToCart(this.props.product.id, this.props.user.id)
     this.props.history.push(`/cart/${this.props.user.id}`)
   }
+  async handleGuest() {
+    await Axios.put(`/api/carts/guestAdd`, {
+      id: this.props.match.params.productId
+    })
+    this.props.history.push('/cart')
+  }
 
   componentDidMount() {
     const {productId} = this.props.match.params
@@ -70,29 +77,29 @@ class SingleProduct extends Component {
           <div id="quantity">Quantity: {inventoryQuantitiy}</div>
         </div>
         <div>
-          <form onSubmit={this.createNewReview}>
-            Review: <textarea name="review" rows="5" cols="100" />
-            <StarRatings
-              rating={this.state.rating}
-              starRatedColor="blue"
-              changeRating={this.changeRating}
-              numberOfStars={5}
-              name="rating"
-            />
-            Rate this product!
-            <button type="submit"> Submit review </button>
-          </form>
-          <button type="button" onClick={this.handleClick}>
-            Add to Cart
-          </button>
-          {/* <button
-          type="button"
-          onClick={() =>
-            Axios.put(`/api/guestAdd`, {id: this.props.match.params.productId})
-          }
-        >
-          Add to Cart
-        </button> */}
+          {this.props.user.id ? (
+            <React.Fragment>
+              <form onSubmit={this.createNewReview}>
+                Review: <textarea name="review" rows="5" cols="100" />
+                <StarRatings
+                  rating={this.state.rating}
+                  starRatedColor="blue"
+                  changeRating={this.changeRating}
+                  numberOfStars={5}
+                  name="rating"
+                />
+                Rate this product!
+                <button type="submit"> Submit review </button>
+              </form>
+              <button type="button" onClick={this.handleClick}>
+                Add to Cart
+              </button>
+            </React.Fragment>
+          ) : (
+            <button type="button" onClick={this.handleGuest}>
+              Add to Guest Cart
+            </button>
+          )}
         </div>
       </div>
     )

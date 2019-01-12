@@ -9,6 +9,7 @@ import NewProduct from './components/NewProduct'
 import editproduct from './components/editproduct'
 import OrderHistory from './components/OrderHistory'
 import DashboardOrders from './components/DashboardOrders'
+import GuestCart from './components/GuestCart'
 
 /**
  * COMPONENT
@@ -29,16 +30,17 @@ class Routes extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/products/:productId" component={SingleProduct} />
-          <Route exact path="/cart" component={Cart} />
           <Route exact path="/dashboard" component={dashboard} />
           <Route exact path="/newproduct" component={NewProduct} />
           <Route exact path="/editproduct/:id" component={editproduct} />
+          <Route exact path="/cart" component={GuestCart} />
 
           {/* Displays our Login component as a fallback */}
         </Switch>
         {isLoggedIn ? (
           <Switch>
             {/* Routes placed here are only available after logging in */}
+            <Route exact path="/cart" component={Cart} />
             <Route exact path="/cart/:userId" component={Cart} />
             <Route
               exact

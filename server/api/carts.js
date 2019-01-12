@@ -17,6 +17,38 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+router.get('/guestcart', async (req, res, next) => {
+  try {
+    console.log('REQ SESSION', req.sessionID)
+    let after = await Promise.all(
+      req.session.cart.map(async item => {
+        let lol = await Product.findById(item.id)
+        return lol
+      })
+    )
+    res.json(after)
+
+    // If cart does not exist... create cart and set to user
+
+    // if (cart === null) {
+    //   cart = await Cart.create()
+    //   const user = await User.findById(req.query.userId)
+    //   await user.setCart(cart)
+    // }
+    // res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+router.put('/guestAdd', (req, res, next) => {
+  console.log(req.session.cart)
+  req.session.cart === undefined
+    ? (req.session.cart = [req.body])
+    : req.session.cart.push(req.body)
+  console.log(req.session)
+  res.send('hello')
+})
+
 router.get('/usercart', async (req, res, next) => {
   try {
     let cart = await Cart.findOne({
