@@ -15,7 +15,6 @@ const styles = theme => ({
 })
 
 function OrderStatusSelect(props) {
-  // pass onChange handler from DashboardOrders through Order to this component
   // default status should be what is currently in Order component
   const {classes, handleOrderStatusChange, order} = props
   return (

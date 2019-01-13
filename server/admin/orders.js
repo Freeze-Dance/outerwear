@@ -23,7 +23,7 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-// admin/update specific order - NEED order status field to be added to model
+// admin/update specific order
 router.put('/:id', async (req, res, next) => {
   try {
     const [numRows, updatedOrder] = await Order.update(req.body, {

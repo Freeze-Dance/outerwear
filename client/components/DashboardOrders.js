@@ -38,17 +38,13 @@ class OrderHistory extends Component {
     })
   }
 
-  // (orderId, order)
-  // issue with store
   handleOrderStatusChange(event, order) {
-    // console.log('hitting handleOrderStatus', order, event.target.value)
     order.status = event.target.value
     console.log(order, order.id)
     this.props.editCurrentOrder(order.id, order)
   }
 
   render() {
-    // add in customer info and edit button info as props into order
     const allOrdersForAdmin = this.props.allOrders
       .reduce((acc, cur) => {
         // try to refactor this - would be nice to use .filter but need to handle show all orders
