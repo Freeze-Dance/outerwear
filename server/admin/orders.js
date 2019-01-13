@@ -28,7 +28,7 @@ router.put('/:id', async (req, res, next) => {
   try {
     const [numRows, updatedOrder] = await Order.update(req.body, {
       returning: true,
-      where: {id: req.params.id}
+      where: {id: req.body.id}
     })
     res.status(201).json(updatedOrder)
   } catch (err) {

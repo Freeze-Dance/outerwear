@@ -42,6 +42,7 @@ export const fetchCurrentOrder = orderId => async dispatch => {
 export const editCurrentOrder = (orderId, order) => async dispatch => {
   try {
     const res = await axios.put(`/admin/orders/${orderId}`, order)
+    console.log(res, '<<< THUNK res')
     dispatch(updateCurrentOrder(res.data))
   } catch (err) {
     console.error(err)
@@ -51,7 +52,7 @@ export const editCurrentOrder = (orderId, order) => async dispatch => {
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CUSTOMER_ORDERS:
-      return {...state, customerOrders: [...action.orders]}
+      return {...state, customerOrders: action.orders}
     case GET_ALL_ORDERS:
       return {...state, allOrders: action.orders}
     case GET_CURRENT_ORDER:
@@ -63,9 +64,7 @@ export default function(state = initialState, action) {
           order => (order.id === action.order.id ? action.order : order)
         ),
         currentOrder: {
-          ...action.order,
-          user: {...state.currentOrder.user},
-          products: [...state.currentOrder.products]
+          ...action.order
         }
       }
     default:

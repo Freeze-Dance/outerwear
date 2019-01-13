@@ -1,7 +1,7 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import Order from './Order.js'
-import {fetchAllOrders} from '../store'
+import {fetchAllOrders, editCurrentOrder} from '../store'
 import Typography from '@material-ui/core/Typography'
 import InputLabel from '@material-ui/core/InputLabel'
 import Select from '@material-ui/core/Select'
@@ -12,7 +12,7 @@ import {withStyles} from '@material-ui/core/styles'
 // style adjustments for material-ui compontents - adds to this.props.classes
 const styles = {
   root: {
-    minWidth: 120,
+    minWidth: 160,
     marginLeft: 20,
     marginBottom: 20
   }
@@ -24,17 +24,27 @@ class OrderHistory extends Component {
     this.state = {
       orderStatus: ''
     }
-    this.handleChange = this.handleChange.bind(this)
+    this.handleOrderFilterChange = this.handleOrderFilterChange.bind(this)
+    this.handleOrderStatusChange = this.handleOrderStatusChange.bind(this)
   }
 
   componentDidMount() {
     this.props.fetchAllOrders()
   }
 
-  handleChange(event) {
+  handleOrderFilterChange(event) {
     this.setState({
       orderStatus: event.target.value
     })
+  }
+
+  // (orderId, order)
+  // issue with store
+  handleOrderStatusChange(event, order) {
+    // console.log('hitting handleOrderStatus', order, event.target.value)
+    order.status = event.target.value
+    console.log(order, order.id)
+    this.props.editCurrentOrder(order.id, order)
   }
 
   render() {
@@ -46,25 +56,35 @@ class OrderHistory extends Component {
           acc.push(cur)
           return acc
         } else if (cur.status === this.state.orderStatus) {
-            acc.push(cur)
-            return acc
-          } else {
-            return acc
-          }
+          acc.push(cur)
+          return acc
+        } else {
+          return acc
+        }
       }, [])
-      .map(order => <Order key={order.id} order={order} />)
+      .map(order => (
+        <Order
+          key={order.id}
+          order={order}
+          admin={true}
+          handleOrderStatusChange={this.handleOrderStatusChange}
+        />
+      ))
     const {classes} = this.props
     return (
       <Fragment>
         <Typography variant="h4" align="center" gutterBottom>
-          All Orders
+          Customer Orders
         </Typography>
         <FormControl className={classes.root}>
-          <InputLabel htmlFor="orderStatus-simple">Order Status</InputLabel>
+          <InputLabel htmlFor="orderStatus-simple">
+            Filter Order Status
+          </InputLabel>
           <Select
             value={this.state.orderStatus}
-            onChange={this.handleChange}
+            onChange={this.handleOrderFilterChange}
             inputProps={{name: 'orderStatus', id: 'orderStatus-simple'}}
+            displayEmpty
           >
             <MenuItem value="">All</MenuItem>
             <MenuItem value="Created">Created</MenuItem>
@@ -86,6 +106,9 @@ const mapState = state => ({
 const mapDispatch = dispatch => ({
   fetchAllOrders() {
     return dispatch(fetchAllOrders())
+  },
+  editCurrentOrder() {
+    return dispatch(editCurrentOrder())
   }
 })
 

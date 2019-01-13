@@ -8,18 +8,24 @@ import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
 import {withStyles} from '@material-ui/core/styles'
+import OrderStatusSelect from './OrderStatusSelect'
 import {formatSequelizeTimeToDate, formatSequelizeTimeToTime} from '../../utils'
 
 const styles = {
   root: {
     margin: 20,
     padding: 20
+  },
+  cellBorder: {
+    borderBottomWidth: 3,
+    borderBottomStyle: 'solid',
+    borderBottomColor: 'rgba(224, 224, 224, 1)'
   }
 }
 
 function Order(props) {
   const {id, time, status, products, subTotal} = props.order
-  const {classes} = props
+  const {classes, admin, handleOrderStatusChange} = props
   return (
     <Fragment>
       <Paper className={classes.root}>
@@ -61,11 +67,24 @@ function Order(props) {
             ))}
             <TableRow>
               <TableCell rowSpan={2} />
-              <TableCell colSpan={2}>Subtotal</TableCell>
-              <TableCell>${subTotal / 100}</TableCell>
+              <TableCell colSpan={2} className={classes.cellBorder}>
+                Subtotal
+              </TableCell>
+              <TableCell className={classes.cellBorder}>
+                ${subTotal / 100}
+              </TableCell>
             </TableRow>
             <TableRow>
-              <TableCell colSpan={2}>Order Status</TableCell>
+              <TableCell colSpan={2}>
+                {admin ? (
+                  <OrderStatusSelect
+                    handleOrderStatusChange={handleOrderStatusChange}
+                    order={props.order}
+                  />
+                ) : (
+                  'Order Status'
+                )}
+              </TableCell>
               <TableCell>{status}</TableCell>
             </TableRow>
           </TableBody>
