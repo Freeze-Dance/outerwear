@@ -48,7 +48,7 @@ class OrderHistory extends Component {
     const allOrdersForAdmin = this.props.allOrders
       .reduce((acc, cur) => {
         // try to refactor this - would be nice to use .filter but need to handle show all orders
-        if (this.state.orderStatus === '') {
+        if (this.state.orderStatus === ' ') {
           acc.push(cur)
           return acc
         } else if (cur.status === this.state.orderStatus) {
