@@ -30,6 +30,7 @@ export const me = () => async dispatch => {
   }
 }
 
+// method input is either login or signup
 export const auth = (email, password, method) => async dispatch => {
   let res
   try {
