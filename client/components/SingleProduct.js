@@ -133,9 +133,27 @@ export class SingleProduct extends Component {
                   </div>
                 </div>
                 <div>
-                  <Button variant="contained" color="primary">
-                    Add to Cart
-                  </Button>
+                  {Object.keys(this.props.user).length > 0 ? (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="margin-20"
+                      type="button"
+                      onClick={this.handleClick}
+                    >
+                      Add to Cart
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="margin-20"
+                      type="button"
+                      onClick={this.handleGuest}
+                    >
+                      Add to Guest Cart
+                    </Button>
+                  )}
                 </div>
               </div>
             </CardContent>
