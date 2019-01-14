@@ -12,14 +12,35 @@ import CardHeader from '@material-ui/core/CardHeader'
 import TextField from '@material-ui/core/TextField'
 import CardActions from '@material-ui/core/CardActions'
 import CardMedia from '@material-ui/core/CardMedia'
+import {withStyles} from '@material-ui/core/styles'
 import './SingleProduct.css'
+import {isAbsolute} from 'path'
 
-const styles = {
+const styles = theme => ({
   card: {
-    width: '70%',
-    margin: '0 auto'
+    margin: 20,
+    flexGrow: 1
+  },
+  media: {
+    height: 0,
+    paddingTop: '70%',
+    position: 'relative'
+  },
+  cardHeader: {
+    position: 'relative',
+    zIndex: 56,
+    bottom: 70,
+    width: '100%',
+    backgroundColor: 'rgba(77, 171, 245, 0.5)',
+    height: theme.spacing.unit * 5
+  },
+  cardContent: {
+    paddingTop: '-20%'
+  },
+  reviewCard: {
+    margin: 20
   }
-}
+})
 
 export class SingleProduct extends Component {
   constructor(props) {
@@ -32,6 +53,12 @@ export class SingleProduct extends Component {
     this.changeRating = this.changeRating.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleGuest = this.handleGuest.bind(this)
+  }
+
+  componentDidMount() {
+    console.log('<<< SingleProduct mounted')
+    const {productId} = this.props.match.params
+    this.props.fetchProduct(productId)
   }
 
   changeRating(newRating, name) {
@@ -74,11 +101,6 @@ export class SingleProduct extends Component {
     this.props.history.push('/cart')
   }
 
-  componentDidMount() {
-    const {productId} = this.props.match.params
-    this.props.fetchProduct(productId)
-  }
-
   render() {
     const {
       title,
@@ -88,89 +110,131 @@ export class SingleProduct extends Component {
       inventoryQuantity,
       reviews
     } = this.props.product
-
+    console.log(this.props.product, '<<< Props SingleProduct')
+    const {classes} = this.props
     return (
       <React.Fragment>
-        <Card className="single-product-image" style={styles.card}>
-          <CardMedia
-            id="single-product-image"
-            image={photoURL}
-            title="Product Title"
-            component="img"
-            alt="Product Description"
-            height="300"
-          />
-          <CardContent className="product-content">
-            <h2> {title} </h2>
-            <div className="product-description">
-              Description: {description}
-            </div>
-            <div className="product-description">
-              Price: {`$${price / 100}`}
-            </div>
-            <div className="product-description">
-              Quantity: {inventoryQuantity}
-            </div>
-          </CardContent>
-        </Card>
-
-        {Object.keys(this.props.user).length > 0 ? (
-          <React.Fragment>
-            <button type="button" onClick={this.handleClick}>
-              Add to Cart
-            </button>
-            <form className="review-form" onSubmit={this.createNewReview}>
-              <textarea
-                name="review"
-                id="review-textarea"
-                required
-                rows="5"
-                placeholder="Leave a review..."
-              />
-
-              <StarRatings
-                rating={this.state.rating}
-                starRatedColor="blue"
-                changeRating={this.changeRating}
-                numberOfStars={5}
-                starDimension="30px"
-                starSpacing="1px"
-                name="rating"
-                className="star-ratings"
-              />
-              <Button id="submit-review" type="submit">
-                {' '}
-                Submit Review{' '}
-              </Button>
-            </form>
-          </React.Fragment>
-        ) : (
-          <React.Fragment>
-            <div> PLEASE LOG IN TO LEAVE A REVIEW</div>
-            <button type="button" onClick={this.handleGuest}>
-              Add to Guest Cart
-            </button>
-          </React.Fragment>
-        )}
-
-        {this.state.error ? <div>{this.state.error}</div> : null}
-
-        <div className="reviews">
-          {reviews &&
-            reviews.map(review => (
-              <Card key={review.id}>
-                <CardContent className="review-content">
-                  <StarRatings
-                    rating={review.rating}
-                    starRatedColor="yellow"
-                    numberOfStars={5}
-                    starDimension="20px"
-                    starSpacing="1px"
+        <div className="flex">
+          <Card className={classes.card}>
+            <CardMedia
+              className={classes.media}
+              image={`/${photoURL}`}
+              title="Product Title"
+              // component="img"
+              alt="Product Description"
+              // maxHeight="50px"
+            >
+              <CardHeader className={classes.cardHeader} title={`${title} -`} />
+            </CardMedia>
+            <CardContent className="product-content">
+              <div className="margin-20 flex-space-between">
+                <div>
+                  <div className="product-description">
+                    Description: {description}
+                  </div>
+                  <div className="product-description">
+                    Price: {`$${price / 100}`}
+                  </div>
+                  <div className="product-description">
+                    Quantity: {inventoryQuantity}
+                  </div>
+                </div>
+                <div>
+                  {Object.keys(this.props.user).length > 0 ? (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="margin-20"
+                      type="button"
+                      onClick={this.handleClick}
+                    >
+                      Add to Cart
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      className="margin-20"
+                      type="button"
+                      onClick={this.handleGuest}
+                    >
+                      Add to Guest Cart
+                    </Button>
+                  )}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <div className="card">
+            {Object.keys(this.props.user).length > 0 ? (
+              <React.Fragment>
+                {/* <button
+                  className="margin-20"
+                  type="button"
+                  onClick={this.handleClick}
+                >
+                  Add to Cart
+                </button> */}
+                <form className="review-form" onSubmit={this.createNewReview}>
+                  <textarea
+                    name="review"
+                    id="review-textarea"
+                    required
+                    rows="5"
+                    placeholder="Leave a review..."
                   />
-                  <div className="review-text"> {review.text} </div>
-                </CardContent>
-              </Card>
-            ))}
+
+                  <StarRatings
+                    rating={this.state.rating}
+                    starRatedColor="blue"
+                    changeRating={this.changeRating}
+                    numberOfStars={5}
+                    starDimension="30px"
+                    starSpacing="1px"
+                    name="rating"
+                    className="star-ratings"
+                  />
+                  <Button id="submit-review" type="submit">
+                    {' '}
+                    Submit Review{' '}
+                  </Button>
+                </form>
+              </React.Fragment>
+            ) : (
+              <React.Fragment>
+                {/* <button
+                  className="margin-20"
+                  type="button"
+                  onClick={this.handleGuest}
+                >
+                  Add to Guest Cart
+                </button> */}
+                <div className="margin-20">
+                  <div> PLEASE LOG IN TO LEAVE A REVIEW</div>
+                </div>
+              </React.Fragment>
+            )}
+
+            {this.state.error ? <div>{this.state.error}</div> : null}
+
+            <div className="reviews">
+              {reviews &&
+                reviews.map(review => (
+                  <Card key={review.id} className={classes.reviewCard}>
+                    <CardContent className="review-content">
+                      <StarRatings
+                        rating={review.rating}
+                        starRatedColor="yellow"
+                        numberOfStars={5}
+                        starDimension="20px"
+                        starSpacing="1px"
+                      />
+                      <div className="review-text"> {review.text} </div>
+                    </CardContent>
+                  </Card>
+                ))}
+            </div>
+          </div>
         </div>
       </React.Fragment>
     )
@@ -196,4 +260,6 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SingleProduct)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withStyles(styles)(SingleProduct)
+)

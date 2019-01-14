@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, HomePage, SingleProduct, Cart} from './components'
 import {me} from './store'
@@ -29,17 +29,12 @@ class Routes extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/products/:productId" component={SingleProduct} />
-          <Route exact path="/dashboard" component={dashboard} />
-          <Route exact path="/newproduct" component={NewProduct} />
-          <Route exact path="/editproduct/:id" component={editproduct} />
           <Route exact path="/cart" component={GuestCart} />
-
-          {/* Displays our Login component as a fallback */}
+          {/* Displays our HomePage component as a fallback */}
         </Switch>
-        {isLoggedIn && (
+        {isLoggedIn ? (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/cart" component={Cart} />
             <Route exact path="/cart/:userId" component={Cart} />
             <Route
               exact
@@ -64,7 +59,10 @@ class Routes extends Component {
               </Fragment>
             )}
           </Switch>
-        )}
+        ) : (
+          <Redirect to="/" />
+        ) //if not logged in (or if logged in not admin) and try route - redirect to homepage
+        }
       </Fragment>
     )
   }
