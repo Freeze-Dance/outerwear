@@ -14,6 +14,7 @@ import CardActions from '@material-ui/core/CardActions'
 import CardMedia from '@material-ui/core/CardMedia'
 import {withStyles} from '@material-ui/core/styles'
 import './SingleProduct.css'
+import {isAbsolute} from 'path'
 
 const styles = theme => ({
   card: {
@@ -22,10 +23,15 @@ const styles = theme => ({
   },
   media: {
     height: 0,
-    paddingTop: '70%'
+    paddingTop: '70%',
+    position: 'relative'
   },
   cardHeader: {
-    backgroundColor: 'rgba(77, 171, 245, 0.2)',
+    position: 'relative',
+    zIndex: 56,
+    bottom: 70,
+    width: '100%',
+    backgroundColor: 'rgba(77, 171, 245, 0.5)',
     height: theme.spacing.unit * 5
   },
   cardContent: {
@@ -110,15 +116,16 @@ export class SingleProduct extends Component {
       <React.Fragment>
         <div className="flex">
           <Card className={classes.card}>
-            <CardHeader className={classes.cardHeader} title={`${title} -`} />
             <CardMedia
               className={classes.media}
               image={`/${photoURL}`}
               title="Product Title"
               // component="img"
               alt="Product Description"
-              // height="300"
-            />
+              // maxHeight="50px"
+            >
+              <CardHeader className={classes.cardHeader} title={`${title} -`} />
+            </CardMedia>
             <CardContent className="product-content">
               <div className="margin-20 flex-space-between">
                 <div>
@@ -161,13 +168,13 @@ export class SingleProduct extends Component {
           <div className="card">
             {Object.keys(this.props.user).length > 0 ? (
               <React.Fragment>
-                <button
+                {/* <button
                   className="margin-20"
                   type="button"
                   onClick={this.handleClick}
                 >
                   Add to Cart
-                </button>
+                </button> */}
                 <form className="review-form" onSubmit={this.createNewReview}>
                   <textarea
                     name="review"
@@ -195,13 +202,13 @@ export class SingleProduct extends Component {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                <button
+                {/* <button
                   className="margin-20"
                   type="button"
                   onClick={this.handleGuest}
                 >
                   Add to Guest Cart
-                </button>
+                </button> */}
                 <div className="margin-20">
                   <div> PLEASE LOG IN TO LEAVE A REVIEW</div>
                 </div>
