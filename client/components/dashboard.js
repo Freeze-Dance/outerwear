@@ -56,15 +56,19 @@ class dashboard extends React.Component {
     // note requirements - all products must belong to at least one category
     const allCatalogProducts = this.props.products
       .filter(
+        // filter for category select
         product =>
           product.categories[0].name === this.state.category ||
           this.state.category === ''
       )
       .filter(
+        // filter for search input entry
         product =>
           product.title
             .toUpperCase()
             .includes(this.state.search.toUpperCase()) ||
+          product.categories[0].name.toUpperCase() ===
+            this.state.search.toLocaleUpperCase() ||
           this.state.search === ''
       )
       .map(product => (
@@ -80,7 +84,7 @@ class dashboard extends React.Component {
           </Typography>
           <div>
             <FormControl className={classes.root}>
-              <FormHelperText>Filter Orders</FormHelperText>
+              <FormHelperText>Filter Categories</FormHelperText>
               <Select
                 value={this.state.category}
                 onChange={event => this.handleFilterChange(event)}

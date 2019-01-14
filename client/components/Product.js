@@ -28,11 +28,13 @@ function Product(props) {
   return (
     <Fragment>
       <Card className={classes.card}>
-        <CardHeader
-          title={`Product #${product.id}`}
-          subheader={product.title}
-        />
         <Link to={`/products/${product.id}`}>
+          <CardHeader
+            title={`Product #${product.id}`}
+            subheader={`${
+              product.title
+            } - ${product.categories[0].name.toUpperCase()}`}
+          />
           <CardMedia
             className={classes.media}
             image={product.photoURL}
