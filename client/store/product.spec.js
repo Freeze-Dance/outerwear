@@ -1,7 +1,7 @@
 /* global describe beforeEach afterEach it */
 
 import {expect} from 'chai'
-import {fetchProducts, fetchProduct} from './product'
+import {fetchProducts, fetchProduct, creatingReview} from './product'
 import axios from 'axios'
 import MockAdapter from 'axios-mock-adapter'
 import configureMockStore from 'redux-mock-store'
@@ -53,6 +53,22 @@ describe('thunk creators', () => {
       const actions = store.getActions()
       expect(actions[0].type).to.be.equal('GET_PRODUCT')
       expect(actions[0].product).to.be.deep.equal(fakeProduct)
+    })
+  })
+
+  describe('creatingReview', () => {
+    it('eventually dispatches the CREATE_REVIEW action', async () => {
+      const fakeReview = {
+        text: 'Great product!',
+        userId: 1,
+        productId: 2,
+        rating: 5
+      }
+      mockAxios.onGet('/api/products/createreview').replyOnce(200, fakeReview)
+      await store.dispatch(creatingReview())
+      const actions = store.getActions()
+      expect(actions[0].type).to.be.equal('CREATE_REVIEW')
+      expect(actions[0].product).to.be.deep.equal(fakeReview)
     })
   })
 })
