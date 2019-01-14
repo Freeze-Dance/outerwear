@@ -1,40 +1,109 @@
 import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store'
-import {Link} from 'react-router-dom'
 import Product from './Product'
 import Typography from '@material-ui/core/Typography'
+import Select from '@material-ui/core/Select'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import FormHelperText from '@material-ui/core/FormHelperText'
+import TextField from '@material-ui/core/TextField'
+import {withStyles} from '@material-ui/core/styles'
+
+const styles = theme => ({
+  root: {
+    minWidth: 160,
+    marginLeft: 20,
+    marginRight: 40,
+    marginBottom: 20
+  },
+  searchRoot: {
+    marginRight: 20
+  },
+  headerRoot: {
+    marginLeft: 20
+  }
+})
 
 class dashboard extends React.Component {
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     category: '',
-  //     search: ''
-  //   }
-  //   this.handleChange = this.handleChange.bind(this)
-  // }
+  constructor() {
+    super()
+    this.state = {
+      category: '',
+      search: ''
+    }
+    this.handleFilterChange = this.handleFilterChange.bind(this)
+    this.handleSearchChange = this.handleSearchChange.bind(this)
+  }
 
   componentDidMount() {
     this.props.fetchProducts()
   }
 
-  // handleChange(event) {
-  //   this.setState({
-  //     category: event.target.value
-  //   })
-  // }
+  handleFilterChange(event) {
+    this.setState({
+      category: event.target.value
+    })
+  }
+
+  handleSearchChange(event) {
+    this.setState({
+      search: event.target.value
+    })
+  }
 
   render() {
     // note requirements - all products must belong to at least one category
-    const allCatalogProducts = this.props.products.map(product => (
-      <Product className="card" key={product.id} product={product} />
-    ))
+    const allCatalogProducts = this.props.products
+      .filter(
+        product =>
+          product.categories[0].name === this.state.category ||
+          this.state.category === ''
+      )
+      .filter(
+        product =>
+          product.title
+            .toUpperCase()
+            .includes(this.state.search.toUpperCase()) ||
+          this.state.search === ''
+      )
+      .map(product => (
+        <Product className="card" key={product.id} product={product} />
+      ))
+    const {classes} = this.props
+    console.log(this.state.search, '<<<<search')
     return (
       <Fragment>
-        <Typography variant="h4" align="center" gutterBottom>
-          Manage Product Catalog
-        </Typography>
+        <div className="flex-space-between">
+          <Typography className={classes.headerRoot} variant="h4" gutterBottom>
+            Manage Product Catalog
+          </Typography>
+          <div>
+            <FormControl className={classes.root}>
+              <FormHelperText>Filter Orders</FormHelperText>
+              <Select
+                value={this.state.category}
+                onChange={event => this.handleFilterChange(event)}
+                displayEmpty
+              >
+                <MenuItem value="">Show All</MenuItem>
+                <MenuItem value="hats">Hats</MenuItem>
+                <MenuItem value="gloves">Gloves</MenuItem>
+                <MenuItem value="scarves">Scarves</MenuItem>
+                <MenuItem value="coats">Coats</MenuItem>
+                <MenuItem value="pants">Pants</MenuItem>
+              </Select>
+            </FormControl>
+            <TextField
+              className={classes.searchRoot}
+              label="Search..."
+              type="text"
+              value={this.state.search}
+              onChange={event => this.handleSearchChange(event)}
+            />
+          </div>
+        </div>
+        <hr />
         <div className="flex">{allCatalogProducts}</div>
       </Fragment>
     )
@@ -50,64 +119,4 @@ const mapDispatch = dispatch => ({
   fetchProducts: () => dispatch(fetchProducts())
 })
 
-export default connect(mapState, mapDispatch)(dashboard)
-
-// return (
-//   <Fragment>
-//     <Typography variant="h4" align="center" gutterBottom>Manage Product Catalog</Typography>
-//     <select onChange={this.handleChange}>
-//       <option value="">...</option>
-//       <option value="hats">Hats</option>
-//       <option value="gloves">Gloves</option>
-//       <option value="scarves">Scarves</option>
-//       <option value="coats">Coats</option>
-//       <option value="pants">Pants</option>
-//     </select>{' '}
-//     Search:{' '}
-//     <input
-//       type="text"
-//       value={this.state.search}
-//       onChange={e => this.setState({search: e.target.value})}
-//     />
-//     <Link to="/newproduct">
-//       <button>New Product</button>
-//     </Link>
-//     <ul>
-//       {products.map(product => {
-//         return !this.state.category &&
-//           product.title
-//             .toUpperCase()
-//             .includes(this.state.search.toUpperCase()) ? (
-//           <Fragment>
-//             <Link to={`/products/${product.id}`}>
-//               <li key={product.id}>
-//                 {product.title} : {`$${product.price / 100}`} <br />
-//                 <img src={product.photoURL} />{' '}
-//               </li>
-//             </Link>
-//             <Link to={`/editproduct/${product.id}`}>
-//               <button>edit</button>
-//             </Link>
-//           </Fragment>
-//         ) : product.categories.length ? (
-//           product.categories[0].name === this.state.category &&
-//           product.title
-//             .toUpperCase()
-//             .includes(this.state.search.toUpperCase()) ? (
-//             <Fragment>
-//               <Link to={`/products/${product.id}`}>
-//                 <li key={product.id}>
-//                   {product.title} : {`$${product.price / 100}`} <br />
-//                   <img src={product.photoURL} />{' '}
-//                 </li>
-//               </Link>
-//               <Link to={`/editproduct/${product.id}`}>
-//                 <button>edit</button>
-//               </Link>
-//             </Fragment>
-//           ) : null
-//         ) : null
-//       })}
-//     </ul>
-//   </Fragment>
-// )
+export default connect(mapState, mapDispatch)(withStyles(styles)(dashboard))

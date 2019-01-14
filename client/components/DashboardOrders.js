@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import Order from './Order.js'
 import {fetchAllOrders, editCurrentOrder} from '../store'
 import Typography from '@material-ui/core/Typography'
-import InputLabel from '@material-ui/core/InputLabel'
+import FormHelperText from '@material-ui/core/FormHelperText'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
@@ -14,7 +14,11 @@ const styles = {
   root: {
     minWidth: 160,
     marginLeft: 20,
+    marginRight: 20,
     marginBottom: 20
+  },
+  headerRoot: {
+    marginLeft: 20
   }
 }
 
@@ -46,18 +50,11 @@ class OrderHistory extends Component {
 
   render() {
     const allOrdersForAdmin = this.props.allOrders
-      .reduce((acc, cur) => {
-        // try to refactor this - would be nice to use .filter but need to handle show all orders
-        if (this.state.orderStatus === ' ') {
-          acc.push(cur)
-          return acc
-        } else if (cur.status === this.state.orderStatus) {
-          acc.push(cur)
-          return acc
-        } else {
-          return acc
-        }
-      }, [])
+      .filter(
+        order =>
+          order.status === this.state.orderStatus ||
+          this.state.orderStatus === ''
+      )
       .map(order => (
         <Order
           key={order.id}
@@ -69,26 +66,26 @@ class OrderHistory extends Component {
     const {classes} = this.props
     return (
       <Fragment>
-        <Typography variant="h4" align="center" gutterBottom>
-          Customer Orders
-        </Typography>
-        <FormControl className={classes.root}>
-          <InputLabel htmlFor="orderStatus-simple">
-            Filter Order Status
-          </InputLabel>
-          <Select
-            value={this.state.orderStatus}
-            onChange={this.handleOrderFilterChange}
-            inputProps={{name: 'orderStatus', id: 'orderStatus-simple'}}
-            displayEmpty
-          >
-            <MenuItem value="">All</MenuItem>
-            <MenuItem value="Created">Created</MenuItem>
-            <MenuItem value="Processing">Processing</MenuItem>
-            <MenuItem value="Canceled">Canceled</MenuItem>
-            <MenuItem value="Completed">Completed</MenuItem>
-          </Select>
-        </FormControl>
+        <div className="flex-space-between">
+          <Typography className={classes.headerRoot} variant="h4" gutterBottom>
+            Customer Orders
+          </Typography>
+          <FormControl className={classes.root}>
+            <FormHelperText>Filter Status</FormHelperText>
+            <Select
+              value={this.state.orderStatus}
+              onChange={this.handleOrderFilterChange}
+              displayEmpty
+            >
+              <MenuItem value="">Show All</MenuItem>
+              <MenuItem value="Created">Created</MenuItem>
+              <MenuItem value="Processing">Processing</MenuItem>
+              <MenuItem value="Canceled">Canceled</MenuItem>
+              <MenuItem value="Completed">Completed</MenuItem>
+            </Select>
+          </FormControl>
+        </div>
+        <hr />
         {allOrdersForAdmin}
       </Fragment>
     )

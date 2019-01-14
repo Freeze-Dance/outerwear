@@ -291,10 +291,10 @@ const reviewData = [
 ]
 
 const categoryData = [
-  {name: 'hats'},
   {name: 'gloves'},
-  {name: 'scarves'},
+  {name: 'hats'},
   {name: 'coats'},
+  {name: 'scarves'},
   {name: 'pants'}
 ]
 
@@ -317,16 +317,16 @@ const cartProductData = [
 ]
 
 const productCategoryData = [
-  {productId: 1, categoryId: 5},
-  {productId: 2, categoryId: 5},
+  {productId: 1, categoryId: 3},
+  {productId: 2, categoryId: 3},
   {productId: 3, categoryId: 1},
   {productId: 4, categoryId: 1},
   {productId: 5, categoryId: 2},
   {productId: 6, categoryId: 2},
-  {productId: 7, categoryId: 4},
-  {productId: 8, categoryId: 4},
-  {productId: 9, categoryId: 3},
-  {productId: 10, categoryId: 3}
+  {productId: 7, categoryId: 5},
+  {productId: 8, categoryId: 5},
+  {productId: 9, categoryId: 4},
+  {productId: 10, categoryId: 4}
 ]
 
 const orderProductData = [
