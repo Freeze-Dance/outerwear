@@ -2,7 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {fetchProducts} from '../store'
 import {Link} from 'react-router-dom'
-
+import './Homepage.css'
 /**
  * COMPONENT
  */
@@ -93,9 +93,14 @@ class HomePage extends React.Component {
             ) : null
           })}
         </ul>
-        <ul>
+        <ul className="page-ul">
           {pageNumbers.map(page => (
-            <li key={page} id={page} onClick={this.changePage}>
+            <li
+              className="pageNumber"
+              key={page}
+              id={page}
+              onClick={this.changePage}
+            >
               {page}
             </li>
           ))}

@@ -1,0 +1,32 @@
+.product-description {
+  margin-bottom: 0.5em;
+}
+
+.review-text {
+  margin-top: 0.5em;
+}
+
+.review-form {
+  width: 70%;
+  margin: 0 auto;
+}
+
+#review-textarea {
+  width: 99%;
+  margin-top: 2em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.star-ratings {
+  margin: 0 auto;
+  display: block;
+}
+
+#submit-review {
+  display: block;
+  margin: 0 auto;
+  color: white;
+  border: 1px solid #14aaf5;
+  background-color: #14aaf5;
+}

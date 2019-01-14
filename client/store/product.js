@@ -70,6 +70,7 @@ export default function(state = initialState, action) {
           reviews: [...state.currentProduct.reviews, action.review]
         }
       }
+
     default:
       return state
   }
