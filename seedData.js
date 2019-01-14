@@ -299,11 +299,11 @@ const categoryData = [
 ]
 
 const cartData = [
-  {quantity: 1, userId: 1},
-  {quantity: 2, userId: 2},
-  {quantity: 3, userId: 3},
-  {quantity: 4, userId: 4},
-  {quantity: 5, userId: 5}
+  {userId: 1},
+  {userId: 2},
+  {userId: 3},
+  {userId: 4},
+  {userId: 5}
 ]
 
 const cartProductData = [

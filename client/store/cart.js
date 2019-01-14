@@ -1,35 +1,46 @@
 import axios from 'axios'
+import Axios from 'axios'
 
 const initialState = {
-  currentCart: {products: [{title: ''}]}
+  currentCart: {products: []}
 }
 
 const SET_CART = 'SET_CART'
 const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART'
-const EDIT_QUANTITY = 'EDIT_QUANTITY'
 const DELETE_CART_ITEM = 'DELETE_CART_ITEM'
 const SUBMIT_CART = 'SUBMIT_CART'
+const SET_PRODUCT = 'SET_PRODUCT'
 
-export const setCart = cart => ({
+const setCart = cart => ({
   type: SET_CART,
   cart
 })
 
-export const addItemToCart = item => ({
+const addItemToCart = item => ({
   type: ADD_ITEM_TO_CART,
   item
 })
 
-export const checkoutCart = cart => ({
+const checkoutCart = cart => ({
   type: SUBMIT_CART,
   cart
 })
 
-export const editQuantity = (item, quantity) => ({
-  type: EDIT_QUANTITY,
-  item,
-  quantity
+const setProduct = productId => ({
+  type: SET_PRODUCT,
+  productId
 })
+
+export const editQuantity = (sign, productId, cartId) => {
+  return async function(dispatch) {
+    const {data} = await Axios.put(`/api/carts/quantity`, {
+      sign,
+      productId,
+      cartId
+    })
+    dispatch(setCart(data))
+  }
+}
 
 export const deleteCartItem = item => ({
   type: DELETE_CART_ITEM,
@@ -40,8 +51,20 @@ export const fetchCart = userId => async dispatch => {
   const {data} = await axios.get('/api/carts/usercart', {
     params: userId
   })
-  console.log('THUNK CART >>>>>', data)
+  if (!data.products) data.products = []
+  console.log(data, 'DATA')
   dispatch(setCart(data))
+}
+
+export const addToCart = (productId, userId) => async dispatch => {
+  if (userId) {
+    const {data} = await axios.put(`/api/carts/addToCart/${userId}`, {
+      productId,
+      userId
+    })
+    console.log(data, 'FFFFFFFFFFFFFFFFFFFFF')
+    dispatch(setCart(data))
+  }
 }
 
 // export const itemToCart = itemAdd => async dispatch => {
@@ -61,32 +84,30 @@ export const fetchCart = userId => async dispatch => {
 //   }
 // }
 
-export const submitCart = (
-  cartId,
-  products,
-  quantity,
-  userId
-) => async dispatch => {
+export const submitCart = (cartId, products, userId) => async dispatch => {
   const {data} = await axios.put(`/api/carts/submit/${cartId}`, {
     products,
-    quantity,
     userId
   })
   dispatch(checkoutCart(data))
+}
+
+export const deleteItem = (cartId, productId, userId) => async dispatch => {
+  console.log(cartId, 'HIIIIIIIIIIIIIII')
+  const {data} = await axios.delete(`/api/carts/delete/${cartId}/${productId}`)
+  dispatch(fetchCart(userId))
 }
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_CART:
       return {...state, currentCart: action.cart}
-    case ADD_ITEM_TO_CART:
-      return {...state, cartItem: [...state.cartItem, action.item]}
-    case EDIT_QUANTITY:
-      return {...state, cartItem: action.cartItem}
+    // case SET_PRODUCT:
+    //   return {...state, [state.currentCart.products]: [...state.currentCart.products.filter(product => )]}
     case DELETE_CART_ITEM:
       return {
         ...state,
-        cartItem: state.cartItem.filter(item => item.id !== action.itemId)
+        cartItem: state.currentCart.filter(item => item.id !== action.itemId)
       }
     default:
       return state

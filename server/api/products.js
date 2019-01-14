@@ -4,8 +4,7 @@ const {Product, Review} = require('../db/models')
 router.get('/singleProduct/:id', async (req, res, next) => {
   try {
     const product = await Product.findById(req.params.id, {
-      //fetches reviews for associated product
-      include: [{model: Review}]
+      include: {all: true}
     })
     console.log('product', product)
 

@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 const router = require('express').Router()
 const {
   Cart,
@@ -17,9 +18,94 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+router.put('/guestCart', async (req, res, next) => {
+  try {
+    console.log('GUEST CART PUT REQ BODY >>>>>>>', req.body)
+    console.log('GUEST CART PUT SESSION>>>>>>', req.session.cart)
+    let {productId, inc} = req.body
+    let cart = req.session.cart
+    console.log(productId)
+    if (inc === 1) {
+      req.session.cart.push({id: productId})
+    }
+    if (inc === -1) {
+      for (let i = 0; i < cart.length; i++) {
+        if (cart[i].id === productId) {
+          cart.splice(i, 1)
+          break
+        }
+      }
+    }
+    if (inc === 0) {
+      req.session.cart = cart.filter(obj => {
+        return obj.id !== productId
+      })
+    }
+    res.send('we did it')
+  } catch (e) {
+    console.error(e)
+  }
+})
+router.put('/guestCheckout', async (req, res, next) => {
+  console.log('GUEST CHECKOUT API: ', req.body.cart)
+  console.log('SESION ID: ', req.sessionID)
+  console.log('SUBTOTAL: ', req.body.subtotal)
+  const order = await Order.create({
+    time: Date.now(),
+    subTotal: req.body.subtotal,
+    sessionId: req.sessionID
+  })
+  for (let key in req.body.cart) {
+    console.log(req.body.cart[key])
+    let product = req.body.cart[key]
+    await OrderProduct.create({
+      purchasedPrice: product.price,
+      productId: product.id,
+      orderId: order.id,
+      quantity: product.quantity
+    })
+  }
+  req.session.cart = []
+  res.json({})
+})
+router.get('/guestCart', async (req, res, next) => {
+  try {
+    if (req.session.cart === undefined) {
+      req.session.cart = []
+      res.json({})
+    } else {
+      let data = await Promise.all(
+        req.session.cart.map(item => {
+          return Product.findById(item.id)
+        })
+      )
+      let ids = []
+      let cart = {}
+      for (let i = 0; i < data.length; i++) {
+        let id = data[i].id
+        if (ids.includes(id)) cart[id].quantity = cart[id].quantity + 1
+        else {
+          cart[id] = {...data[i].dataValues, quantity: 1}
+          ids.push(id)
+        }
+      }
+      console.log('req session ', req.session)
+      res.json(cart)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+router.put('/guestAdd', (req, res, next) => {
+  console.log('guest add body>>>>', req.body)
+  req.session.cart === undefined
+    ? (req.session.cart = [req.body])
+    : req.session.cart.push(req.body)
+  res.send('hello')
+})
+
 router.get('/usercart', async (req, res, next) => {
   try {
-    console.log(req.session.cart)
     let cart = await Cart.findOne({
       where: {userId: req.query.userId},
       include: {all: true}
@@ -36,6 +122,42 @@ router.get('/usercart', async (req, res, next) => {
   } catch (err) {
     next(err)
   }
+})
+
+router.put('/quantity', async (req, res, next) => {
+  try {
+    let {sign, productId, cartId} = req.body
+    let join = await CartProduct.find({where: {productId, cartId}})
+    if (sign === 'add') await join.update({quantity: join.quantity + 1})
+    else {
+      await join.update({quantity: join.quantity - 1})
+    }
+    let cart = await Cart.findOne({
+      where: {
+        id: cartId
+      },
+      include: {all: true}
+    })
+    res.json(cart)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.put('/addToCart/:userId', async (req, res, next) => {
+  let cart = await Cart.findOne({
+    where: {userId: req.params.userId},
+    include: {all: true}
+  })
+  let join = await CartProduct.findOrCreate({
+    where: {cartId: cart.id, productId: req.body.productId}
+  })
+  if (!join[1]) await join[0].update({quantity: join[0].quantity + 1})
+  let newCart = await Cart.findOne({
+    where: {userId: req.params.userId},
+    include: {all: true}
+  })
+  res.json(newCart)
 })
 
 router.post('/add', async (req, res, next) => {
@@ -67,23 +189,9 @@ router.put('/edit', async (req, res, next) => {
   }
 })
 
-router.delete('/deleteItem/:itemId', async (req, res, next) => {
+router.delete('/delete/:cartId/:productId', async (req, res, next) => {
   try {
-    const cart = await Cart.findOne({
-      where: {
-        userId: req.body.id
-      }
-    })
-    const product = await Product.findOne({
-      where: {
-        productId: req.body.id
-      }
-    })
-    await cart.removeProduct({
-      where: {
-        id: req.params.id
-      }
-    })
+    await CartProduct.destroy({where: req.params})
     res.json('Item successfully deleted')
   } catch (err) {
     next(err)
@@ -92,29 +200,22 @@ router.delete('/deleteItem/:itemId', async (req, res, next) => {
 
 router.put('/submit/:cartId', async (req, res, next) => {
   try {
-    let quantity = req.body.quantity
     let products = req.body.products
     let subTotal = products.reduce((acc, curr) => {
-      return (acc += curr.price * quantity[`quantity${curr.id}`])
+      return (acc += curr.price * curr.cartProduct.quantity)
     }, 0)
-    // console.log('req body >>>>>>', req.body)
-    // console.log('cart id param >>>>>>>', req.params.cartId)
-    // console.log('SUBTOTAL>>>>', subTotal)
     const order = await Order.create({
-      // quantity: req.body.quantity,
       time: Date.now(),
       subTotal: subTotal,
-      userId: req.body.userId
+      userId: 4
     })
-    console.log('ORDER>>>>>', order)
     products.forEach(async product => {
-      let orderProductRow = await OrderProduct.create({
+      await OrderProduct.create({
         purchasedPrice: product.price,
         productId: product.id,
         orderId: order.id,
-        quantity: quantity[`quantity${product.id}`]
+        quantity: product.cartProduct.quantity
       })
-      console.log('order product row >>>>>>>>', orderProductRow)
     })
     await CartProduct.destroy({
       where: {
