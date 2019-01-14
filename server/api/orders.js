@@ -19,6 +19,14 @@ router.get('/:userId', async (req, res, next) => {
     next(err)
   }
 })
+router.get('/', async (req, res, next) => {
+  try {
+    const orders = await Order.findAll({include: {all: true}})
+    res.json(orders)
+  } catch (e) {
+    console.log(e)
+  }
+})
 
 router.use((req, res, next) => {
   const error = new Error('Not Found')

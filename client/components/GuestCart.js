@@ -26,7 +26,14 @@ class GuestCart extends Component {
       this.setState({cart: data})
     }
   }
-  async handleCheckout() {}
+  async handleCheckout() {
+    let {data} = await Axios.put('/api/carts/guestCheckout', {
+      cart: this.state.cart,
+      subtotal: this.subtotal()
+    })
+    console.log('DATA', data)
+    this.setState({cart: data})
+  }
 
   subtotal() {
     if (Object.keys(this.state.cart).length) {

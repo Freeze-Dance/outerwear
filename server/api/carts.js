@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 const router = require('express').Router()
 const {
   Cart,
@@ -45,9 +46,28 @@ router.put('/guestCart', async (req, res, next) => {
     console.error(e)
   }
 })
-// router.put('/guestSubmit',async (req,res,next)=>{
-
-// })
+router.put('/guestCheckout', async (req, res, next) => {
+  console.log('GUEST CHECKOUT API: ', req.body.cart)
+  console.log('SESION ID: ', req.sessionID)
+  console.log('SUBTOTAL: ', req.body.subtotal)
+  const order = await Order.create({
+    time: Date.now(),
+    subTotal: req.body.subtotal,
+    sessionId: req.sessionID
+  })
+  for (let key in req.body.cart) {
+    console.log(req.body.cart[key])
+    let product = req.body.cart[key]
+    await OrderProduct.create({
+      purchasedPrice: product.price,
+      productId: product.id,
+      orderId: order.id,
+      quantity: product.quantity
+    })
+  }
+  req.session.cart = []
+  res.json({})
+})
 router.get('/guestCart', async (req, res, next) => {
   try {
     if (req.session.cart === undefined) {
@@ -190,7 +210,7 @@ router.put('/submit/:cartId', async (req, res, next) => {
       userId: 4
     })
     products.forEach(async product => {
-      let orderProductRow = await OrderProduct.create({
+      await OrderProduct.create({
         purchasedPrice: product.price,
         productId: product.id,
         orderId: order.id,
