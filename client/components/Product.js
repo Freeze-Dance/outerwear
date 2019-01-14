@@ -24,7 +24,6 @@ const styles = theme => ({
 function Product(props) {
   const product = props.product
   const {classes} = props
-  console.log(props)
   return (
     <Fragment>
       <Card className={classes.card}>
