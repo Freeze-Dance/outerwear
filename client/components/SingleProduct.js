@@ -88,13 +88,13 @@ export class SingleProduct extends Component {
       inventoryQuantity,
       reviews
     } = this.props.product
-
+    console.log('PROPS>>>>', this.props)
     return (
       <React.Fragment>
         <Card className="single-product-image" style={styles.card}>
           <CardMedia
             id="single-product-image"
-            image={photoURL}
+            image="www.robohash.org/1"
             title="Product Title"
             component="img"
             alt="Product Description"

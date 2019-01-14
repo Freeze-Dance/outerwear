@@ -10,6 +10,7 @@ import editproduct from './components/editproduct'
 import OrderHistory from './components/OrderHistory'
 import DashboardOrders from './components/DashboardOrders'
 import GuestCart from './components/GuestCart'
+import CheckoutForm from './components/CheckoutForm'
 
 /**
  * COMPONENT
@@ -33,6 +34,7 @@ class Routes extends Component {
           <Route exact path="/newproduct" component={NewProduct} />
           <Route exact path="/editproduct/:id" component={editproduct} />
           <Route exact path="/cart" component={GuestCart} />
+          <Route exact path="/guestCheckout" component={CheckoutForm} />
 
           {/* Displays our Login component as a fallback */}
         </Switch>
