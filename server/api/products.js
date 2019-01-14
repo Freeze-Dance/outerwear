@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const {Product, Review} = require('../db/models')
+const logThings = require('../../sample')
 
 router.get('/singleProduct/:id', async (req, res, next) => {
   try {
@@ -7,7 +8,8 @@ router.get('/singleProduct/:id', async (req, res, next) => {
       //fetches reviews for associated product
       include: [{model: Review}]
     })
-    console.log('product', product)
+    // console.log('product', product)
+    logThings(product, 'title')
 
     if (!product) {
       return res.status(404).send(`Error - no product ${req.params.id}`)
