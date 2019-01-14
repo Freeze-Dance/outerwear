@@ -26,7 +26,7 @@ class GuestCart extends Component {
       this.setState({cart: data})
     }
   }
-  handleCheckout() {}
+  async handleCheckout() {}
 
   subtotal() {
     if (Object.keys(this.state.cart).length) {
@@ -35,7 +35,7 @@ class GuestCart extends Component {
         (acc, curr) => acc + cart[curr].price * cart[curr].quantity,
         0
       )
-    }
+    } else return '0'
   }
   render() {
     let cart = this.state.cart
