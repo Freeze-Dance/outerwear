@@ -112,36 +112,38 @@ export class SingleProduct extends Component {
               Quantity: {inventoryQuantity}
             </div>
           </CardContent>
-          <button type="button" onClick={this.handleClick}>
-            Add to Cart
-          </button>
         </Card>
 
         {Object.keys(this.props.user).length > 0 ? (
-          <form className="review-form" onSubmit={this.createNewReview}>
-            <textarea
-              name="review"
-              id="review-textarea"
-              required
-              rows="5"
-              placeholder="Leave a review..."
-            />
+          <React.Fragment>
+            <button type="button" onClick={this.handleClick}>
+              Add to Cart
+            </button>
+            <form className="review-form" onSubmit={this.createNewReview}>
+              <textarea
+                name="review"
+                id="review-textarea"
+                required
+                rows="5"
+                placeholder="Leave a review..."
+              />
 
-            <StarRatings
-              rating={this.state.rating}
-              starRatedColor="blue"
-              changeRating={this.changeRating}
-              numberOfStars={5}
-              starDimension="30px"
-              starSpacing="1px"
-              name="rating"
-              className="star-ratings"
-            />
-            <Button id="submit-review" type="submit">
-              {' '}
-              Submit Review{' '}
-            </Button>
-          </form>
+              <StarRatings
+                rating={this.state.rating}
+                starRatedColor="blue"
+                changeRating={this.changeRating}
+                numberOfStars={5}
+                starDimension="30px"
+                starSpacing="1px"
+                name="rating"
+                className="star-ratings"
+              />
+              <Button id="submit-review" type="submit">
+                {' '}
+                Submit Review{' '}
+              </Button>
+            </form>
+          </React.Fragment>
         ) : (
           <React.Fragment>
             <div> PLEASE LOG IN TO LEAVE A REVIEW</div>
