@@ -159,7 +159,7 @@ const productData = [
     title: 'Wine - Piper Heidsieck Brut',
     description: 'pulvinar lobortis est phasellus sit',
     price: '719',
-    photoURL: 'http://dummyimage.com/111x231.png/5fa2dd/ffffff',
+    photoURL: 'images/coat_red_800.png',
     inventoryQuantity: 39,
     orderId: 1
   },
@@ -167,7 +167,7 @@ const productData = [
     title: 'Tequila Rose Cream Liquor',
     description: 'ut at dolor quis',
     price: '741',
-    photoURL: 'http://dummyimage.com/182x244.jpg/cc0000/ffffff',
+    photoURL: 'images/coat_yellow_800.png',
     inventoryQuantity: 29,
     orderId: 2
   },
@@ -175,7 +175,7 @@ const productData = [
     title: 'Liqueur - Melon',
     description: 'lectus aliquam sit amet diam',
     price: '912',
-    photoURL: 'http://dummyimage.com/221x123.bmp/5fa2dd/ffffff',
+    photoURL: 'images/gloves_red_800.png',
     inventoryQuantity: 96,
     orderId: 3
   },
@@ -183,7 +183,7 @@ const productData = [
     title: 'Halibut - Whole, Fresh',
     description: 'consequat metus sapien ut nunc',
     price: '322',
-    photoURL: 'http://dummyimage.com/243x238.jpg/cc0000/ffffff',
+    photoURL: 'images/gloves_green_800.png',
     inventoryQuantity: 62,
     orderId: 4
   },
@@ -191,7 +191,7 @@ const productData = [
     title: 'Sauce - Sesame Thai Dressing',
     description: 'curabitur at ipsum',
     price: '289',
-    photoURL: 'http://dummyimage.com/192x217.bmp/cc0000/ffffff',
+    photoURL: 'images/hat_yellow_800.png',
     inventoryQuantity: 21,
     orderId: 5
   },
@@ -199,7 +199,7 @@ const productData = [
     title: 'Shrimp - Black Tiger 13/15',
     description: 'erat eros viverra',
     price: '703',
-    photoURL: 'http://dummyimage.com/121x136.jpg/cc0000/ffffff',
+    photoURL: 'images/hat_purple_800.png',
     inventoryQuantity: 16,
     orderId: 6
   },
@@ -207,7 +207,7 @@ const productData = [
     title: 'Cheese - Camembert',
     description: 'nisi at nibh in',
     price: '755',
-    photoURL: 'http://dummyimage.com/108x211.jpg/ff4444/ffffff',
+    photoURL: 'images/pants_blue_800.png',
     inventoryQuantity: 22,
     orderId: 7
   },
@@ -215,7 +215,7 @@ const productData = [
     title: 'Chocolate - Dark Callets',
     description: 'ac diam cras pellentesque',
     price: '736',
-    photoURL: 'http://dummyimage.com/104x112.jpg/5fa2dd/ffffff',
+    photoURL: 'images/pants_purple_800.png',
     inventoryQuantity: 98,
     orderId: 8
   },
@@ -223,7 +223,7 @@ const productData = [
     title: 'Greens Mustard',
     description: 'sagittis sapien cum',
     price: '122',
-    photoURL: 'http://dummyimage.com/117x137.png/dddddd/000000',
+    photoURL: 'images/scarf_green_800.png',
     inventoryQuantity: 57,
     orderId: 9
   },
@@ -231,7 +231,7 @@ const productData = [
     title: 'V8 - Berry Blend',
     description: 'blandit nam nulla integer',
     price: '735',
-    photoURL: 'http://dummyimage.com/179x130.bmp/5fa2dd/ffffff',
+    photoURL: 'images/scarf_red_800.png',
     inventoryQuantity: 38,
     orderId: 10
   }
@@ -291,10 +291,10 @@ const reviewData = [
 ]
 
 const categoryData = [
-  {name: 'hats'},
   {name: 'gloves'},
-  {name: 'scarves'},
+  {name: 'hats'},
   {name: 'coats'},
+  {name: 'scarves'},
   {name: 'pants'}
 ]
 
@@ -317,24 +317,31 @@ const cartProductData = [
 ]
 
 const productCategoryData = [
-  {productId: 1, categoryId: 1},
-  {productId: 2, categoryId: 2},
-  {productId: 3, categoryId: 3},
-  {productId: 4, categoryId: 4},
-  {productId: 5, categoryId: 5},
-  {productId: 6, categoryId: 1},
-  {productId: 7, categoryId: 2},
-  {productId: 8, categoryId: 3},
+  {productId: 1, categoryId: 3},
+  {productId: 2, categoryId: 3},
+  {productId: 3, categoryId: 1},
+  {productId: 4, categoryId: 1},
+  {productId: 5, categoryId: 2},
+  {productId: 6, categoryId: 2},
+  {productId: 7, categoryId: 5},
+  {productId: 8, categoryId: 5},
   {productId: 9, categoryId: 4},
-  {productId: 10, categoryId: 5}
+  {productId: 10, categoryId: 4}
 ]
 
 const orderProductData = [
   {productId: 1, orderId: 1, purchasedPrice: 100, orderQuantity: 1},
+  {productId: 3, orderId: 1, purchasedPrice: 233, orderQuantity: 2},
   {productId: 2, orderId: 2, purchasedPrice: 200, orderQuantity: 1},
   {productId: 3, orderId: 3, purchasedPrice: 300, orderQuantity: 1},
   {productId: 4, orderId: 4, purchasedPrice: 400, orderQuantity: 1},
-  {productId: 5, orderId: 5, purchasedPrice: 500, orderQuantity: 1}
+  {productId: 5, orderId: 5, purchasedPrice: 500, orderQuantity: 1},
+  {productId: 6, orderId: 6, purchasedPrice: 100, orderQuantity: 1},
+  {productId: 7, orderId: 7, purchasedPrice: 200, orderQuantity: 1},
+  {productId: 8, orderId: 8, purchasedPrice: 300, orderQuantity: 1},
+  {productId: 9, orderId: 9, purchasedPrice: 400, orderQuantity: 1},
+  {productId: 1, orderId: 9, purchasedPrice: 799, orderQuantity: 2},
+  {productId: 10, orderId: 10, purchasedPrice: 500, orderQuantity: 1}
 ]
 
 module.exports = {

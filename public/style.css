@@ -25,3 +25,14 @@ form div {
   display: flex;
   justify-content: space-between;
 }
+
+/* dashboard - dash manage products */
+.flex {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex-grow: 1;
+}

@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
@@ -20,10 +20,9 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
-
+    const {isLoggedIn, isAdmin} = this.props
     return (
-      <React.Fragment>
+      <Fragment>
         <Switch>
           {/* Routes placed here are available to all visitors */}
           <Route exact path="/" component={HomePage} />
@@ -37,7 +36,7 @@ class Routes extends Component {
 
           {/* Displays our Login component as a fallback */}
         </Switch>
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/cart" component={Cart} />
@@ -52,10 +51,21 @@ class Routes extends Component {
               path="/products/:productId/createreview"
               component={SingleProduct}
             />
-            <Route exact path="/dashboardorders" component={DashboardOrders} />
+            {isAdmin /* Routes placed here are only available if admin*/ && (
+              <Fragment>
+                <Route exact path="/dashboard" component={dashboard} />
+                <Route
+                  exact
+                  path="/dashboardorders"
+                  component={DashboardOrders}
+                />
+                <Route exact path="/newproduct" component={NewProduct} />
+                <Route exact path="/editproduct/:id" component={editproduct} />
+              </Fragment>
+            )}
           </Switch>
-        ) : null}
-      </React.Fragment>
+        )}
+      </Fragment>
     )
   }
 }
@@ -67,7 +77,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.admin
   }
 }
 
