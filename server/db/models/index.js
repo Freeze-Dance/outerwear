@@ -20,6 +20,10 @@ const CartProduct = db.define('cartProduct', {
     type: Sequelize.INTEGER,
     defaultValue: 1
   }
+  //, check why removed from yesterday
+  // quantity: {
+  //   type: Sequelize.INTEGER
+  // }
 })
 
 User.hasMany(Order)

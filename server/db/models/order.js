@@ -4,7 +4,8 @@ const db = require('../db')
 const Order = db.define('order', {
   time: {type: Sequelize.DATE, defaultValue: Sequelize.NOW},
   subTotal: {type: Sequelize.INTEGER},
-  sessionId: {type: Sequelize.STRING}
+  sessionId: {type: Sequelize.STRING},
+  status: {type: Sequelize.STRING, defaultValue: 'Created'}
 })
 
 module.exports = Order
