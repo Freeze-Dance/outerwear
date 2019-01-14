@@ -8,12 +8,12 @@ function requireAdmin(req, res, next) {
     next()
   } else {
     console.log('Unauthorized')
-    res.status(401).send('Unauthorized')
+    res.status(401).redirect('/')
   }
 }
 
 // applies verify admin callback to all admin routes
-router.all('*', requireAdmin, (req, res, next) => {
+router.use(requireAdmin, (req, res, next) => {
   next()
 })
 

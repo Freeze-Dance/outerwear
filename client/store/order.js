@@ -42,7 +42,6 @@ export const fetchCurrentOrder = orderId => async dispatch => {
 export const editCurrentOrder = (orderId, order) => async dispatch => {
   try {
     const res = await axios.put(`/admin/orders/${orderId}`, order)
-    console.log(res, '<<< THUNK res')
     dispatch(updateCurrentOrder(res.data))
   } catch (err) {
     console.error(err)
