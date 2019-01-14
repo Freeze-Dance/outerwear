@@ -11,6 +11,7 @@ import OrderHistory from './components/OrderHistory'
 import DashboardOrders from './components/DashboardOrders'
 import GuestCart from './components/GuestCart'
 import GuestCheckoutForm from './components/GuestCheckoutForm'
+import TakeMoney from './components/StripeCheckout'
 
 /**
  * COMPONENT
@@ -34,8 +35,8 @@ class Routes extends Component {
           <Route exact path="/newproduct" component={NewProduct} />
           <Route exact path="/editproduct/:id" component={editproduct} />
           <Route exact path="/cart" component={GuestCart} />
-          <Route exact path="/guestCheckout" component={CheckoutForm} />
-
+          <Route exact path="/guestCheckout" component={GuestCheckoutForm} />
+          <Route exact path="/stripe" component={TakeMoney} />
           {/* Displays our Login component as a fallback */}
         </Switch>
         {isLoggedIn && (

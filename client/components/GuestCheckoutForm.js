@@ -1,6 +1,4 @@
 import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import {me} from '../store'
 import Axios from 'axios'
 
 class GuestCheckoutForm extends Component {
@@ -37,13 +35,7 @@ class GuestCheckoutForm extends Component {
   }
 
   render() {
-    return this.props.isLoggedIn ? (
-      <form>
-        <input name="email" type="text" /> Email
-        <br />
-        <input name="Address" type="text" /> Shipping Address
-      </form>
-    ) : (
+    return (
       <React.Fragment>
         <h1>Guest Checkout</h1>
         <form onSubmit={this.handleCheckout}>
@@ -72,20 +64,4 @@ class GuestCheckoutForm extends Component {
   }
 }
 
-// export default CheckoutForm
-
-const mapState = state => {
-  return {
-    isLoggedIn: !!state.user.id
-  }
-}
-
-const mapDispatch = dispatch => {
-  return {
-    loadInitialData() {
-      dispatch(me())
-    }
-  }
-}
-
-export default connect(mapState, mapDispatch)(GuestCheckoutForm)
+export default GuestCheckoutForm
