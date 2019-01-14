@@ -10,7 +10,7 @@ import editproduct from './components/editproduct'
 import OrderHistory from './components/OrderHistory'
 import DashboardOrders from './components/DashboardOrders'
 import GuestCart from './components/GuestCart'
-import CheckoutForm from './components/CheckoutForm'
+import GuestCheckoutForm from './components/GuestCheckoutForm'
 
 /**
  * COMPONENT

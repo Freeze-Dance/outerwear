@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {me} from '../store'
 import Axios from 'axios'
 
-class CheckoutForm extends Component {
+class GuestCheckoutForm extends Component {
   constructor() {
     super()
     this.state = {email: '', address: '', cart: {}}
@@ -88,4 +88,4 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(CheckoutForm)
+export default connect(mapState, mapDispatch)(GuestCheckoutForm)
