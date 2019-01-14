@@ -49,6 +49,14 @@ export const editCurrentOrder = (orderId, order) => async dispatch => {
   }
 }
 
+export const createOrder = (data, cartId) => async dispatch => {
+  try {
+    const res = await axios.put(`/submit/${cartId}`, data)
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export default function(state = initialState, action) {
   switch (action.type) {
     case GET_CUSTOMER_ORDERS:

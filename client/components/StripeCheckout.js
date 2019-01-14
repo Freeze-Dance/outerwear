@@ -1,18 +1,20 @@
 import React from 'react'
 import StripeCheckout from 'react-stripe-checkout'
+import {connect} from 'react-redux'
+import {fetchCart} from '../store/cart'
 
-export default class TakeMoney extends React.Component {
+class TakeMoney extends React.Component {
   onToken = token => {
+    console.log(token, 'TOKEN')
     fetch('/save-stripe-token', {
       method: 'POST',
       body: JSON.stringify(token)
-    }).then(response => {
+    })(response => {
       response.json().then(data => {
         alert(`We are in business, ${data.email}`)
       })
     })
   }
-
   // ...
 
   render() {
@@ -55,3 +57,17 @@ export default class TakeMoney extends React.Component {
     )
   }
 }
+
+const mapStateToProps = state => {
+  return {
+    cart: state.cart.currentCart
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchCart: userId => dispatch(fetchCart(userId))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(TakeMoney)
