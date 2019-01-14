@@ -28,7 +28,7 @@ describe('thunk creators', () => {
   })
 
   describe('fetchCustomerOrders', () => {
-    it('eventually dispatches the GET_CUSTOMER_ORDERS action', async () => {
+    it.only('eventually dispatches the GET_CUSTOMER_ORDERS action', async () => {
       const fakeOrders = [
         {
           id: 1,
