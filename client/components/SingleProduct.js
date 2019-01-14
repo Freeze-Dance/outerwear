@@ -1,16 +1,32 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {fetchProduct, creatingReview, fetchReview} from '../store/product'
+import {fetchProduct, creatingReview} from '../store/product'
 import {Link} from 'react-router-dom'
 import Axios from 'axios'
 import StarRatings from 'react-star-ratings'
 import {addToCart} from '../store/cart'
+import Button from '@material-ui/core/Button'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardHeader from '@material-ui/core/CardHeader'
+import TextField from '@material-ui/core/TextField'
+import CardActions from '@material-ui/core/CardActions'
+import CardMedia from '@material-ui/core/CardMedia'
+import './SingleProduct.css'
 
-class SingleProduct extends Component {
+const styles = {
+  card: {
+    width: '70%',
+    margin: '0 auto'
+  }
+}
+
+export class SingleProduct extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      rating: 5
+      rating: 0,
+      error: ''
     }
     this.createNewReview = this.createNewReview.bind(this)
     this.changeRating = this.changeRating.bind(this)
@@ -20,7 +36,8 @@ class SingleProduct extends Component {
 
   changeRating(newRating, name) {
     this.setState({
-      rating: newRating
+      rating: newRating,
+      error: ''
     })
   }
 
@@ -32,12 +49,18 @@ class SingleProduct extends Component {
     const productId = this.props.product.id
     const rating = this.state.rating
 
-    this.props.creatingReview({
-      text,
-      userId,
-      productId,
-      rating
-    })
+    if (rating > 0) {
+      this.props.creatingReview({
+        text,
+        userId,
+        productId,
+        rating
+      })
+    } else {
+      this.setState({
+        error: 'Star Rating Required'
+      })
+    }
   }
 
   handleClick() {
@@ -62,46 +85,92 @@ class SingleProduct extends Component {
       description,
       price,
       photoURL,
-      inventoryQuantitiy
+      inventoryQuantity,
+      reviews
     } = this.props.product
 
     return (
-      <div className="single-product-container">
-        <div className="single-product-image">
-          <img id="single-product-image" src={photoURL} />
-        </div>
-        <div className="single-product-title">
-          <h2> {title} </h2>
-          <div id="description">Description: {description}</div>
-          <div id="price">Price: {`$${price / 100}`}</div>
-          <div id="quantity">Quantity: {inventoryQuantitiy}</div>
-        </div>
-        <div>
-          {this.props.user.id ? (
-            <React.Fragment>
-              <form onSubmit={this.createNewReview}>
-                Review: <textarea name="review" rows="5" cols="100" />
-                <StarRatings
-                  rating={this.state.rating}
-                  starRatedColor="blue"
-                  changeRating={this.changeRating}
-                  numberOfStars={5}
-                  name="rating"
-                />
-                Rate this product!
-                <button type="submit"> Submit review </button>
-              </form>
-              <button type="button" onClick={this.handleClick}>
-                Add to Cart
-              </button>
-            </React.Fragment>
-          ) : (
+      <React.Fragment>
+        <Card className="single-product-image" style={styles.card}>
+          <CardMedia
+            id="single-product-image"
+            image={photoURL}
+            title="Product Title"
+            component="img"
+            alt="Product Description"
+            height="300"
+          />
+          <CardContent className="product-content">
+            <h2> {title} </h2>
+            <div className="product-description">
+              Description: {description}
+            </div>
+            <div className="product-description">
+              Price: {`$${price / 100}`}
+            </div>
+            <div className="product-description">
+              Quantity: {inventoryQuantity}
+            </div>
+          </CardContent>
+          <button type="button" onClick={this.handleClick}>
+            Add to Cart
+          </button>
+        </Card>
+
+        {Object.keys(this.props.user).length > 0 ? (
+          <form className="review-form" onSubmit={this.createNewReview}>
+            <textarea
+              name="review"
+              id="review-textarea"
+              required
+              rows="5"
+              placeholder="Leave a review..."
+            />
+
+            <StarRatings
+              rating={this.state.rating}
+              starRatedColor="blue"
+              changeRating={this.changeRating}
+              numberOfStars={5}
+              starDimension="30px"
+              starSpacing="1px"
+              name="rating"
+              className="star-ratings"
+            />
+            <Button id="submit-review" type="submit">
+              {' '}
+              Submit Review{' '}
+            </Button>
+          </form>
+        ) : (
+          <React.Fragment>
+            <div> PLEASE LOG IN TO LEAVE A REVIEW</div>
             <button type="button" onClick={this.handleGuest}>
               Add to Guest Cart
             </button>
-          )}
+          </React.Fragment>
+        )}
+
+        {this.state.error ? <div>{this.state.error}</div> : null}
+
+        <div className="reviews">
+          {reviews &&
+            reviews.map(review => (
+              <Card key={review.id}>
+                <CardContent className="review-content">
+                  <StarRatings
+                    rating={review.rating}
+                    starRatedColor="yellow"
+                    numberOfStars={5}
+                    starDimension="20px"
+                    starSpacing="1px"
+                  />
+                  <div className="review-text"> {review.text} </div>
+                </CardContent>
+              </Card>
+            ))}
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }
@@ -119,9 +188,6 @@ const mapDispatchToProps = dispatch => {
     creatingReview(review) {
       return dispatch(creatingReview(review))
     },
-    // fetchReview(review) {
-    //   return dispatch
-    // },
     addToCart: (productId, userId) => {
       return dispatch(addToCart(productId, userId))
     }

@@ -8,6 +8,7 @@ class NewProduct extends React.Component {
     super()
     this.state = {title: '', price: ''}
   }
+
   render() {
     console.log(this.state)
     return (
