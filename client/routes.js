@@ -32,7 +32,7 @@ class Routes extends Component {
           <Route exact path="/cart" component={GuestCart} />
           {/* Displays our HomePage component as a fallback */}
         </Switch>
-        {isLoggedIn ? (
+        {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/cart/:userId" component={Cart} />
@@ -46,7 +46,8 @@ class Routes extends Component {
               path="/products/:productId/createreview"
               component={SingleProduct}
             />
-            {isAdmin /* Routes placed here are only available if admin*/ && (
+            {/* Routes placed here are only available if admin */}
+            {isAdmin && (
               <Fragment>
                 <Route exact path="/dashboard" component={dashboard} />
                 <Route
@@ -59,10 +60,7 @@ class Routes extends Component {
               </Fragment>
             )}
           </Switch>
-        ) : (
-          <Redirect to="/" />
-        ) //if not logged in (or if logged in not admin) and try route - redirect to homepage
-        }
+        )}
       </Fragment>
     )
   }
