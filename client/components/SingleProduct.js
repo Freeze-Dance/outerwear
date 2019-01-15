@@ -45,7 +45,8 @@ export class SingleProduct extends Component {
     super(props)
     this.state = {
       rating: 0,
-      error: ''
+      error: '',
+      review: ''
     }
     this.createNewReview = this.createNewReview.bind(this)
     this.changeRating = this.changeRating.bind(this)
@@ -54,7 +55,6 @@ export class SingleProduct extends Component {
   }
 
   componentDidMount() {
-    console.log('<<< SingleProduct mounted')
     const {productId} = this.props.match.params
     this.props.fetchProduct(productId)
   }
@@ -69,7 +69,7 @@ export class SingleProduct extends Component {
   createNewReview(event) {
     event.preventDefault()
     // Review, rating, productId, user Id
-    const text = event.target.review.value
+    const text = this.state.review
     const userId = this.props.user.id
     const productId = this.props.product.id
     const rating = this.state.rating
@@ -81,6 +81,7 @@ export class SingleProduct extends Component {
         productId,
         rating
       })
+      this.setState({review: ''})
     } else {
       this.setState({
         error: 'Star Rating Required'
@@ -108,7 +109,6 @@ export class SingleProduct extends Component {
       inventoryQuantity,
       reviews
     } = this.props.product
-    console.log(this.props.product, '<<< Props SingleProduct')
     const {classes} = this.props
     return (
       <React.Fragment>
@@ -180,6 +180,8 @@ export class SingleProduct extends Component {
                     required
                     rows="5"
                     placeholder="Leave a review..."
+                    value={this.state.review}
+                    onChange={e => this.setState({review: e.target.value})}
                   />
 
                   <StarRatings
