@@ -37,9 +37,6 @@ router.post('/createUser', async (req, res, next) => {
 // update user
 router.put('/:userId', async (req, res, next) => {
   try {
-    if (!req.user.admin) {
-      res.sendStatus(403)
-    }
     const user = await User.findById(req.params.userId)
     const updatedUser = await user.update({password: req.body.password})
 

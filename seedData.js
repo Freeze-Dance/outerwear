@@ -156,24 +156,24 @@ const orderData = [
 // cannot insert cartId...
 const productData = [
   {
-    title: 'Wine - Piper Heidsieck Brut',
-    description: 'pulvinar lobortis est phasellus sit',
+    title: 'Wine - Sherpa Coat',
+    description: 'Warm Sherpa Coat',
     price: '719',
     photoURL: 'images/coat_red_800.png',
     inventoryQuantity: 39,
     orderId: 1
   },
   {
-    title: 'Tequila Rose Cream Liquor',
-    description: 'ut at dolor quis',
+    title: 'Tequila - Sherpa Coat',
+    description: 'Warm Sherpa Coats',
     price: '741',
     photoURL: 'images/coat_yellow_800.png',
     inventoryQuantity: 29,
     orderId: 2
   },
   {
-    title: 'Liqueur - Melon',
-    description: 'lectus aliquam sit amet diam',
+    title: 'Liqueur - Winter Gloves',
+    description: 'Leather Gloves',
     price: '912',
     photoURL: 'images/gloves_red_800.png',
     inventoryQuantity: 96,
