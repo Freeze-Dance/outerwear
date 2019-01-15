@@ -36,8 +36,6 @@ class Routes extends Component {
           <Route exact path="/products/:productId" component={SingleProduct} />
           <Route exact path="/cart" component={GuestCart} />
           <Route exact path="/stripeGuest" component={StripeGuest} />
-          <Route exact path="/passwordreset" component={PasswordReset} />
-
           {/* Displays our Login component as a fallback */}
           {/* Displays our HomePage component as a fallback */}
         </Switch>
