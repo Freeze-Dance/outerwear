@@ -46,7 +46,8 @@ export class SingleProduct extends Component {
     this.state = {
       rating: 0,
       error: '',
-      review: ''
+      review: '',
+      averageRating: 0
     }
     this.createNewReview = this.createNewReview.bind(this)
     this.changeRating = this.changeRating.bind(this)
@@ -87,6 +88,7 @@ export class SingleProduct extends Component {
         error: 'Star Rating Required'
       })
     }
+    this.setState({rating: 0})
   }
 
   handleClick() {
@@ -110,6 +112,13 @@ export class SingleProduct extends Component {
       reviews
     } = this.props.product
     const {classes} = this.props
+    let averageRating = 0
+    if (this.props.product.reviews) {
+      averageRating = this.props.product.reviews.reduce((acc, curr) => {
+        return (acc += curr.rating)
+      }, 0)
+      averageRating = averageRating / this.props.product.reviews.length
+    }
     return (
       <React.Fragment>
         <div className="flex">
@@ -134,6 +143,13 @@ export class SingleProduct extends Component {
                   <div className="product-description">
                     Quantity: {inventoryQuantity}
                   </div>
+                  <StarRatings
+                    rating={averageRating}
+                    starRatedColor="yellow"
+                    numberOfStars={5}
+                    starDimension="20px"
+                    starSpacing="1px"
+                  />
                 </div>
                 <div>
                   {Object.keys(this.props.user).length > 0 ? (
@@ -202,21 +218,24 @@ export class SingleProduct extends Component {
             {this.state.error ? <div>{this.state.error}</div> : null}
 
             <div className="reviews">
-              {reviews &&
-                reviews.map(review => (
-                  <Card key={review.id} className={classes.reviewCard}>
-                    <CardContent className="review-content">
-                      <StarRatings
-                        rating={review.rating}
-                        starRatedColor="yellow"
-                        numberOfStars={5}
-                        starDimension="20px"
-                        starSpacing="1px"
-                      />
-                      <div className="review-text"> {review.text} </div>
-                    </CardContent>
-                  </Card>
-                ))}
+              {reviews && (
+                <React.Fragment>
+                  {reviews.map(review => (
+                    <Card key={review.id} className={classes.reviewCard}>
+                      <CardContent className="review-content">
+                        <StarRatings
+                          rating={review.rating}
+                          starRatedColor="yellow"
+                          numberOfStars={5}
+                          starDimension="20px"
+                          starSpacing="1px"
+                        />
+                        <div className="review-text"> {review.text} </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </React.Fragment>
+              )}
             </div>
           </div>
         </div>
