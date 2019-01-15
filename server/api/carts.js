@@ -51,6 +51,7 @@ router.put('/guestCheckout', async (req, res, next) => {
     time: Date.now(),
     subTotal: req.body.subtotal,
     sessionId: req.sessionID,
+    tokenId: req.body.token.id,
     // email: req.body.email,
     shippingAddress: `${data.address_line1} ${data.address_city}, ${
       data.address_state
