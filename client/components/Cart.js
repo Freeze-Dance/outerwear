@@ -47,14 +47,13 @@ class Cart extends Component {
     const cart = this.props.cart
     return (
       <React.Fragment>
-        {/* {cart.products.length ? */}
         <form onSubmit={this.handleSubmit}>
           {cart.products.map(product => {
             return (
               <div key={product.id}>
-                <h1>CART ITEM: {product.title}</h1>
+                <h1>{product.title}</h1>
                 <h2>Quantity: {product.cartProduct.quantity}</h2>
-                <h2>Price: {product.price}</h2>
+                <h2>Price: {`$${product.price / 100}`}</h2>
                 <button
                   type="button"
                   value="add"
@@ -99,7 +98,7 @@ class Cart extends Component {
           })}
           <button type="submit">Checkout</button>
 
-          <h2>SUBTOTAL: {this.subtotal()}</h2>
+          <h2>SUBTOTAL: {`$${this.subtotal() / 100}`}</h2>
         </form>
         {/* :
         <div>
