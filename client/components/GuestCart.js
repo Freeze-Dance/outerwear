@@ -31,7 +31,6 @@ class GuestCart extends Component {
       cart: this.state.cart,
       subtotal: this.subtotal()
     })
-    console.log('DATA', data)
     this.setState({cart: data})
   }
 
@@ -82,7 +81,10 @@ class GuestCart extends Component {
           )
         })}
         <h3>Subtotal:{this.subtotal()}</h3>
-        <button type="button" onClick={this.handleCheckout}>
+        <button
+          type="button"
+          onClick={() => this.props.history.push('/stripeGuest')}
+        >
           Checkout
         </button>
       </React.Fragment>
