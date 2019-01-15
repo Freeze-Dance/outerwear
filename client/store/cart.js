@@ -57,12 +57,12 @@ export const fetchCart = userId => async dispatch => {
 }
 
 export const addToCart = (productId, userId) => async dispatch => {
+  console.log('FFFFFFFFFFFFFFFFFFFFF', userId)
   if (userId) {
     const {data} = await axios.put(`/api/carts/addToCart/${userId}`, {
       productId,
       userId
     })
-    console.log(data, 'FFFFFFFFFFFFFFFFFFFFF')
     dispatch(setCart(data))
   }
 }
