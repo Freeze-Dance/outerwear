@@ -6,7 +6,12 @@ import {Link} from 'react-router-dom'
 class EditProduct extends React.Component {
   constructor() {
     super()
-    this.state = {title: '', price: ''}
+    this.state = {
+      title: '',
+      price: '',
+      description: '',
+      inventoryQuantity: 0
+    }
   }
   render() {
     return (
@@ -42,6 +47,32 @@ class EditProduct extends React.Component {
                 this.setState({price: event.target.value})
               }}
               value={this.state.price}
+            />
+          </div>
+          <div>
+            <label htmlFor="description">
+              <small>Description</small>
+            </label>
+            <input
+              name="description"
+              type="text"
+              onChange={event => {
+                this.setState({description: event.target.value})
+              }}
+              value={this.state.description}
+            />
+          </div>
+          <div>
+            <label htmlFor="inventoryQuantity">
+              <small>Inventory Quantity</small>
+            </label>
+            <input
+              name="inventoryQuantity"
+              type="number"
+              onChange={event => {
+                this.setState({inventoryQuantity: event.target.value})
+              }}
+              value={this.state.inventoryQuantity}
             />
           </div>
           <div>
