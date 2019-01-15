@@ -27,7 +27,7 @@ const AuthForm = props => {
           <input name="password" type="password" className="login" />
         </div>
         <br />
-        <div>
+        <div id="authButton">
           <Button>
             <button type="submit" style={{color: '#ff0000'}}>
               {displayName}
