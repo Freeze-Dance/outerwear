@@ -67,27 +67,16 @@ export const addToCart = (productId, userId) => async dispatch => {
   }
 }
 
-// export const itemToCart = itemAdd => async dispatch => {
-//   const newItem = await axios.post('/api/cart/add', itemAdd)
-//   dispatch(addItemToCart(newItem.data))
-// }
-
-// export const updateItem = itemUpdate => async dispatch => {
-//   const updatedCart = await axios.put('/api/cart/edit', itemUpdate)
-//   dispatch(editQuantity(updatedCart.data))
-// }
-
-// export const deleteItem = itemId => async dispatch => {
-//   const response = await axios.delete(`/api/cart/deleteItem/${itemId}`)
-//   if (response.data === 'Item successfully deleted') {
-//     dispatch(deleteCartItem(itemId))
-//   }
-// }
-
-export const submitCart = (cartId, products, userId) => async dispatch => {
+export const submitCart = (
+  cartId,
+  products,
+  userId,
+  token
+) => async dispatch => {
   const {data} = await axios.put(`/api/carts/submit/${cartId}`, {
     products,
-    userId
+    userId,
+    token
   })
   dispatch(checkoutCart(data))
 }
