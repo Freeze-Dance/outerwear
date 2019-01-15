@@ -61,3 +61,17 @@ form div {
 .margin-20 {
   margin: 20px;
 }
+
+#authFormDiv {
+  text-align: center;
+  font-size: 25px;
+}
+
+#authFormDiv label {
+  text-align: left;
+}
+
+.login {
+  font-size: 15px;
+  width: 250px;
+}
