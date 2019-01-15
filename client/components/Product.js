@@ -23,7 +23,7 @@ const styles = theme => ({
 
 function Product(props) {
   const product = props.product
-  const {classes} = props
+  const {classes, isAdmin} = props
   return (
     <Fragment>
       <Card className={classes.card}>
@@ -51,13 +51,15 @@ function Product(props) {
                 Current Inventory: {product.inventoryQuantity} units
               </Typography>
             </div>
-            <div>
-              <Link to={`/editproduct/${product.id}`}>
-                <Button variant="contained" color="primary">
-                  Edit
-                </Button>
-              </Link>
-            </div>
+            {isAdmin && (
+              <div>
+                <Link to={`/editproduct/${product.id}`}>
+                  <Button variant="contained" color="primary">
+                    Edit
+                  </Button>
+                </Link>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

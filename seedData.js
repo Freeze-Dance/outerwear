@@ -301,11 +301,11 @@ const reviewData = [
 ]
 
 const categoryData = [
-  {name: 'gloves'},
-  {name: 'hats'},
-  {name: 'coats'},
-  {name: 'scarves'},
-  {name: 'pants'}
+  {id: 2, name: 'hats'},
+  {id: 1, name: 'gloves'},
+  {id: 4, name: 'coats'},
+  {id: 3, name: 'scarves'},
+  {id: 5, name: 'pants'}
 ]
 
 const cartData = [
@@ -327,16 +327,16 @@ const cartProductData = [
 ]
 
 const productCategoryData = [
-  {productId: 1, categoryId: 3},
-  {productId: 2, categoryId: 3},
+  {productId: 1, categoryId: 4},
+  {productId: 2, categoryId: 4},
   {productId: 3, categoryId: 1},
   {productId: 4, categoryId: 1},
   {productId: 5, categoryId: 2},
   {productId: 6, categoryId: 2},
   {productId: 7, categoryId: 5},
   {productId: 8, categoryId: 5},
-  {productId: 9, categoryId: 4},
-  {productId: 10, categoryId: 4}
+  {productId: 9, categoryId: 3},
+  {productId: 10, categoryId: 3}
 ]
 
 const orderProductData = [
