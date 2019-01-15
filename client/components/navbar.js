@@ -83,6 +83,7 @@ class Navbar extends React.Component {
                 </Button>
                 <Button>
                   <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
+                  <Link to="/passwordreset">Reset Password</Link>
                 </Button>
 
                 {isAdmin && (
