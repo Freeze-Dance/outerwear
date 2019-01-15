@@ -69,7 +69,7 @@ router.put('/guestCheckout', async (req, res, next) => {
   const mailOption = {
     from: 'freezeDance2019@gmail.com',
     to: req.body.token.email,
-    subject: 'Order Confirmation',
+    subject: 'Order Confirmation from Freeze Dance',
     text: `Your order has been successfully submitted. Thanks for shopping with us, ${
       data.name
     }. Get back to shopping!`
@@ -247,7 +247,7 @@ router.put('/submit/:cartId', async (req, res, next) => {
     const mailOption = {
       from: 'freezeDance2019@gmail.com',
       to: req.body.token.email,
-      subject: 'Order Confirmation',
+      subject: 'Order Confirmation from Freeze Dance',
       text: `Your order has been successfully submitted. Thanks for shopping with us, ${
         data.name
       }. Get back to shopping!`
