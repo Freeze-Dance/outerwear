@@ -23,4 +23,4 @@ const sendEmail = transporter.sendMail(mailOptions, function(error, info) {
   }
 })
 
-module.exports = sendEmail
+module.exports = {sendEmail, transporter}

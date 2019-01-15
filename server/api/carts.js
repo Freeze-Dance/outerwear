@@ -1,5 +1,6 @@
 /* eslint-disable guard-for-in */
 const router = require('express').Router()
+const sendEmail = require('../../sendEmail')
 const {
   Cart,
   Product,
@@ -46,7 +47,6 @@ router.put('/guestCart', async (req, res, next) => {
 
 router.put('/guestCheckout', async (req, res, next) => {
   let data = req.body.token.card
-  console.log('guest checkout', req.body)
   const order = await Order.create({
     time: Date.now(),
     subTotal: req.body.subtotal,
@@ -66,6 +66,21 @@ router.put('/guestCheckout', async (req, res, next) => {
       quantity: product.quantity
     })
   }
+  const mailOption = {
+    from: 'freezeDance2019@gmail.com',
+    to: req.body.token.email,
+    subject: 'Order Confirmation',
+    text: `Your order has been successfully submitted. Thanks for shopping with us, ${
+      data.name
+    }. Get back to shopping!`
+  }
+  sendEmail.transporter.sendMail(mailOption, function(error, info) {
+    if (error) {
+      console.log(error)
+    } else {
+      console.log('Email sent: ' + info.response)
+    }
+  })
   req.session.cart = []
   res.json({})
 })
@@ -227,6 +242,21 @@ router.put('/submit/:cartId', async (req, res, next) => {
     await CartProduct.destroy({
       where: {
         cartId: req.params.cartId
+      }
+    })
+    const mailOption = {
+      from: 'freezeDance2019@gmail.com',
+      to: req.body.token.email,
+      subject: 'Order Confirmation',
+      text: `Your order has been successfully submitted. Thanks for shopping with us, ${
+        data.name
+      }. Get back to shopping!`
+    }
+    sendEmail.transporter.sendMail(mailOption, function(error, info) {
+      if (error) {
+        console.log(error)
+      } else {
+        console.log('Email sent: ' + info.response)
       }
     })
   } catch (err) {
