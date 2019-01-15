@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, HomePage, SingleProduct, Cart} from './components'
 import {me} from './store'
@@ -31,9 +31,6 @@ class Routes extends Component {
           <Route exact path="/login" component={Login} />
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/products/:productId" component={SingleProduct} />
-          <Route exact path="/dashboard" component={dashboard} />
-          <Route exact path="/newproduct" component={NewProduct} />
-          <Route exact path="/editproduct/:id" component={editproduct} />
           <Route exact path="/cart" component={GuestCart} />
           <Route exact path="/passwordreset" component={PasswordReset} />
 

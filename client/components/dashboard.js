@@ -1,8 +1,9 @@
 import React, {Fragment} from 'react'
 import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 import {fetchProducts} from '../store'
 import Product from './Product'
-import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
@@ -22,6 +23,9 @@ const styles = theme => ({
   },
   headerRoot: {
     marginLeft: 20
+  },
+  button: {
+    margin: 20
   }
 })
 
@@ -77,34 +81,47 @@ class dashboard extends React.Component {
     const {classes} = this.props
     return (
       <Fragment>
-        <div className="flex-flex-end margin-20">
-          <div>
-            <FormControl className={classes.root}>
-              <FormHelperText>Filter Categories</FormHelperText>
-              <Select
-                value={this.state.category}
-                onChange={event => this.handleFilterChange(event)}
-                displayEmpty
-              >
-                <MenuItem value="">Show All</MenuItem>
-                <MenuItem value="hats">Hats</MenuItem>
-                <MenuItem value="gloves">Gloves</MenuItem>
-                <MenuItem value="scarves">Scarves</MenuItem>
-                <MenuItem value="coats">Coats</MenuItem>
-                <MenuItem value="pants">Pants</MenuItem>
-              </Select>
-            </FormControl>
+        <div className="flex-space-between">
+          <div className="flex-flex-start margin-20">
+            <div>
+              <FormControl className={classes.root}>
+                <FormHelperText>Filter Categories</FormHelperText>
+                <Select
+                  value={this.state.category}
+                  onChange={event => this.handleFilterChange(event)}
+                  displayEmpty
+                >
+                  <MenuItem value="">Show All</MenuItem>
+                  <MenuItem value="hats">Hats</MenuItem>
+                  <MenuItem value="gloves">Gloves</MenuItem>
+                  <MenuItem value="scarves">Scarves</MenuItem>
+                  <MenuItem value="coats">Coats</MenuItem>
+                  <MenuItem value="pants">Pants</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+            <div>
+              <TextField
+                className={classes.searchRoot}
+                label="Search..."
+                type="text"
+                value={this.state.search}
+                onChange={event => this.handleSearchChange(event)}
+              />
+            </div>
           </div>
           <div>
-            <TextField
-              className={classes.searchRoot}
-              label="Search..."
-              type="text"
-              value={this.state.search}
-              onChange={event => this.handleSearchChange(event)}
-            />
+            <Button
+              variant="contained"
+              color="primary"
+              type="button"
+              className={classes.button}
+            >
+              <Link to="/newproduct">Add Product</Link>
+            </Button>
           </div>
         </div>
+
         <div className="flex">{allCatalogProducts}</div>
       </Fragment>
     )

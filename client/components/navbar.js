@@ -7,14 +7,15 @@ import DashboardTabs from './DashboardTabs'
 import AppBar from '@material-ui/core/AppBar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
+import Icon from '@material-ui/core/Icon'
 import {withStyles} from '@material-ui/core/styles'
 
-const styles = {
+const styles = theme => ({
   root: {
     flexGrow: 1,
     paddingTop: 10
   },
-  colorTextPrimary: {
+  button: {
     color: '#ffffff'
   },
   siteTitle: {
@@ -22,8 +23,12 @@ const styles = {
     marginTop: 8,
     marginLeft: 20,
     marginRight: 20
+  },
+  icon: {
+    marginRight: -25,
+    marginLeft: 20
   }
-}
+})
 
 class Navbar extends React.Component {
   constructor() {
@@ -39,7 +44,6 @@ class Navbar extends React.Component {
 
   handleDashBoardClick(event) {
     event.preventDefault()
-    // console.log('hitting click')
     this.setState(prev => {
       return {
         dashboard: !prev.dashboard
@@ -50,11 +54,11 @@ class Navbar extends React.Component {
   render() {
     let {isLoggedIn, isAdmin, handleClick} = this.props
     const {classes} = this.props
-    // console.log(this.props, '<<< navbar')
     return (
       <Fragment>
         <AppBar position="static" className={classes.root}>
           <nav className="flex-wrap-only">
+            <Icon className={classes.icon}>ac_unit</Icon>
             <Typography
               variant="h4"
               color="textPrimary"
@@ -64,56 +68,34 @@ class Navbar extends React.Component {
             </Typography>
             {isLoggedIn ? (
               <div>
-                <Link to="/">
-                  <Typography
-                    variant="h6"
-                    color="textPrimary"
-                    className={classes.colorTextPrimary}
-                  >
-                    Home
-                  </Typography>
-                </Link>
-                <a href="#" onClick={handleClick}>
-                  <Typography
-                    variant="h6"
-                    color="textPrimary"
-                    className={classes.colorTextPrimary}
-                  >
+                <Button>
+                  <Link to="/">Home</Link>
+                </Button>
+                <Button>
+                  <a href="#" onClick={handleClick}>
                     Logout
-                  </Typography>
-                </a>
-                <Link to={`/orderhistory/${this.props.user.id}`}>
-                  {/* <Typography
-                    variant="h6"
-                    color="textPrimary"
-                    className={classes.colorTextPrimary}
-                  > */}
-                  Previous Orders
-                  {/* </Typography> */}
-                </Link>
-                {isAdmin ? (
-                  <Button>
-                    <Link to="/dashboard" onClick={this.handleDashBoardClick}>
-                      {/* <Typography
-                        variant="h6"
-                        color="textPrimary"
-                        className={classes.colorTextPrimary}
-                      > */}
-                      Dashboard
-                      {/* </Typography> */}
-                    </Link>
-                  </Button>
-                ) : (
-                  <Button>
-                    <Link to={`/cart/${this.props.user.id}`}>
-                      {/* <Typography
-                        variant="h6"
-                        color="textPrimary"
-                        className={classes.colorTextPrimary}
-                      > */}
-                      Cart
-                      {/* </Typography> */}
-                    </Link>
+                  </a>
+                </Button>
+                <Button>
+                  <Link to={`/orderhistory/${this.props.user.id}`}>
+                    Previous Orders
+                  </Link>
+                </Button>
+                <Button>
+                  <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
+                </Button>
+
+                {isAdmin && (
+                  <Button
+                    className={classes.button}
+                    onClick={this.handleDashBoardClick}
+                  >
+                    Admin Dashboard
+                    {this.state.dashboard === false ? (
+                      <Icon>expand_more</Icon>
+                    ) : (
+                      <Icon>expand_less</Icon>
+                    )}
                   </Button>
                 )}
               </div>
@@ -121,48 +103,16 @@ class Navbar extends React.Component {
               <div>
                 {/* The navbar will show these links before you log in */}
                 <Button>
-                  <Link to="/">
-                    {/* <Typography
-                      variant="h6"
-                      color="textPrimary"
-                      className={classes.colorTextPrimary}
-                    > */}
-                    Home
-                    {/* </Typography> */}
-                  </Link>
+                  <Link to="/">Home</Link>
                 </Button>
                 <Button>
-                  <Link to="/login">
-                    {/* <Typography
-                      variant="h6"
-                      color="textPrimary"
-                      className={classes.colorTextPrimary}
-                    > */}
-                    Login
-                    {/* </Typography> */}
-                  </Link>
+                  <Link to="/login">Login</Link>
                 </Button>
                 <Button>
-                  <Link to="/signup">
-                    {/* <Typography
-                      variant="h6"
-                      color="textPrimary"
-                      className={classes.colorTextPrimary}
-                    > */}
-                    Sign Up
-                    {/* </Typography> */}
-                  </Link>
+                  <Link to="/signup">Sign Up</Link>
                 </Button>
                 <Button>
-                  <Link to="/cart">
-                    {/* <Typography
-                      variant="h6"
-                      color="textPrimary"
-                      className={classes.colorTextPrimary}
-                    > */}
-                    Cart
-                    {/* </Typography> */}
-                  </Link>
+                  <Link to="/cart">Cart</Link>
                 </Button>
               </div>
             )}

@@ -4,14 +4,13 @@ body {
 }
 
 a {
+  color: #ffffff;
   text-decoration: none;
-  transition: text-decoration 1s;
 }
 
-a:hover {
-  color: #ffffff;
+/* a:hover {
   text-decoration: underline;
-}
+} */
 
 label {
   display: block;
@@ -37,6 +36,12 @@ form div {
 .flex-flex-end {
   display: flex;
   justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.flex-flex-start {
+  display: flex;
+  justify-content: flex-start;
   flex-wrap: wrap;
 }
 
