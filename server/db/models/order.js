@@ -6,7 +6,8 @@ const Order = db.define('order', {
   subTotal: {type: Sequelize.INTEGER},
   sessionId: {type: Sequelize.STRING},
   status: {type: Sequelize.STRING, defaultValue: 'Created'},
-  shippingAddress: {type: Sequelize.STRING}
+  shippingAddress: {type: Sequelize.STRING},
+  tokenId: {type: Sequelize.STRING}
 })
 
 module.exports = Order

@@ -139,7 +139,7 @@ export class SingleProduct extends Component {
                   </div>
                 </div>
                 <div>
-                  {Object.keys(this.props.user.user).length > 0 ? (
+                  {Object.keys(this.props.user).length > 0 ? (
                     <Button
                       variant="contained"
                       color="primary"

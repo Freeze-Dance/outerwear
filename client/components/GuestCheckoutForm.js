@@ -17,8 +17,8 @@ class GuestCheckoutForm extends Component {
     let {data} = await Axios.put('/api/carts/guestCheckout', {
       cart: this.state.cart,
       subtotal: this.subtotal(),
-      email: this.state.email,
-      shippingAddress: this.state.address
+      email: this.state.email
+      // shippingAddress: this.state.address
     })
     this.setState({cart: data})
     this.props.history.push('/')

@@ -83,7 +83,7 @@ class GuestCart extends Component {
         <h3>Subtotal:{this.subtotal()}</h3>
         <button
           type="button"
-          onClick={() => this.props.history.push('/guestCheckout')}
+          onClick={() => this.props.history.push('/stripeGuest')}
         >
           Checkout
         </button>
