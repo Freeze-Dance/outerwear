@@ -70,7 +70,7 @@ export class SingleProduct extends Component {
     event.preventDefault()
     // Review, rating, productId, user Id
     const text = this.state.review
-    const userId = this.props.user.id
+    const userId = this.props.user.user.id
     const productId = this.props.product.id
     const rating = this.state.rating
 
@@ -90,8 +90,9 @@ export class SingleProduct extends Component {
   }
 
   handleClick() {
-    this.props.addToCart(this.props.product.id, this.props.user.id)
-    this.props.history.push(`/cart/${this.props.user.id}`)
+    console.log('handle click props>>>>>', this.props)
+    this.props.addToCart(this.props.product.id, this.props.user.user.id)
+    this.props.history.push(`/cart/${this.props.user.user.id}`)
   }
   async handleGuest() {
     await Axios.put(`/api/carts/guestAdd`, {
@@ -136,7 +137,7 @@ export class SingleProduct extends Component {
                   </div>
                 </div>
                 <div>
-                  {Object.keys(this.props.user).length > 0 ? (
+                  {Object.keys(this.props.user.user).length > 0 ? (
                     <Button
                       variant="contained"
                       color="primary"
@@ -162,7 +163,7 @@ export class SingleProduct extends Component {
             </CardContent>
           </Card>
           <div className="card">
-            {Object.keys(this.props.user).length > 0 ? (
+            {Object.keys(this.props.user.user).length > 0 ? (
               <React.Fragment>
                 <form className="review-form" onSubmit={this.createNewReview}>
                   <textarea
