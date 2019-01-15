@@ -35,7 +35,6 @@ class Routes extends Component {
           <Route exact path="/newproduct" component={NewProduct} />
           <Route exact path="/editproduct/:id" component={editproduct} />
           <Route exact path="/cart" component={GuestCart} />
-          <Route exact path="/passwordreset" component={PasswordReset} />
 
           {/* Displays our Login component as a fallback */}
           {/* Displays our HomePage component as a fallback */}
@@ -54,6 +53,7 @@ class Routes extends Component {
               path="/products/:productId/createreview"
               component={SingleProduct}
             />
+            <Route exact path="/passwordreset" component={PasswordReset} />
             {isAdmin /* Routes placed here are only available if admin*/ && (
               <Fragment>
                 <Route exact path="/dashboard" component={dashboard} />

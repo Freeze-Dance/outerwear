@@ -26,8 +26,8 @@ class PasswordReset extends Component {
     if (this.state.password !== this.state.confirmPassword) {
       this.setState({error: 'Passwords do not match'})
     } else {
-      this.setState({error: ''})
-      this.props.resetPassword(this.state.password, this.props.user.user.id)
+      this.setState({error: 'Password Successfully Changed'})
+      this.props.resetPassword(this.state.password, this.props.user.id)
     }
   }
 

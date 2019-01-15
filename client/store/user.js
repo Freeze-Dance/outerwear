@@ -101,8 +101,6 @@ export const promoteToAdmin = userId => async dispatch => {
   }
 }
 
-// // trigger password reset for user
-
 /**
  * REDUCER
  */
