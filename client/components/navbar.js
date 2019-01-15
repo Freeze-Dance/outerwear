@@ -23,7 +23,7 @@ class Navbar extends React.Component {
               <a href="#" onClick={handleClick}>
                 Logout
               </a>
-              <Link to={`/orderhistory/${this.props.user.id}`}>
+              <Link to={`/orderhistory/${this.props.user.user.id}`}>
                 Previous Orders
               </Link>
               {isAdmin ? (
@@ -32,7 +32,7 @@ class Navbar extends React.Component {
                   <Link to="/allusers">Users</Link>
                 </div>
               ) : (
-                <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
+                <Link to={`/cart/${this.props.user.user.id}`}>Cart</Link>
               )}
             </div>
           ) : (

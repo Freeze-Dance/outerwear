@@ -69,7 +69,7 @@ class Routes extends Component {
             )}
           </Switch>
         ) : null
-        //<Redirect to="/" /> //if not logged in (or if logged in not admin) and try route - redirect to homepage
+        // <Redirect to="/" /> //if not logged in (or if logged in not admin) and try route - redirect to homepage
         }
       </Fragment>
     )
