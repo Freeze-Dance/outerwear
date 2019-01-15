@@ -1,6 +1,6 @@
 import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch} from 'react-router-dom'
+import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, HomePage, SingleProduct, Cart} from './components'
 import {me} from './store'
@@ -11,7 +11,8 @@ import OrderHistory from './components/OrderHistory'
 import DashboardOrders from './components/DashboardOrders'
 import GuestCart from './components/GuestCart'
 import GuestCheckoutForm from './components/GuestCheckoutForm'
-import TakeMoney from './components/StripeCheckout'
+import AllUsers from './components/AllUsers'
+import PasswordReset from './components/PasswordReset'
 
 /**
  * COMPONENT
@@ -35,14 +36,14 @@ class Routes extends Component {
           <Route exact path="/newproduct" component={NewProduct} />
           <Route exact path="/editproduct/:id" component={editproduct} />
           <Route exact path="/cart" component={GuestCart} />
-          <Route exact path="/guestCheckout" component={GuestCheckoutForm} />
-          <Route exact path="/stripe" component={TakeMoney} />
+          <Route exact path="/passwordreset" component={PasswordReset} />
+
           {/* Displays our Login component as a fallback */}
+          {/* Displays our HomePage component as a fallback */}
         </Switch>
-        {isLoggedIn && (
+        {isLoggedIn ? (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route exact path="/cart" component={Cart} />
             <Route exact path="/cart/:userId" component={Cart} />
             <Route
               exact
@@ -64,10 +65,13 @@ class Routes extends Component {
                 />
                 <Route exact path="/newproduct" component={NewProduct} />
                 <Route exact path="/editproduct/:id" component={editproduct} />
+                <Route exact path="/allusers" component={AllUsers} />
               </Fragment>
             )}
           </Switch>
-        )}
+        ) : null
+        // <Redirect to="/" /> //if not logged in (or if logged in not admin) and try route - redirect to homepage
+        }
       </Fragment>
     )
   }
@@ -80,8 +84,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
-    isAdmin: state.user.admin
+    isLoggedIn: !!state.user.user.id,
+    isAdmin: state.user.user.admin
   }
 }
 

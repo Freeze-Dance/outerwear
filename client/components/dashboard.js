@@ -75,7 +75,6 @@ class dashboard extends React.Component {
         <Product className="card" key={product.id} product={product} />
       ))
     const {classes} = this.props
-    console.log(this.state.search, '<<<<search')
     return (
       <Fragment>
         <div className="flex-space-between">

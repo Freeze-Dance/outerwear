@@ -6,17 +6,26 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const GET_ALL_USERS = 'GET_ALL_USERS'
+const MAKE_ADMIN = 'MAKE_ADMIN'
+const DELETE_USER = 'DELETE_USER'
 
 /**
  * INITIAL STATE
  */
-const defaultUser = {}
+const initialState = {
+  allUsers: [],
+  user: {}
+}
 
 /**
- * ACTION CREATORS
+ * ACTION CREATORS`
  */
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const getAllUsers = allUsers => ({type: GET_ALL_USERS, allUsers})
+const makeAdmin = newAdmin => ({type: MAKE_ADMIN, newAdmin})
+const deleteUser = userId => ({type: DELETE_USER, userId})
 
 /**
  * THUNK CREATORS
@@ -24,7 +33,25 @@ const removeUser = () => ({type: REMOVE_USER})
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
-    dispatch(getUser(res.data || defaultUser))
+    dispatch(getUser(res.data || {}))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const resetPassword = (password, userId) => async dispatch => {
+  try {
+    const res = await axios.put(`/api/users/${userId}`, {password})
+    dispatch(getUser(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const fetchAllUsers = () => async dispatch => {
+  try {
+    const users = await axios.get('/api/users/allUsers')
+    dispatch(getAllUsers(users.data))
   } catch (err) {
     console.error(err)
   }
@@ -57,15 +84,53 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const destroyUser = userId => async dispatch => {
+  const response = await axios.delete(`/api/users/${userId}`)
+  if (response.data === 'User successfully deleted') {
+    dispatch(deleteUser(userId))
+  }
+}
+
+// method input to make user an admin
+export const promoteToAdmin = userId => async dispatch => {
+  try {
+    const res = await axios.put(`/api/users/makeAdmin/${userId}`)
+    dispatch(makeAdmin(res.data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+// // trigger password reset for user
+
 /**
  * REDUCER
  */
-export default function(state = defaultUser, action) {
+export default function(state = initialState, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
+      return {...state, user: action.user}
     case REMOVE_USER:
-      return defaultUser
+      return {...state, user: {}}
+    case GET_ALL_USERS:
+      return {...state, allUsers: action.allUsers}
+    case DELETE_USER:
+      return {
+        ...state,
+        allUsers: state.allUsers.filter(user => user.id !== action.userId)
+      }
+    case MAKE_ADMIN:
+      return {
+        ...state,
+        allUsers: state.allUsers.map(user => {
+          if (user.id === action.newAdmin.id) {
+            console.log('user found:', user.id, action.newAdmin)
+            user.admin = true
+            return user
+          }
+          return user
+        })
+      }
     default:
       return state
   }
