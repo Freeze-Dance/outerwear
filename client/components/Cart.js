@@ -24,12 +24,12 @@ class Cart extends Component {
   }
   handleSubmit(e) {
     e.preventDefault()
-    this.props.submitCart(
-      this.props.cart.id,
-      this.props.cart.products,
-      this.props.match.params
-    )
-    this.props.history.push('/')
+    // this.props.submitCart(
+    //   this.props.cart.id,
+    //   this.props.cart.products,
+    //   this.props.match.params
+    // )
+    this.props.history.push(`/stripeUser/${this.props.match.params.userId}`)
     // this.props.history.push(`/orderhistory/${this.props.match.params.userId}`)
   }
 

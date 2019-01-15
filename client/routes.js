@@ -10,8 +10,11 @@ import editproduct from './components/editproduct'
 import OrderHistory from './components/OrderHistory'
 import DashboardOrders from './components/DashboardOrders'
 import GuestCart from './components/GuestCart'
+import GuestCheckoutForm from './components/GuestCheckoutForm'
 import AllUsers from './components/AllUsers'
 import PasswordReset from './components/PasswordReset'
+import StripeCheckout from './components/StripeCheckout'
+import StripeGuest from './components/StripeGuest'
 
 /**
  * COMPONENT
@@ -32,6 +35,7 @@ class Routes extends Component {
           <Route exact path="/signup" component={Signup} />
           <Route exact path="/products/:productId" component={SingleProduct} />
           <Route exact path="/cart" component={GuestCart} />
+          <Route exact path="/stripeGuest" component={StripeGuest} />
           <Route exact path="/passwordreset" component={PasswordReset} />
 
           {/* Displays our Login component as a fallback */}
@@ -39,6 +43,11 @@ class Routes extends Component {
         </Switch>
         {isLoggedIn && (
           <Switch>
+            <Route
+              exact
+              path="/stripeUser/:userId"
+              component={StripeCheckout}
+            />
             {/* Routes placed here are only available after logging in */}
             <Route exact path="/cart/:userId" component={Cart} />
             <Route

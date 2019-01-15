@@ -43,11 +43,19 @@ router.put('/guestCart', async (req, res, next) => {
     console.error(e)
   }
 })
+
 router.put('/guestCheckout', async (req, res, next) => {
+  let data = req.body.token.card
+  console.log('guest checkout', req.body)
   const order = await Order.create({
     time: Date.now(),
     subTotal: req.body.subtotal,
-    sessionId: req.sessionID
+    sessionId: req.sessionID,
+    tokenId: req.body.token.id,
+    // email: req.body.email,
+    shippingAddress: `${data.address_line1} ${data.address_city}, ${
+      data.address_state
+    } ${data.address_zip}`
   })
   for (let key in req.body.cart) {
     let product = req.body.cart[key]
@@ -192,13 +200,21 @@ router.delete('/delete/:cartId/:productId', async (req, res, next) => {
 router.put('/submit/:cartId', async (req, res, next) => {
   try {
     let products = req.body.products
+    let data = req.body.token.card
+    let tokenId = req.body.token.id
+    console.log('SUBMIT CARTID REQ BODY', req.body)
     let subTotal = products.reduce((acc, curr) => {
       return (acc += curr.price * curr.cartProduct.quantity)
     }, 0)
     const order = await Order.create({
       time: Date.now(),
       subTotal: subTotal,
-      userId: 4
+      userId: req.body.userId,
+      sessionId: req.session.id,
+      shippingAddress: `${data.address_line1} ${data.address_city}, ${
+        data.address_state
+      } ${data.address_zip}`,
+      tokenId
     })
     products.forEach(async product => {
       await OrderProduct.create({
