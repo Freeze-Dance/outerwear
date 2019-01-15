@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {auth} from '../store'
+import Button from '@material-ui/core/Button'
 
 /**
  * COMPONENT
@@ -29,7 +30,13 @@ const AuthForm = props => {
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
-      <a href="/auth/google">{displayName} with Google</a>
+      <div>
+        <Button>
+          <a href="/auth/google" style={{color: '#ff0000'}}>
+            {displayName} with Google
+          </a>
+        </Button>
+      </div>
     </div>
   )
 }
@@ -62,7 +69,6 @@ const mapDispatch = dispatch => {
     handleSubmit(evt) {
       evt.preventDefault()
       const formName = evt.target.name
-      console.log('formname>>>>>', formName)
       const email = evt.target.email.value
       const password = evt.target.password.value
       dispatch(auth(email, password, formName))
