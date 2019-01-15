@@ -1,55 +1,126 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout, me} from '../store'
+import DashboardTabs from './DashboardTabs'
+import AppBar from '@material-ui/core/AppBar'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
+import Icon from '@material-ui/core/Icon'
+import {withStyles} from '@material-ui/core/styles'
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+    paddingTop: 10
+  },
+  button: {
+    color: '#ffffff'
+  },
+  siteTitle: {
+    color: '#ffffff',
+    marginTop: 8,
+    marginLeft: 20,
+    marginRight: 20
+  },
+  icon: {
+    marginRight: -25,
+    marginLeft: 20
+  }
+})
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
+    this.state = {
+      dashboard: false
+    }
+    this.handleDashBoardClick = this.handleDashBoardClick.bind(this)
   }
   componentDidMount() {
     this.props.fetchUser()
   }
+
+  handleDashBoardClick(event) {
+    event.preventDefault()
+    this.setState(prev => {
+      return {
+        dashboard: !prev.dashboard
+      }
+    })
+  }
+
   render() {
     let {isLoggedIn, isAdmin, handleClick} = this.props
+    const {classes} = this.props
     return (
-      <div>
-        <h1>Freeze Dance</h1>
-        <nav>
-          {isLoggedIn ? (
-            <div>
-              <Link to="/">Home</Link>
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
-              <Link to={`/orderhistory/${this.props.user.id}`}>
-                Previous Orders
-              </Link>
-              {isAdmin ? (
-                <div>
-                  <Link to="/dashboard">Dashboard</Link>
-                  <Link to="/allusers">Users</Link>
-                </div>
-              ) : (
-                <div>
+      <Fragment>
+        <AppBar position="static" className={classes.root}>
+          <nav className="flex-wrap-only">
+            <Icon className={classes.icon}>ac_unit</Icon>
+            <Typography
+              variant="h4"
+              color="textPrimary"
+              className={classes.siteTitle}
+            >
+              Freeze Dance
+            </Typography>
+            {isLoggedIn ? (
+              <div>
+                <Button>
+                  <Link to="/">Home</Link>
+                </Button>
+                <Button>
+                  <a href="#" onClick={handleClick}>
+                    Logout
+                  </a>
+                </Button>
+                <Button>
+                  <Link to={`/orderhistory/${this.props.user.id}`}>
+                    Previous Orders
+                  </Link>
+                </Button>
+                <Button>
                   <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
                   <Link to="/passwordreset">Reset Password</Link>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/">Home</Link>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-              <Link to="/cart">Cart</Link>
-            </div>
-          )}
-        </nav>
-        <hr />
-      </div>
+                </Button>
+
+                {isAdmin && (
+                  <Button
+                    className={classes.button}
+                    onClick={this.handleDashBoardClick}
+                  >
+                    Admin Dashboard
+                    {this.state.dashboard === false ? (
+                      <Icon>expand_more</Icon>
+                    ) : (
+                      <Icon>expand_less</Icon>
+                    )}
+                  </Button>
+                )}
+              </div>
+            ) : (
+              <div>
+                {/* The navbar will show these links before you log in */}
+                <Button>
+                  <Link to="/">Home</Link>
+                </Button>
+                <Button>
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button>
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+                <Button>
+                  <Link to="/cart">Cart</Link>
+                </Button>
+              </div>
+            )}
+          </nav>
+        </AppBar>
+        {isAdmin && this.state.dashboard && <DashboardTabs />}
+      </Fragment>
     )
   }
 }
@@ -75,7 +146,7 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(withStyles(styles)(Navbar))
 
 /**
  * PROP TYPES

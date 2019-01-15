@@ -119,9 +119,7 @@ export class SingleProduct extends Component {
               className={classes.media}
               image={`/${photoURL}`}
               title="Product Title"
-              // component="img"
               alt="Product Description"
-              // maxHeight="50px"
             >
               <CardHeader className={classes.cardHeader} title={`${title} -`} />
             </CardMedia>
@@ -167,13 +165,6 @@ export class SingleProduct extends Component {
           <div className="card">
             {Object.keys(this.props.user).length > 0 ? (
               <React.Fragment>
-                {/* <button
-                  className="margin-20"
-                  type="button"
-                  onClick={this.handleClick}
-                >
-                  Add to Cart
-                </button> */}
                 <form className="review-form" onSubmit={this.createNewReview}>
                   <textarea
                     name="review"
@@ -203,13 +194,6 @@ export class SingleProduct extends Component {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {/* <button
-                  className="margin-20"
-                  type="button"
-                  onClick={this.handleGuest}
-                >
-                  Add to Guest Cart
-                </button> */}
                 <div className="margin-20">
                   <div> PLEASE LOG IN TO LEAVE A REVIEW</div>
                 </div>

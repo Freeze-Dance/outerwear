@@ -2,7 +2,6 @@ import React, {Component, Fragment} from 'react'
 import {connect} from 'react-redux'
 import Order from './Order.js'
 import {fetchAllOrders, editCurrentOrder} from '../store'
-import Typography from '@material-ui/core/Typography'
 import FormHelperText from '@material-ui/core/FormHelperText'
 import Select from '@material-ui/core/Select'
 import MenuItem from '@material-ui/core/MenuItem'
@@ -66,10 +65,7 @@ class OrderHistory extends Component {
     const {classes} = this.props
     return (
       <Fragment>
-        <div className="flex-space-between">
-          <Typography className={classes.headerRoot} variant="h4" gutterBottom>
-            Customer Orders
-          </Typography>
+        <div className="flex-flex-start margin-20">
           <FormControl className={classes.root}>
             <FormHelperText>Filter Status</FormHelperText>
             <Select
@@ -85,7 +81,6 @@ class OrderHistory extends Component {
             </Select>
           </FormControl>
         </div>
-        <hr />
         {allOrdersForAdmin}
       </Fragment>
     )

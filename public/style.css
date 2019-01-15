@@ -1,10 +1,16 @@
 body {
   font-family: sans-serif;
+  margin: 0;
 }
 
 a {
+  color: #ffffff;
   text-decoration: none;
 }
+
+/* a:hover {
+  text-decoration: underline;
+} */
 
 label {
   display: block;
@@ -26,13 +32,32 @@ form div {
   justify-content: space-between;
 }
 
-/* dashboard - dash manage products */
+/* using in dashboard.js */
+.flex-flex-end {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+.flex-flex-start {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+/* using for product card display */
 .flex {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 }
 
+.flex-wrap-only {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* using for product cards */
 .card {
   flex-grow: 1;
 }
