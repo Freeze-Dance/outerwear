@@ -52,12 +52,10 @@ export const fetchCart = userId => async dispatch => {
     params: userId
   })
   if (!data.products) data.products = []
-  console.log(data, 'DATA')
   dispatch(setCart(data))
 }
 
 export const addToCart = (productId, userId) => async dispatch => {
-  console.log('FFFFFFFFFFFFFFFFFFFFF', userId)
   if (userId) {
     const {data} = await axios.put(`/api/carts/addToCart/${userId}`, {
       productId,
@@ -82,7 +80,6 @@ export const submitCart = (
 }
 
 export const deleteItem = (cartId, productId, userId) => async dispatch => {
-  console.log(cartId, 'HIIIIIIIIIIIIIII')
   const {data} = await axios.delete(`/api/carts/delete/${cartId}/${productId}`)
   dispatch(fetchCart(userId))
 }

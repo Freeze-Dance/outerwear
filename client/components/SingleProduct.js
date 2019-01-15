@@ -90,7 +90,6 @@ export class SingleProduct extends Component {
   }
 
   handleClick() {
-    console.log('handle click props>>>>>', this.props)
     this.props.addToCart(this.props.product.id, this.props.user.id)
     this.props.history.push(`/cart/${this.props.user.id}`)
   }

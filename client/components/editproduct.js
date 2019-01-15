@@ -14,7 +14,6 @@ class EditProduct extends React.Component {
         <form
           onSubmit={async evt => {
             evt.preventDefault()
-            console.log(this.props)
             await this.props.editproduct(this.props.match.params.id, this.state)
             this.props.history.push('/dashboard')
           }}

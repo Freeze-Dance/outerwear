@@ -39,8 +39,6 @@ router.put('/:userId', async (req, res, next) => {
   try {
     const user = await User.findById(req.params.userId)
     const updatedUser = await user.update({password: req.body.password})
-
-    console.log('what am i?', updatedUser)
     res.send(updatedUser)
   } catch (err) {
     next(err)
