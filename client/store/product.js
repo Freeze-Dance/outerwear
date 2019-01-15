@@ -28,11 +28,11 @@ export const fetchProduct = productId => async dispatch => {
   }
 }
 
-export const createProduct = newProduct => async dispatch => {
+export const createProduct = (newProduct, category) => async dispatch => {
   try {
-    const {data} = await axios.post('/api/products', newProduct)
+    const {data} = await axios.post('/api/products', {newProduct, category})
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -40,7 +40,7 @@ export const editproduct = (id, product) => async dispatch => {
   try {
     const {data} = await axios.put(`/api/products/${id}`, product)
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 
@@ -52,7 +52,7 @@ export const creatingReview = review => async dispatch => {
     )
     dispatch(createReview(returnedReview.data))
   } catch (err) {
-    console.log(err)
+    console.error(err)
   }
 }
 

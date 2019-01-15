@@ -17,7 +17,6 @@ router.get('/stripe', async (req, res, next) => {
     source: 'tok_visa',
     receipt_email: 'yaodijr@gmail.com'
   })
-  console.log(charge)
   res.json(charge)
 })
 router.use((req, res, next) => {

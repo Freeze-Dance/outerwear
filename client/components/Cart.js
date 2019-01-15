@@ -34,7 +34,6 @@ class Cart extends Component {
   }
 
   handleDelete(cartId, productId, userId) {
-    console.log(cartId, ': CART ID', productId, ': PRODUCT ID')
     this.props.deleteItem(cartId, productId, userId)
   }
   subtotal() {
@@ -46,7 +45,6 @@ class Cart extends Component {
 
   render() {
     const cart = this.props.cart
-    console.log(cart.products, 'products')
     return (
       <React.Fragment>
         {/* {cart.products.length ? */}

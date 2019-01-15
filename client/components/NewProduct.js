@@ -6,17 +6,21 @@ import {Link} from 'react-router-dom'
 class NewProduct extends React.Component {
   constructor() {
     super()
-    this.state = {title: '', price: ''}
+    this.state = {
+      title: '',
+      price: '',
+      description: '',
+      inventoryQuantity: 0,
+      category: ''
+    }
   }
 
   render() {
-    console.log(this.state)
     return (
       <form
         onSubmit={async evt => {
           evt.preventDefault()
-          console.log(this.props)
-          await this.props.createProduct(this.state)
+          await this.props.createProduct(this.state, this.state.category)
           this.props.history.push('/dashboard')
         }}
       >
@@ -47,6 +51,45 @@ class NewProduct extends React.Component {
           />
         </div>
         <div>
+          <label htmlFor="description">
+            <small>Description</small>
+          </label>
+          <input
+            name="description"
+            type="text"
+            onChange={event => {
+              this.setState({description: event.target.value})
+            }}
+            value={this.state.description}
+          />
+        </div>
+        <div>
+          <label htmlFor="inventoryQuantity">
+            <small>Inventory Quantity</small>
+          </label>
+          <input
+            name="inventoryQuantity"
+            type="number"
+            onChange={event => {
+              this.setState({inventoryQuantity: event.target.value})
+            }}
+            value={this.state.inventoryQuantity}
+          />
+        </div>
+        <div>
+          <label htmlFor="category">
+            <small>Category</small>
+          </label>
+          <input
+            name="category"
+            type="text"
+            onChange={event => {
+              this.setState({category: event.target.value})
+            }}
+            value={this.state.category}
+          />
+        </div>
+        <div>
           <button type="submit">New Product</button>
         </div>
       </form>
@@ -55,6 +98,7 @@ class NewProduct extends React.Component {
 }
 
 const mapDispatch = dispatch => ({
-  createProduct: newProduct => dispatch(createProduct(newProduct))
+  createProduct: (newProduct, category) =>
+    dispatch(createProduct(newProduct, category))
 })
 export default connect(null, mapDispatch)(NewProduct)

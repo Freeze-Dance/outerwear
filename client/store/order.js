@@ -15,7 +15,6 @@ const updateCurrentOrder = order => ({type: UPDATE_CURRENT_ORDER, order})
 export const fetchCustomerOrders = userId => async dispatch => {
   try {
     const res = await axios.get(`/api/orders/${userId}`)
-    console.log('THUNK RECEIVE', res.data)
     dispatch(getCustomerOrders(res.data))
   } catch (err) {
     console.error(err)
