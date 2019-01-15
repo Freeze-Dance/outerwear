@@ -14,7 +14,6 @@ class TakeGuestMoney extends React.Component {
       subtotal: this.subtotal(),
       cart: this.state.cart
     })
-    console.log(token, 'TOKEN')
     this.props.history.push('/')
   }
   async componentDidMount() {
