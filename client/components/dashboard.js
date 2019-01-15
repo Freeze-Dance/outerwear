@@ -58,6 +58,7 @@ class dashboard extends React.Component {
 
   render() {
     // note requirements - all products must belong to at least one category
+    const isAdmin = this.props.isAdmin
     const allCatalogProducts = this.props.products
       .filter(
         // filter for category select
@@ -76,7 +77,12 @@ class dashboard extends React.Component {
           this.state.search === ''
       )
       .map(product => (
-        <Product className="card" key={product.id} product={product} />
+        <Product
+          className="card"
+          key={product.id}
+          product={product}
+          isAdmin={isAdmin}
+        />
       ))
     const {classes} = this.props
     return (
@@ -129,7 +135,8 @@ class dashboard extends React.Component {
 }
 const mapState = state => {
   return {
-    products: state.product.products
+    products: state.product.products,
+    isAdmin: state.user.user.admin
   }
 }
 
