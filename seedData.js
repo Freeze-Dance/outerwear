@@ -180,56 +180,56 @@ const productData = [
     orderId: 3
   },
   {
-    title: 'Halibut - Whole, Fresh',
-    description: 'consequat metus sapien ut nunc',
+    title: 'Halibut - Winter Gloves',
+    description: 'Leather Gloves',
     price: '322',
     photoURL: 'images/gloves_green_800.png',
     inventoryQuantity: 62,
     orderId: 4
   },
   {
-    title: 'Sauce - Sesame Thai Dressing',
-    description: 'curabitur at ipsum',
+    title: 'Sauce - Snuggly Hat',
+    description: 'Winter Hat',
     price: '289',
     photoURL: 'images/hat_yellow_800.png',
     inventoryQuantity: 21,
     orderId: 5
   },
   {
-    title: 'Shrimp - Black Tiger 13/15',
-    description: 'erat eros viverra',
+    title: 'Shrimp - Snuggly Hat',
+    description: 'Winter Hat',
     price: '703',
     photoURL: 'images/hat_purple_800.png',
     inventoryQuantity: 16,
     orderId: 6
   },
   {
-    title: 'Cheese - Camembert',
-    description: 'nisi at nibh in',
+    title: 'Cheese - Pants',
+    description: 'Warm, Winter Pants',
     price: '755',
     photoURL: 'images/pants_blue_800.png',
     inventoryQuantity: 22,
     orderId: 7
   },
   {
-    title: 'Chocolate - Dark Callets',
-    description: 'ac diam cras pellentesque',
+    title: 'Chocolate - Pants',
+    description: 'Warm, Winter Pants',
     price: '736',
     photoURL: 'images/pants_purple_800.png',
     inventoryQuantity: 98,
     orderId: 8
   },
   {
-    title: 'Greens Mustard',
-    description: 'sagittis sapien cum',
+    title: 'Greens Mustard - Scarf',
+    description: 'Winter Scarf',
     price: '122',
     photoURL: 'images/scarf_green_800.png',
     inventoryQuantity: 57,
     orderId: 9
   },
   {
-    title: 'V8 - Berry Blend',
-    description: 'blandit nam nulla integer',
+    title: 'V8 Berry Blend - Scarf',
+    description: 'Winter Scarf',
     price: '735',
     photoURL: 'images/scarf_red_800.png',
     inventoryQuantity: 38,
@@ -239,51 +239,61 @@ const productData = [
 
 const reviewData = [
   {
-    text: 'Triple-buffered actuating initiative',
+    text: 'Best coat EVER!!!',
     userId: 1,
     productId: 1,
     rating: 3
   },
   {
-    text: 'Self-enabling fresh-thinking hardware',
+    text: 'A++++++++',
     userId: 1,
     productId: 1,
     rating: 3
   },
   {
-    text: 'Assimilated zero defect migration',
+    text: 'Would love a zipper version!!!!!',
     userId: 1,
     productId: 1,
     rating: 3
   },
-  {text: 'Digitized local project', userId: 1, productId: 1, rating: 3},
   {
-    text: 'Triple-buffered explicit productivity',
-    userId: 2,
-    productId: 2,
-    rating: 3
-  },
-  {text: 'Realigned dynamic approach', userId: 2, productId: 2, rating: 3},
-  {
-    text: 'Centralized incremental contingency',
-    userId: 2,
-    productId: 2,
+    text: 'Love it!',
+    userId: 1,
+    productId: 1,
     rating: 3
   },
   {
-    text: 'Sharable client-driven moderator',
+    text: 'Keeps me warm!',
     userId: 2,
     productId: 2,
     rating: 3
   },
   {
-    text: 'Customer-focused fault-tolerant approach',
+    text: 'Amazing!',
     userId: 2,
     productId: 2,
     rating: 3
   },
   {
-    text: 'Progressive uniform open architecture',
+    text: 'Thing of beauty!',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {
+    text: 'Awesome!',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {
+    text: 'Grrrrreat!!!!',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {
+    text: 'Fashionable!',
     userId: 3,
     productId: 3,
     rating: 3
