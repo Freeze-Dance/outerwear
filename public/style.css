@@ -1,9 +1,16 @@
 body {
   font-family: sans-serif;
+  margin: 0;
 }
 
 a {
   text-decoration: none;
+  transition: text-decoration 1s;
+}
+
+a:hover {
+  color: #ffffff;
+  text-decoration: underline;
 }
 
 label {
@@ -26,13 +33,26 @@ form div {
   justify-content: space-between;
 }
 
-/* dashboard - dash manage products */
+/* using in dashboard.js */
+.flex-flex-end {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+
+/* using for product card display */
 .flex {
   display: flex;
   justify-content: space-around;
   flex-wrap: wrap;
 }
 
+.flex-wrap-only {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* using for product cards */
 .card {
   flex-grow: 1;
 }

@@ -1,51 +1,162 @@
-import React from 'react'
+import React, {Fragment} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout, me} from '../store'
 import DashboardTabs from './DashboardTabs'
+import AppBar from '@material-ui/core/AppBar'
+import Typography from '@material-ui/core/Typography'
+import {withStyles} from '@material-ui/core/styles'
+
+const styles = {
+  root: {
+    flexGrow: 1,
+    paddingTop: 10
+  },
+  colorTextPrimary: {
+    color: '#ffffff'
+  },
+  siteTitle: {
+    color: '#ffffff',
+    marginTop: 8,
+    marginLeft: 20,
+    marginRight: 20
+  }
+}
 
 class Navbar extends React.Component {
-  constructor(props) {
-    super(props)
+  constructor() {
+    super()
+    this.state = {
+      dashboard: false
+    }
+    this.handleDashBoardClick = this.handleDashBoardClick.bind(this)
   }
   componentDidMount() {
     this.props.fetchUser()
   }
+
+  handleDashBoardClick(event) {
+    event.preventDefault()
+    console.log('hitting click')
+    this.setState(prev => {
+      return {
+        dashboard: !prev.dashboard
+      }
+    })
+  }
+
   render() {
     let {isLoggedIn, isAdmin, handleClick} = this.props
+    const {classes} = this.props
+    console.log(this.props, '<<< navbar')
     return (
-      <div>
-        <h1>Freeze Dance</h1>
-        <nav>
-          {isLoggedIn ? (
-            <div>
-              <Link to="/">Home</Link>
-              <a href="#" onClick={handleClick}>
-                Logout
-              </a>
-              <Link to={`/orderhistory/${this.props.user.id}`}>
-                Previous Orders
-              </Link>
-              {isAdmin ? (
-                <Link to="/dashboard">Dashboard</Link>
-              ) : (
-                <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
-              )}
-            </div>
-          ) : (
-            <div>
-              {/* The navbar will show these links before you log in */}
-              <Link to="/">Home</Link>
-              <Link to="/login">Login</Link>
-              <Link to="/signup">Sign Up</Link>
-              <Link to="/cart">Cart</Link>
-            </div>
-          )}
-        </nav>
-        <hr />
-        {isAdmin && <DashboardTabs />}
-      </div>
+      <Fragment>
+        <AppBar position="static" className={classes.root}>
+          <nav className="flex-wrap-only">
+            <Typography
+              variant="h4"
+              color="textPrimary"
+              className={classes.siteTitle}
+            >
+              Freeze Dance
+            </Typography>
+            {isLoggedIn ? (
+              <div>
+                <Link to="/">
+                  <Typography
+                    variant="h6"
+                    color="textPrimary"
+                    className={classes.colorTextPrimary}
+                  >
+                    Home
+                  </Typography>
+                </Link>
+                <a href="#" onClick={handleClick}>
+                  <Typography
+                    variant="h6"
+                    color="textPrimary"
+                    className={classes.colorTextPrimary}
+                  >
+                    Logout
+                  </Typography>
+                </a>
+                <Link to={`/orderhistory/${this.props.user.id}`}>
+                  <Typography
+                    variant="h6"
+                    color="textPrimary"
+                    className={classes.colorTextPrimary}
+                  >
+                    Previous Orders
+                  </Typography>
+                </Link>
+                {isAdmin ? (
+                  <Link to="/dashboard" onClick={this.handleDashBoardClick}>
+                    <Typography
+                      variant="h6"
+                      color="textPrimary"
+                      className={classes.colorTextPrimary}
+                    >
+                      Dashboard
+                    </Typography>
+                  </Link>
+                ) : (
+                  <Link to={`/cart/${this.props.user.id}`}>
+                    <Typography
+                      variant="h6"
+                      color="textPrimary"
+                      className={classes.colorTextPrimary}
+                    >
+                      Cart
+                    </Typography>
+                  </Link>
+                )}
+              </div>
+            ) : (
+              <div>
+                {/* The navbar will show these links before you log in */}
+                <Link to="/">
+                  <Typography
+                    variant="h6"
+                    color="textPrimary"
+                    className={classes.colorTextPrimary}
+                  >
+                    Home
+                  </Typography>
+                </Link>
+                <Link to="/login">
+                  <Typography
+                    variant="h6"
+                    color="textPrimary"
+                    className={classes.colorTextPrimary}
+                  >
+                    Login
+                  </Typography>
+                </Link>
+                <Link to="/signup">
+                  <Typography
+                    variant="h6"
+                    color="textPrimary"
+                    className={classes.colorTextPrimary}
+                  >
+                    Sign Up
+                  </Typography>
+                </Link>
+                <Link to="/cart">
+                  <Typography
+                    variant="h6"
+                    color="textPrimary"
+                    className={classes.colorTextPrimary}
+                  >
+                    Cart
+                  </Typography>
+                </Link>
+              </div>
+            )}
+          </nav>
+        </AppBar>
+        {isAdmin && this.state.dashboard && <DashboardTabs />}
+      </Fragment>
     )
   }
 }
@@ -71,7 +182,7 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Navbar)
+export default connect(mapState, mapDispatch)(withStyles(styles)(Navbar))
 
 /**
  * PROP TYPES

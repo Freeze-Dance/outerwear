@@ -10,8 +10,8 @@ import {withStyles} from '@material-ui/core/styles'
 
 const styles = theme => ({
   card: {
-    width: 400,
-    height: 600,
+    width: 300,
+    height: 500,
     marginBottom: theme.spacing.unit * 2
   },
   media: {

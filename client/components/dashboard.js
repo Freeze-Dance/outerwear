@@ -77,10 +77,7 @@ class dashboard extends React.Component {
     const {classes} = this.props
     return (
       <Fragment>
-        <div className="flex-space-between">
-          <Typography className={classes.headerRoot} variant="h4" gutterBottom>
-            Manage Product Catalog
-          </Typography>
+        <div className="flex-flex-end margin-20">
           <div>
             <FormControl className={classes.root}>
               <FormHelperText>Filter Categories</FormHelperText>
@@ -97,6 +94,8 @@ class dashboard extends React.Component {
                 <MenuItem value="pants">Pants</MenuItem>
               </Select>
             </FormControl>
+          </div>
+          <div>
             <TextField
               className={classes.searchRoot}
               label="Search..."
@@ -106,7 +105,6 @@ class dashboard extends React.Component {
             />
           </div>
         </div>
-        <hr />
         <div className="flex">{allCatalogProducts}</div>
       </Fragment>
     )

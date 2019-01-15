@@ -66,10 +66,7 @@ class OrderHistory extends Component {
     const {classes} = this.props
     return (
       <Fragment>
-        <div className="flex-space-between">
-          <Typography className={classes.headerRoot} variant="h4" gutterBottom>
-            Customer Orders
-          </Typography>
+        <div className="flex-flex-end margin-20">
           <FormControl className={classes.root}>
             <FormHelperText>Filter Status</FormHelperText>
             <Select
@@ -85,7 +82,6 @@ class OrderHistory extends Component {
             </Select>
           </FormControl>
         </div>
-        <hr />
         {allOrdersForAdmin}
       </Fragment>
     )
