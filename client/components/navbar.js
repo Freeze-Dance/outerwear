@@ -27,7 +27,10 @@ class Navbar extends React.Component {
                 Previous Orders
               </Link>
               {isAdmin ? (
-                <Link to="/dashboard">Dashboard</Link>
+                <div>
+                  <Link to="/dashboard">Dashboard</Link>
+                  <Link to="/allusers">Users</Link>
+                </div>
               ) : (
                 <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
               )}
@@ -53,10 +56,10 @@ class Navbar extends React.Component {
  */
 const mapState = state => {
   return {
-    isLoggedIn: !!state.user.id,
+    isLoggedIn: !!state.user.user.id,
     isSingleProduct: !!state.currentProduct,
-    isAdmin: !!state.user.admin,
-    user: state.user
+    isAdmin: !!state.user.user.admin,
+    user: state.user.user
   }
 }
 

@@ -10,6 +10,8 @@ import editproduct from './components/editproduct'
 import OrderHistory from './components/OrderHistory'
 import DashboardOrders from './components/DashboardOrders'
 import GuestCart from './components/GuestCart'
+import AllUsers from './components/AllUsers'
+import PasswordReset from './components/PasswordReset'
 
 /**
  * COMPONENT
@@ -33,6 +35,7 @@ class Routes extends Component {
           <Route exact path="/newproduct" component={NewProduct} />
           <Route exact path="/editproduct/:id" component={editproduct} />
           <Route exact path="/cart" component={GuestCart} />
+          <Route exact path="/passwordreset" component={PasswordReset} />
 
           {/* Displays our Login component as a fallback */}
         </Switch>
@@ -61,6 +64,7 @@ class Routes extends Component {
                 />
                 <Route exact path="/newproduct" component={NewProduct} />
                 <Route exact path="/editproduct/:id" component={editproduct} />
+                <Route exact path="/allusers" component={AllUsers} />
               </Fragment>
             )}
           </Switch>
@@ -77,8 +81,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id,
-    isAdmin: state.user.admin
+    isLoggedIn: !!state.user.user.id,
+    isAdmin: state.user.user.admin
   }
 }
 
