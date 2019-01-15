@@ -32,7 +32,10 @@ class Navbar extends React.Component {
                   <Link to="/allusers">Users</Link>
                 </div>
               ) : (
-                <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
+                <div>
+                  <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
+                  <Link to="/passwordreset">Reset Password</Link>
+                </div>
               )}
             </div>
           ) : (

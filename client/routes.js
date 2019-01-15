@@ -63,6 +63,7 @@ class Routes extends Component {
               path="/products/:productId/createreview"
               component={SingleProduct}
             />
+            <Route exact path="/passwordreset" component={PasswordReset} />
             {isAdmin /* Routes placed here are only available if admin*/ && (
               <Fragment>
                 <Route exact path="/dashboard" component={dashboard} />
