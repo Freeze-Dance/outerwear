@@ -6,6 +6,7 @@ import {logout, me} from '../store'
 import DashboardTabs from './DashboardTabs'
 import AppBar from '@material-ui/core/AppBar'
 import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 import {withStyles} from '@material-ui/core/styles'
 
 const styles = {
@@ -38,7 +39,7 @@ class Navbar extends React.Component {
 
   handleDashBoardClick(event) {
     event.preventDefault()
-    console.log('hitting click')
+    // console.log('hitting click')
     this.setState(prev => {
       return {
         dashboard: !prev.dashboard
@@ -49,7 +50,7 @@ class Navbar extends React.Component {
   render() {
     let {isLoggedIn, isAdmin, handleClick} = this.props
     const {classes} = this.props
-    console.log(this.props, '<<< navbar')
+    // console.log(this.props, '<<< navbar')
     return (
       <Fragment>
         <AppBar position="static" className={classes.root}>
@@ -82,75 +83,87 @@ class Navbar extends React.Component {
                   </Typography>
                 </a>
                 <Link to={`/orderhistory/${this.props.user.id}`}>
-                  <Typography
+                  {/* <Typography
                     variant="h6"
                     color="textPrimary"
                     className={classes.colorTextPrimary}
-                  >
-                    Previous Orders
-                  </Typography>
+                  > */}
+                  Previous Orders
+                  {/* </Typography> */}
                 </Link>
                 {isAdmin ? (
-                  <Link to="/dashboard" onClick={this.handleDashBoardClick}>
-                    <Typography
-                      variant="h6"
-                      color="textPrimary"
-                      className={classes.colorTextPrimary}
-                    >
+                  <Button>
+                    <Link to="/dashboard" onClick={this.handleDashBoardClick}>
+                      {/* <Typography
+                        variant="h6"
+                        color="textPrimary"
+                        className={classes.colorTextPrimary}
+                      > */}
                       Dashboard
-                    </Typography>
-                  </Link>
+                      {/* </Typography> */}
+                    </Link>
+                  </Button>
                 ) : (
-                  <Link to={`/cart/${this.props.user.id}`}>
-                    <Typography
-                      variant="h6"
-                      color="textPrimary"
-                      className={classes.colorTextPrimary}
-                    >
+                  <Button>
+                    <Link to={`/cart/${this.props.user.id}`}>
+                      {/* <Typography
+                        variant="h6"
+                        color="textPrimary"
+                        className={classes.colorTextPrimary}
+                      > */}
                       Cart
-                    </Typography>
-                  </Link>
+                      {/* </Typography> */}
+                    </Link>
+                  </Button>
                 )}
               </div>
             ) : (
               <div>
                 {/* The navbar will show these links before you log in */}
-                <Link to="/">
-                  <Typography
-                    variant="h6"
-                    color="textPrimary"
-                    className={classes.colorTextPrimary}
-                  >
+                <Button>
+                  <Link to="/">
+                    {/* <Typography
+                      variant="h6"
+                      color="textPrimary"
+                      className={classes.colorTextPrimary}
+                    > */}
                     Home
-                  </Typography>
-                </Link>
-                <Link to="/login">
-                  <Typography
-                    variant="h6"
-                    color="textPrimary"
-                    className={classes.colorTextPrimary}
-                  >
+                    {/* </Typography> */}
+                  </Link>
+                </Button>
+                <Button>
+                  <Link to="/login">
+                    {/* <Typography
+                      variant="h6"
+                      color="textPrimary"
+                      className={classes.colorTextPrimary}
+                    > */}
                     Login
-                  </Typography>
-                </Link>
-                <Link to="/signup">
-                  <Typography
-                    variant="h6"
-                    color="textPrimary"
-                    className={classes.colorTextPrimary}
-                  >
+                    {/* </Typography> */}
+                  </Link>
+                </Button>
+                <Button>
+                  <Link to="/signup">
+                    {/* <Typography
+                      variant="h6"
+                      color="textPrimary"
+                      className={classes.colorTextPrimary}
+                    > */}
                     Sign Up
-                  </Typography>
-                </Link>
-                <Link to="/cart">
-                  <Typography
-                    variant="h6"
-                    color="textPrimary"
-                    className={classes.colorTextPrimary}
-                  >
+                    {/* </Typography> */}
+                  </Link>
+                </Button>
+                <Button>
+                  <Link to="/cart">
+                    {/* <Typography
+                      variant="h6"
+                      color="textPrimary"
+                      className={classes.colorTextPrimary}
+                    > */}
                     Cart
-                  </Typography>
-                </Link>
+                    {/* </Typography> */}
+                  </Link>
+                </Button>
               </div>
             )}
           </nav>
