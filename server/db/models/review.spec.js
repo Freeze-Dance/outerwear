@@ -53,7 +53,6 @@ describe('Review model', () => {
     })
 
     it("doesn't insert the review if there is no text", () => {
-      console.log(review)
       expect(
         Review.create({
           text: null,

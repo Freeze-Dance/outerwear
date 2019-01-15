@@ -43,7 +43,6 @@ class OrderHistory extends Component {
 
   handleOrderStatusChange(event, order) {
     order.status = event.target.value
-    console.log(order, order.id)
     this.props.editCurrentOrder(order.id, order)
   }
 

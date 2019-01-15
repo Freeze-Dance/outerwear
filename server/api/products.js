@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Product, Review} = require('../db/models')
+const {Product, Review, ProductCategory, Category} = require('../db/models')
 
 router.get('/singleProduct/:id', async (req, res, next) => {
   try {
@@ -31,15 +31,21 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    const data = await Product.create(req.body)
-    res.json(data)
+    const product = await Product.create(req.body.newProduct)
+    const category = await Category.findOrCreate({
+      where: {name: req.body.category}
+    })
+    await ProductCategory.create({
+      productId: product.id,
+      categoryId: category[0].id
+    })
+    res.json(product)
   } catch (err) {
     next(err)
   }
 })
 
 router.post('/createreview', async (req, res, next) => {
-  console.log('req.body', req.body)
   try {
     const review = await Review.create(req.body)
     res.json(review)
