@@ -77,18 +77,10 @@ class Navbar extends React.Component {
                   </a>
                 </Button>
                 <Button>
-                  <Link to={`/orderhistory/${this.props.user.id}`}>
-                    Previous Orders
-                  </Link>
-                </Button>
-                <Button>
-                  <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
-                </Button>
-                <Button>
                   <Link to="/passwordreset">Reset Password</Link>
                 </Button>
 
-                {isAdmin && (
+                {isAdmin ? (
                   <Button
                     className={classes.button}
                     onClick={this.handleDashBoardClick}
@@ -100,6 +92,17 @@ class Navbar extends React.Component {
                       <Icon>expand_less</Icon>
                     )}
                   </Button>
+                ) : (
+                  <React.Fragment>
+                    <Button>
+                      <Link to={`/orderhistory/${this.props.user.id}`}>
+                        Previous Orders
+                      </Link>
+                    </Button>
+                    <Button>
+                      <Link to={`/cart/${this.props.user.id}`}>Cart</Link>
+                    </Button>
+                  </React.Fragment>
                 )}
               </div>
             ) : (
