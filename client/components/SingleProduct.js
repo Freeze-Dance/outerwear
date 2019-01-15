@@ -8,9 +8,7 @@ import {addToCart} from '../store/cart'
 import Button from '@material-ui/core/Button'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
-import CardHeader from '@material-ui/core/CardHeader'
-import TextField from '@material-ui/core/TextField'
-import CardActions from '@material-ui/core/CardActions'
+
 import CardMedia from '@material-ui/core/CardMedia'
 import {withStyles} from '@material-ui/core/styles'
 import './SingleProduct.css'
@@ -47,7 +45,8 @@ export class SingleProduct extends Component {
     super(props)
     this.state = {
       rating: 0,
-      error: ''
+      error: '',
+      review: ''
     }
     this.createNewReview = this.createNewReview.bind(this)
     this.changeRating = this.changeRating.bind(this)
@@ -69,7 +68,8 @@ export class SingleProduct extends Component {
 
   createNewReview(event) {
     event.preventDefault()
-    const text = event.target.review.value
+    // Review, rating, productId, user Id
+    const text = this.state.review
     const userId = this.props.user.id
     const productId = this.props.product.id
     const rating = this.state.rating
@@ -81,6 +81,7 @@ export class SingleProduct extends Component {
         productId,
         rating
       })
+      this.setState({review: ''})
     } else {
       this.setState({
         error: 'Star Rating Required'
@@ -170,6 +171,8 @@ export class SingleProduct extends Component {
                     required
                     rows="5"
                     placeholder="Leave a review..."
+                    value={this.state.review}
+                    onChange={e => this.setState({review: e.target.value})}
                   />
 
                   <StarRatings

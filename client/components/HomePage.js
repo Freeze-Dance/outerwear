@@ -31,7 +31,6 @@ class HomePage extends React.Component {
   }
 
   changePage(event) {
-    console.log('event', typeof +event.target.id)
     this.setState({
       currentPage: +event.target.id
     })
