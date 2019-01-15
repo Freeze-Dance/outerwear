@@ -72,8 +72,8 @@ class HomePage extends React.Component {
               product.title
                 .toUpperCase()
                 .includes(this.state.search.toUpperCase()) ? (
-              <Link to={`/products/${product.id}`}>
-                <li key={product.id}>
+              <Link to={`/products/${product.id}`} key={product.id}>
+                <li>
                   {product.title} : {`$${product.price / 100}`} <br />
                   <img src={product.photoURL} />
                 </li>
@@ -83,8 +83,8 @@ class HomePage extends React.Component {
               product.title
                 .toUpperCase()
                 .includes(this.state.search.toUpperCase()) ? (
-                <Link to={`/products/${product.id}`}>
-                  <li key={product.id}>
+                <Link to={`/products/${product.id}`} key={product.id}>
+                  <li>
                     {product.title} : {`$${product.price / 100}`} <br />
                     <img src={product.photoURL} />
                   </li>

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout, me} from '../store'
+import DashboardTabs from './DashboardTabs'
 
 class Navbar extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class Navbar extends React.Component {
           )}
         </nav>
         <hr />
+        {isAdmin && <DashboardTabs />}
       </div>
     )
   }

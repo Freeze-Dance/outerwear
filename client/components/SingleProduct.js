@@ -56,7 +56,6 @@ export class SingleProduct extends Component {
   }
 
   componentDidMount() {
-    console.log('<<< SingleProduct mounted')
     const {productId} = this.props.match.params
     this.props.fetchProduct(productId)
   }
@@ -70,7 +69,6 @@ export class SingleProduct extends Component {
 
   createNewReview(event) {
     event.preventDefault()
-    // Review, rating, productId, user Id
     const text = event.target.review.value
     const userId = this.props.user.id
     const productId = this.props.product.id
@@ -110,7 +108,6 @@ export class SingleProduct extends Component {
       inventoryQuantity,
       reviews
     } = this.props.product
-    console.log(this.props.product, '<<< Props SingleProduct')
     const {classes} = this.props
     return (
       <React.Fragment>
@@ -120,9 +117,7 @@ export class SingleProduct extends Component {
               className={classes.media}
               image={`/${photoURL}`}
               title="Product Title"
-              // component="img"
               alt="Product Description"
-              // maxHeight="50px"
             >
               <CardHeader className={classes.cardHeader} title={`${title} -`} />
             </CardMedia>
@@ -168,13 +163,6 @@ export class SingleProduct extends Component {
           <div className="card">
             {Object.keys(this.props.user).length > 0 ? (
               <React.Fragment>
-                {/* <button
-                  className="margin-20"
-                  type="button"
-                  onClick={this.handleClick}
-                >
-                  Add to Cart
-                </button> */}
                 <form className="review-form" onSubmit={this.createNewReview}>
                   <textarea
                     name="review"
@@ -202,13 +190,6 @@ export class SingleProduct extends Component {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {/* <button
-                  className="margin-20"
-                  type="button"
-                  onClick={this.handleGuest}
-                >
-                  Add to Guest Cart
-                </button> */}
                 <div className="margin-20">
                   <div> PLEASE LOG IN TO LEAVE A REVIEW</div>
                 </div>
