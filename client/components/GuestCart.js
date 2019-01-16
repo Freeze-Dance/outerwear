@@ -86,42 +86,14 @@ class GuestCart extends Component {
                     />
                   </Link>
                   <CardContent>
-                    {/* <div className="flex-space-between"> */}
                     <div>
                       <Typography>{`Price: $${product.price /
                         100}`}</Typography>
-                      {/* <Typography component="p">
-                        Price: {product.price}
-                      </Typography> */}
+
                       <Typography>Quantity: {product.quantity}</Typography>
                     </div>
                     <br />
                     <div>
-                      {/* <Button
-                        variant="contained"
-                        color="primary"
-                        value="1"
-                        onClick={e => this.handleClick(e, product.id)}
-                      >
-                        +
-                      </Button>
-                      <Button
-                        // variant="contained"
-                        color="primary"
-                        value="-1"
-                        onClick={e => this.handleClick(e, product.id)}
-                      >
-                        -
-                      </Button>
-                      <Button
-                        // variant="contained"
-                        type="button"
-                        color="primary"
-                        value="0"
-                        onClick={event => this.handleClick(event, product.id)}
-                      >
-                        delete
-                      </Button> */}
                       <button
                         type="button"
                         value="1"
@@ -144,42 +116,9 @@ class GuestCart extends Component {
                         delete
                       </button>
                     </div>
-                    {/* </div> */}
                   </CardContent>
                 </Card>
               </Fragment>
-              // <React.Fragment key={product.id}>
-              //   <h1>{product.title}</h1>
-              //   <h3>Quantity: {product.quantity}</h3>
-              //   <h3>Price: {'$' + product.price / 100}</h3>
-              //   <button
-              //     type="button"
-              //     value="1"
-              //     onClick={e => this.handleClick(e, product.id)}
-              //   >
-              //     +
-              //   </button>
-              //   <br />
-              //   <button
-              //     type="button"
-              //     value="0"
-              //     onClick={e => this.handleClick(e, product.id)}
-              //   >
-              //     delete
-              //   </button>
-              // </React.Fragment>            // <React.Fragment key={product.id}>
-              //   <h1>{product.title}</h1>
-              //   <h3>Quantity: {product.quantity}</h3>
-              //   <h3>Price: {'$' + product.price / 100}</h3>
-              //   <button
-              //     type="button"
-              //     value="-1"
-              //     onClick={e => this.handleClick(e, product.id)}
-              //   >
-              //     -
-              //   </button>
-              //   <br />
-              // </React.Fragment>
             )
           })}
         </div>
