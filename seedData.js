@@ -297,6 +297,66 @@ const reviewData = [
     userId: 3,
     productId: 3,
     rating: 3
+  },
+  {
+    text: 'Best coat EVER!!!',
+    userId: 1,
+    productId: 4,
+    rating: 3
+  },
+  {
+    text: 'A++++++++',
+    userId: 1,
+    productId: 4,
+    rating: 3
+  },
+  {
+    text: 'Would love a zipper version!!!!!',
+    userId: 1,
+    productId: 4,
+    rating: 3
+  },
+  {
+    text: 'Love it!',
+    userId: 1,
+    productId: 4,
+    rating: 3
+  },
+  {
+    text: 'Keeps me warm!',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {
+    text: 'Amazing!',
+    userId: 2,
+    productId: 5,
+    rating: 3
+  },
+  {
+    text: 'Thing of beauty!',
+    userId: 2,
+    productId: 5,
+    rating: 3
+  },
+  {
+    text: 'Awesome!',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {
+    text: 'Grrrrreat!!!!',
+    userId: 2,
+    productId: 2,
+    rating: 3
+  },
+  {
+    text: 'Fashionable!',
+    userId: 3,
+    productId: 3,
+    rating: 3
   }
 ]
 

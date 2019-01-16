@@ -22,6 +22,18 @@ form div {
   display: inline-block;
 }
 
+.cart {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  text-align: left;
+  padding: 15p;
+}
+.cartItem {
+  padding: 20px;
+  flex: 20%;
+}
+
 /* using .flex-space-between in Order.js currently */
 .flex-space-between {
   display: flex;

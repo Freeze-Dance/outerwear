@@ -143,13 +143,15 @@ export class SingleProduct extends Component {
                   <div className="product-description">
                     Quantity: {inventoryQuantity}
                   </div>
-                  <StarRatings
-                    rating={averageRating}
-                    starRatedColor="yellow"
-                    numberOfStars={5}
-                    starDimension="20px"
-                    starSpacing="1px"
-                  />
+                  {this.props.reviews && (
+                    <StarRatings
+                      rating={averageRating}
+                      starRatedColor="yellow"
+                      numberOfStars={5}
+                      starDimension="20px"
+                      starSpacing="1px"
+                    />
+                  )}
                 </div>
                 <div>
                   {Object.keys(this.props.user).length > 0 ? (
