@@ -1,7 +1,25 @@
-import React, {Component} from 'react'
+import React, {Component, Fragment} from 'react'
 import Axios from 'axios'
 import TakeGuestMoney from './StripeGuest'
+import Card from '@material-ui/core/Card'
+import CardHeader from '@material-ui/core/CardHeader'
+import CardMedia from '@material-ui/core/CardMedia'
+import CardContent from '@material-ui/core/CardContent'
+import Typography from '@material-ui/core/Typography'
+import {Link} from 'react-router-dom'
 
+const styles = {
+  card: {
+    width: 300,
+    height: 500
+    // marginBottom: 100
+  },
+  media: {
+    height: 0,
+    paddingTop: '100%'
+    // imageHeight: 80
+  }
+}
 class GuestCart extends Component {
   constructor() {
     super()
@@ -17,8 +35,9 @@ class GuestCart extends Component {
     this.setState({cart: data})
   }
 
-  async handleClick(e, productId) {
-    let inc = Number(e.target.value)
+  async handleClick(event, productId) {
+    console.log('e.target.value', event.target.value)
+    let inc = Number(event.target.value)
     if (this.state.cart[productId].quantity === 1 && inc === -1) {
       console.log('stop!!!')
     } else {
@@ -46,44 +65,133 @@ class GuestCart extends Component {
   }
   render() {
     let cart = this.state.cart
-    console.log(this.state)
     return (
-      <React.Fragment>
-        {Object.keys(cart).map(key => {
-          let product = cart[key]
-          return (
-            <React.Fragment key={product.id}>
-              <h1>{product.title}</h1>
-              <h3>Quantity: {product.quantity}</h3>
-              <h3>Price: {'$' + product.price / 100}</h3>
-              <button
-                type="button"
-                value="1"
-                onClick={e => this.handleClick(e, product.id)}
-              >
-                +
-              </button>
-              <button
-                type="button"
-                value="-1"
-                onClick={e => this.handleClick(e, product.id)}
-              >
-                -
-              </button>
-              <br />
-              <button
-                type="button"
-                value="0"
-                onClick={e => this.handleClick(e, product.id)}
-              >
-                delete
-              </button>
-            </React.Fragment>
-          )
-        })}
-        <h3>Subtotal:{this.subtotal()}</h3>
+      <Fragment>
+        <div style={{display: 'flex'}}>
+          {Object.values(cart).map(value => {
+            let product = value
+            return (
+              <Fragment key={product.id}>
+                <Card style={styles.card}>
+                  <Link to={`/products/${product.id}`}>
+                    <CardHeader
+                      title={`Product #${product.id}`}
+                      subheader={product.title}
+                    />
+                    <CardMedia
+                      style={styles.media}
+                      className="Product-media-207"
+                      image={product.photoURL}
+                      title={product.title}
+                    />
+                  </Link>
+                  <CardContent>
+                    {/* <div className="flex-space-between"> */}
+                    <div>
+                      <Typography>{`Price: $${product.price /
+                        100}`}</Typography>
+                      {/* <Typography component="p">
+                        Price: {product.price}
+                      </Typography> */}
+                      <Typography>Quantity: {product.quantity}</Typography>
+                    </div>
+                    <br />
+                    <div>
+                      {/* <Button
+                        variant="contained"
+                        color="primary"
+                        value="1"
+                        onClick={e => this.handleClick(e, product.id)}
+                      >
+                        +
+                      </Button>
+                      <Button
+                        // variant="contained"
+                        color="primary"
+                        value="-1"
+                        onClick={e => this.handleClick(e, product.id)}
+                      >
+                        -
+                      </Button>
+                      <Button
+                        // variant="contained"
+                        type="button"
+                        color="primary"
+                        value="0"
+                        onClick={event => this.handleClick(event, product.id)}
+                      >
+                        delete
+                      </Button> */}
+                      <button
+                        type="button"
+                        value="1"
+                        onClick={e => this.handleClick(e, product.id)}
+                      >
+                        +
+                      </button>
+                      <button
+                        type="button"
+                        value="-1"
+                        onClick={e => this.handleClick(e, product.id)}
+                      >
+                        -
+                      </button>
+                      <button
+                        type="button"
+                        value="0"
+                        onClick={e => this.handleClick(e, product.id)}
+                      >
+                        delete
+                      </button>
+                    </div>
+                    {/* </div> */}
+                  </CardContent>
+                </Card>
+              </Fragment>
+              // <React.Fragment key={product.id}>
+              //   <h1>{product.title}</h1>
+              //   <h3>Quantity: {product.quantity}</h3>
+              //   <h3>Price: {'$' + product.price / 100}</h3>
+              //   <button
+              //     type="button"
+              //     value="1"
+              //     onClick={e => this.handleClick(e, product.id)}
+              //   >
+              //     +
+              //   </button>
+              //   <br />
+              //   <button
+              //     type="button"
+              //     value="0"
+              //     onClick={e => this.handleClick(e, product.id)}
+              //   >
+              //     delete
+              //   </button>
+              // </React.Fragment>            // <React.Fragment key={product.id}>
+              //   <h1>{product.title}</h1>
+              //   <h3>Quantity: {product.quantity}</h3>
+              //   <h3>Price: {'$' + product.price / 100}</h3>
+              //   <button
+              //     type="button"
+              //     value="-1"
+              //     onClick={e => this.handleClick(e, product.id)}
+              //   >
+              //     -
+              //   </button>
+              //   <br />
+              // </React.Fragment>
+            )
+          })}
+        </div>
+        <br />
+
+        <Typography variant="h3">
+          {' '}
+          Subtotal: {'$' + this.subtotal() / 100}
+        </Typography>
+        <br />
         <TakeGuestMoney />
-      </React.Fragment>
+      </Fragment>
     )
   }
 }
