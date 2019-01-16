@@ -175,6 +175,18 @@ export class SingleProduct extends Component {
                       Add to Guest Cart
                     </Button>
                   )}
+                  <br />
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className="margin-20"
+                    type="button"
+                  >
+                    <a href={`/stripeUser/${this.props.user.id}`}>
+                      {' '}
+                      One-Click Order{' '}
+                    </a>
+                  </Button>
                 </div>
               </div>
             </CardContent>

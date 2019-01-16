@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Axios from 'axios'
+import TakeGuestMoney from './StripeGuest'
 
 class GuestCart extends Component {
   constructor() {
@@ -48,52 +49,40 @@ class GuestCart extends Component {
     console.log(this.state)
     return (
       <React.Fragment>
-        <div className="cart">
-          {Object.keys(cart).map(key => {
-            let product = cart[key]
-            return (
-              <span className="cartItem" key={product.id}>
-                <h3> {product.title}</h3>
-                <h3>Quantity: {product.quantity}</h3>
-                <h3>Price: {'$' + product.price / 100}</h3>
-                <img src={product.photoURL} style={{height: '200px'}} />
-                <br />
-                <button
-                  type="button"
-                  value="1"
-                  onClick={e => this.handleClick(e, product.id)}
-                >
-                  +
-                </button>
-                <button
-                  type="button"
-                  value="-1"
-                  onClick={e => this.handleClick(e, product.id)}
-                >
-                  -
-                </button>
-                <button
-                  type="button"
-                  value="0"
-                  onClick={e => this.handleClick(e, product.id)}
-                >
-                  delete
-                </button>
-              </span>
-            )
-          })}
-        </div>
-        <div>
-          <h3 style={{color: 'blue'}}>
-            Subtotal: {`$${this.subtotal() / 100}`}
-          </h3>
-          <button
-            type="button"
-            onClick={() => this.props.history.push('/stripeGuest')}
-          >
-            Checkout
-          </button>
-        </div>
+        {Object.keys(cart).map(key => {
+          let product = cart[key]
+          return (
+            <React.Fragment key={product.id}>
+              <h1>{product.title}</h1>
+              <h3>Quantity: {product.quantity}</h3>
+              <h3>Price: {'$' + product.price / 100}</h3>
+              <button
+                type="button"
+                value="1"
+                onClick={e => this.handleClick(e, product.id)}
+              >
+                +
+              </button>
+              <button
+                type="button"
+                value="-1"
+                onClick={e => this.handleClick(e, product.id)}
+              >
+                -
+              </button>
+              <br />
+              <button
+                type="button"
+                value="0"
+                onClick={e => this.handleClick(e, product.id)}
+              >
+                delete
+              </button>
+            </React.Fragment>
+          )
+        })}
+        <h3>Subtotal:{this.subtotal()}</h3>
+        <TakeGuestMoney />
       </React.Fragment>
     )
   }
