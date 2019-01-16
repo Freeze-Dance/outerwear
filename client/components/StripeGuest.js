@@ -33,7 +33,6 @@ class TakeGuestMoney extends React.Component {
     return (
       // ...
       <React.Fragment>
-        <h1>Checkout with Stripe</h1>
         <StripeCheckout
           token={this.onToken}
           stripeKey="pk_test_za6BgvCHsTdko0wM2PnEzPWJ"

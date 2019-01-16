@@ -13,9 +13,6 @@ class TakeMoney extends React.Component {
     )
     this.props.history.push('/orderhistory/4')
   }
-  componentDidMount() {
-    this.props.fetchCart(this.props.match.params)
-  }
   subtotal() {
     return this.props.cart.products.reduce(
       (acc, curr) => acc + curr.cartProduct.quantity * curr.price,
@@ -26,7 +23,6 @@ class TakeMoney extends React.Component {
     return (
       // ...
       <React.Fragment>
-        <h1>Checkout with Stripe</h1>
         <StripeCheckout
           token={this.onToken}
           stripeKey="pk_test_za6BgvCHsTdko0wM2PnEzPWJ"
@@ -53,7 +49,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchCart: userId => dispatch(fetchCart(userId)),
     submitCart: (cartId, products, userId, token) =>
       dispatch(submitCart(cartId, products, userId, token))
   }

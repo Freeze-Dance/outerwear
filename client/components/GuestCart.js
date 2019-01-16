@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import Axios from 'axios'
+import TakeGuestMoney from './StripeGuest'
 
 class GuestCart extends Component {
   constructor() {
@@ -81,12 +82,7 @@ class GuestCart extends Component {
           )
         })}
         <h3>Subtotal:{this.subtotal()}</h3>
-        <button
-          type="button"
-          onClick={() => this.props.history.push('/stripeGuest')}
-        >
-          Checkout
-        </button>
+        <TakeGuestMoney />
       </React.Fragment>
     )
   }

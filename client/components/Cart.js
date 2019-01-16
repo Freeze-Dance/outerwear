@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {fetchCart, submitCart, editQuantity, deleteItem} from '../store/cart'
+import TakeMoney from './StripeCheckout'
 
 class Cart extends Component {
   constructor() {
@@ -47,65 +48,56 @@ class Cart extends Component {
     const cart = this.props.cart
     return (
       <React.Fragment>
-        {/* {cart.products.length ? */}
-        <form onSubmit={this.handleSubmit}>
-          {cart.products.map(product => {
-            return (
-              <div key={product.id}>
-                <h1>CART ITEM: {product.title}</h1>
-                <h2>Quantity: {product.cartProduct.quantity}</h2>
-                <h2>Price: {product.price}</h2>
-                <button
-                  type="button"
-                  value="add"
-                  onClick={e => this.handleClick(e, product.id)}
-                >
-                  +
-                </button>
-                <button
-                  type="button"
-                  value="subtract"
-                  onClick={e =>
-                    this.handleClick(
-                      e,
-                      product.id,
-                      product.cartProduct.quantity
-                    )
-                  }
-                >
-                  -
-                </button>
-                <br />
-                <button
-                  type="button"
-                  onClick={() =>
-                    this.handleDelete(
-                      cart.id,
-                      product.id,
-                      this.props.match.params
-                    )
-                  }
-                >
-                  Remove Item
-                </button>
-                {/* <input
-                  type="number"
-                  name="quantity"
-                  value={this.state.products.}
-                  onChange={handleChange}
-                /> */}
-              </div>
-            )
-          })}
-          <button type="submit">Checkout</button>
-
-          <h2>SUBTOTAL: {this.subtotal()}</h2>
-        </form>
-        {/* :
-        <div>
-          No items in the cart. Get shopping!
-        </div> */}
-        {/* } */}
+        {cart.products.length ? (
+          <form onSubmit={this.handleSubmit}>
+            {cart.products.map(product => {
+              return (
+                <div key={product.id}>
+                  <h1>CART ITEM: {product.title}</h1>
+                  <h2>Quantity: {product.cartProduct.quantity}</h2>
+                  <h2>Price: {product.price}</h2>
+                  <button
+                    type="button"
+                    value="add"
+                    onClick={e => this.handleClick(e, product.id)}
+                  >
+                    +
+                  </button>
+                  <button
+                    type="button"
+                    value="subtract"
+                    onClick={e =>
+                      this.handleClick(
+                        e,
+                        product.id,
+                        product.cartProduct.quantity
+                      )
+                    }
+                  >
+                    -
+                  </button>
+                  <br />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      this.handleDelete(
+                        cart.id,
+                        product.id,
+                        this.props.match.params
+                      )
+                    }
+                  >
+                    Remove Item
+                  </button>
+                </div>
+              )
+            })}
+            <h2>SUBTOTAL: {this.subtotal()}</h2>
+            <TakeMoney />
+          </form>
+        ) : (
+          <div>No items in the cart. Get shopping!</div>
+        )}
       </React.Fragment>
     )
   }

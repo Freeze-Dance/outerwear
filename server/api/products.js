@@ -8,11 +8,9 @@ router.get('/singleProduct/:id', async (req, res, next) => {
         all: true
       }
     })
-
     if (!product) {
       return res.status(404).send(`Error - no product ${req.params.id}`)
     }
-
     res.json(product)
   } catch (err) {
     next(err)
@@ -22,7 +20,6 @@ router.get('/singleProduct/:id', async (req, res, next) => {
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll({include: {all: true}})
-
     res.json(products)
   } catch (err) {
     next(err)
@@ -56,7 +53,7 @@ router.post('/createreview', async (req, res, next) => {
 
 router.put('/:id', async (req, res, next) => {
   try {
-    const product = await Product.update(req.body, {
+    await Product.update(req.body, {
       returning: true,
       where: {
         id: req.params.id
