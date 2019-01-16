@@ -52,7 +52,12 @@ function Order(props) {
             {products.map(product => (
               <TableRow key={product.id}>
                 <TableCell>
-                  <Link to={`/products/${product.id}`}>{product.title}</Link>
+                  <Link
+                    style={{color: '#6a5eff'}}
+                    to={`/products/${product.id}`}
+                  >
+                    {product.title}
+                  </Link>
                 </TableCell>
                 <TableCell>
                   ${product.orderProduct.purchasedPrice / 100}
