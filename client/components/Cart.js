@@ -150,7 +150,9 @@ class Cart extends Component {
             <TakeMoney history={this.props.history} />
           </form>
         ) : (
-          <div>No items in the cart. Get shopping!</div>
+          <Typography variant="h3">
+            No items in the cart. Get shopping!
+          </Typography>
         )}
       </React.Fragment>
     )

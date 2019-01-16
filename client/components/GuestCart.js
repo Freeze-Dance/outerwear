@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import CardContent from '@material-ui/core/CardContent'
 import Typography from '@material-ui/core/Typography'
 import {Link} from 'react-router-dom'
+import {connect} from 'react-redux'
 
 const styles = {
   card: {
@@ -67,69 +68,77 @@ class GuestCart extends Component {
     let cart = this.state.cart
     return (
       <Fragment>
-        <div style={{display: 'flex'}}>
-          {Object.values(cart).map(value => {
-            let product = value
-            return (
-              <Fragment key={product.id}>
-                <Card style={styles.card}>
-                  <Link to={`/products/${product.id}`}>
-                    <CardHeader
-                      title={`Product #${product.id}`}
-                      subheader={product.title}
-                    />
-                    <CardMedia
-                      style={styles.media}
-                      className="Product-media-207"
-                      image={product.photoURL}
-                      title={product.title}
-                    />
-                  </Link>
-                  <CardContent>
-                    <div>
-                      <Typography>{`Price: $${product.price /
-                        100}`}</Typography>
+        {Object.keys(cart).length ? (
+          <Fragment>
+            <div style={{display: 'flex'}}>
+              {Object.values(cart).map(value => {
+                let product = value
+                return (
+                  <Fragment key={product.id}>
+                    <Card style={styles.card}>
+                      <Link to={`/products/${product.id}`}>
+                        <CardHeader
+                          title={`Product #${product.id}`}
+                          subheader={product.title}
+                        />
+                        <CardMedia
+                          style={styles.media}
+                          className="Product-media-207"
+                          image={product.photoURL}
+                          title={product.title}
+                        />
+                      </Link>
+                      <CardContent>
+                        <div>
+                          <Typography>{`Price: $${product.price /
+                            100}`}</Typography>
 
-                      <Typography>Quantity: {product.quantity}</Typography>
-                    </div>
-                    <br />
-                    <div>
-                      <button
-                        type="button"
-                        value="1"
-                        onClick={e => this.handleClick(e, product.id)}
-                      >
-                        +
-                      </button>
-                      <button
-                        type="button"
-                        value="-1"
-                        onClick={e => this.handleClick(e, product.id)}
-                      >
-                        -
-                      </button>
-                      <button
-                        type="button"
-                        value="0"
-                        onClick={e => this.handleClick(e, product.id)}
-                      >
-                        delete
-                      </button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Fragment>
-            )
-          })}
-        </div>
-        <br />
+                          <Typography>Quantity: {product.quantity}</Typography>
+                        </div>
+                        <br />
+                        <div>
+                          <button
+                            type="button"
+                            value="1"
+                            onClick={e => this.handleClick(e, product.id)}
+                          >
+                            +
+                          </button>
+                          <button
+                            type="button"
+                            value="-1"
+                            onClick={e => this.handleClick(e, product.id)}
+                          >
+                            -
+                          </button>
+                          <button
+                            type="button"
+                            value="0"
+                            onClick={e => this.handleClick(e, product.id)}
+                          >
+                            delete
+                          </button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Fragment>
+                )
+              })}
+            </div>
+            <br />
 
-        <Typography variant="h3">
-          {' '}
-          Subtotal: {'$' + this.subtotal() / 100}
-        </Typography>
-        <br />
-        <TakeGuestMoney history={this.props.history} />
+            <Typography variant="h3">
+              {' '}
+              Subtotal: {'$' + this.subtotal() / 100}
+            </Typography>
+            <br />
+            <TakeGuestMoney history={this.props.history} />
+          </Fragment>
+        ) : (
+          <Typography variant="h3">
+            No items in the cart. Get shopping!
+          </Typography>
+        )}
       </Fragment>
     )
   }
