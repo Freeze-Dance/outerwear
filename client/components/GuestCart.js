@@ -129,7 +129,7 @@ class GuestCart extends Component {
           Subtotal: {'$' + this.subtotal() / 100}
         </Typography>
         <br />
-        <TakeGuestMoney />
+        <TakeGuestMoney history={this.props.history} />
       </Fragment>
     )
   }

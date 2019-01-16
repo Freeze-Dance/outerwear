@@ -15,6 +15,7 @@ import AllUsers from './components/AllUsers'
 import PasswordReset from './components/PasswordReset'
 import StripeCheckout from './components/StripeCheckout'
 import StripeGuest from './components/StripeGuest'
+import OrderConfirmation from './components/OrderConfirmation'
 
 /**
  * COMPONENT
@@ -36,6 +37,11 @@ class Routes extends Component {
           <Route exact path="/products/:productId" component={SingleProduct} />
           <Route exact path="/cart" component={GuestCart} />
           <Route exact path="/stripeGuest" component={StripeGuest} />
+          <Route
+            exact
+            path="/orderConfirmation/"
+            component={OrderConfirmation}
+          />
           {/* Displays our Login component as a fallback */}
           {/* Displays our HomePage component as a fallback */}
         </Switch>

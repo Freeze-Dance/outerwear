@@ -11,7 +11,7 @@ class TakeMoney extends React.Component {
       this.props.user.id,
       token
     )
-    this.props.history.push('/orderhistory/4')
+    this.props.history.push('/orderconfirmation')
   }
   subtotal() {
     return this.props.cart.products.reduce(

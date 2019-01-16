@@ -52,7 +52,7 @@ router.put('/guestCheckout', async (req, res, next) => {
     subTotal: req.body.subtotal,
     sessionId: req.sessionID,
     tokenId: req.body.token.id,
-    // email: req.body.email,
+    email: req.body.token.email,
     shippingAddress: `${data.address_line1} ${data.address_city}, ${
       data.address_state
     } ${data.address_zip}`
@@ -82,7 +82,7 @@ router.put('/guestCheckout', async (req, res, next) => {
     }
   })
   req.session.cart = []
-  res.json({})
+  res.json(order.id)
 })
 router.get('/guestCart', async (req, res, next) => {
   try {

@@ -9,12 +9,13 @@ class TakeGuestMoney extends React.Component {
     this.subtotal = this.subtotal.bind(this)
   }
   onToken = async token => {
-    await Axios.put('/api/carts/guestCheckout', {
+    let orderId = await Axios.put('/api/carts/guestCheckout', {
       token,
       subtotal: this.subtotal(),
       cart: this.state.cart
     })
-    this.props.history.push('/')
+
+    this.props.history.push(`/orderconfirmation/`)
   }
   async componentDidMount() {
     const {data} = await Axios.get('/api/carts/guestCart')
