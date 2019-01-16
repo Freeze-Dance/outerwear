@@ -99,15 +99,27 @@ class Cart extends Component {
                         <div>
                           <button
                             type="button"
-                            value="1"
-                            onClick={e => this.handleClick(e, product.id)}
+                            value="add"
+                            onClick={e =>
+                              this.handleClick(
+                                e,
+                                product.id,
+                                product.cartProduct.quantity
+                              )
+                            }
                           >
                             +
                           </button>
                           <button
                             type="button"
-                            value="-1"
-                            onClick={e => this.handleClick(e, product.id)}
+                            value="subtract"
+                            onClick={e =>
+                              this.handleClick(
+                                e,
+                                product.id,
+                                product.cartProduct.quantity
+                              )
+                            }
                           >
                             -
                           </button>
