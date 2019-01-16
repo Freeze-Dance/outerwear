@@ -147,7 +147,7 @@ class Cart extends Component {
               Subtotal: {`$${this.subtotal() / 100}`}
             </Typography>
             <br />
-            <TakeMoney />
+            <TakeMoney history={this.props.history} />
           </form>
         ) : (
           <Typography variant="h3">
